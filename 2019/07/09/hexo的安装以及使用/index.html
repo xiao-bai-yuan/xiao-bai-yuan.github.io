@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hexo安装,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] Hexo&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55; &amp;#x672C;&amp;#x8282;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7F51;&amp;#x7AD9;&amp;#xFF0C;&amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E86;&amp;#x6211;&amp;#x4E3B;&amp;#x8981;&amp;#x64CD;&amp;#x4F">
+<meta name="keywords" content="hexo安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo的安装以及使用">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="[TOC] Hexo&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55; &amp;#x672C;&amp;#x8282;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7F51;&amp;#x7AD9;&amp;#xFF0C;&amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E86;&amp;#x6211;&amp;#x4E3B;&amp;#x8981;&amp;#x64CD;&amp;#x4F">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/changegitacc.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/npm_install_hexo-cli-g.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/hexo_init_fail.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/hexo_init_suss.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/cd_blog.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/npm_install.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/npm_audit_fix.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/hexo_g.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/hexo_s.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/1-firsthexopage.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/2%E7%AB%99%E7%82%B9%E7%9B%AE%E5%BD%95%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/3%E7%94%9F%E6%88%90ssh%E7%9A%84rsa%E5%AF%86%E9%92%A5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/4lookforssh.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/5rsa%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/6github_newsshkey.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/7addsshkey.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/8ssh%E9%AA%8C%E8%AF%81.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A1%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A2%E9%83%A8%E7%BD%B2%E7%9A%84%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A3%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A4%E9%83%A8%E7%BD%B2%E9%94%99%E8%AF%AF.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A5%E9%83%A8%E7%BD%B2%E9%A1%B5%E9%9D%A2%E5%88%B0github.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A6%E9%AA%8C%E8%AF%81hexo%E9%83%A8%E7%BD%B2%E6%88%90%E5%8A%9F.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A7CNAMEsource.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A8%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81CNAME.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/A9%E4%BB%93%E5%BA%93CNAME.png">
+<meta property="og:updated_time" content="2019-09-11T14:44:14.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo的安装以及使用">
+<meta name="twitter:description" content="[TOC] Hexo&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55; &amp;#x672C;&amp;#x8282;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x4EE5;&amp;#x4E0B;&amp;#x7F51;&amp;#x7AD9;&amp;#xFF0C;&amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E86;&amp;#x6211;&amp;#x4E3B;&amp;#x8981;&amp;#x64CD;&amp;#x4F">
+<meta name="twitter:image" content="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/changegitacc.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/">
+
+
+
+
+
+  <title>hexo的安装以及使用 | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/09/hexo的安装以及使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo的安装以及使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-09T22:08:21+08:00">
+                2019-07-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-11T22:44:14+08:00">
+                2019-09-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github博客/" itemprop="url" rel="index">
+                    <span itemprop="name">Github博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  863字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="Hexo&#x5B66;&#x4E60;&#x8BB0;&#x5F55;"><a href="#Hexo&#x5B66;&#x4E60;&#x8BB0;&#x5F55;" class="headerlink" title="Hexo&#x5B66;&#x4E60;&#x8BB0;&#x5F55;"></a>Hexo&#x5B66;&#x4E60;&#x8BB0;&#x5F55;</h1><blockquote>
+<p>&#x672C;&#x8282;&#x4E3B;&#x8981;&#x53C2;&#x8003;&#x4EE5;&#x4E0B;&#x7F51;&#x7AD9;&#xFF0C;&#x5927;&#x6982;&#x5199;&#x4E86;&#x6211;&#x4E3B;&#x8981;&#x64CD;&#x4F5C;&#x7684;&#x4E00;&#x4E9B;&#x6B65;&#x9AA4;</p>
+<p>&#x4E3B;&#x8981;&#x5B66;&#x4E60;&#x53C2;&#x8003;&#xFF1A;</p>
+<p>1&#x3001;<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/</a>    hexo&#x5B98;&#x65B9;&#x4E2D;&#x6587;&#x7F51;&#x7AD9;</p>
+<p>2&#x3001;<a href="https://www.lixint.me/hexo-theme-diy.html" target="_blank" rel="noopener">https://www.lixint.me/hexo-theme-diy.html</a>   &#x5B66;&#x4E60;&#x53C2;&#x8003;&#x524D;&#x4EBA;&#x7ECF;&#x9A8C;&#xFF0C;&#x6587;&#x7AE0;&#x5199;&#x5F97;&#x975E;&#x5E38;&#x597D;&#xFF0C;&#x63A8;&#x8350;&#x3002;</p>
+</blockquote>
+<h2 id="hexo&#x5B89;&#x88C5;&#x5E76;&#x521B;&#x5EFA;&#x8FD0;&#x884C;&#x7B2C;&#x4E00;&#x4E2A;&#x9875;&#x9762;"><a href="#hexo&#x5B89;&#x88C5;&#x5E76;&#x521B;&#x5EFA;&#x8FD0;&#x884C;&#x7B2C;&#x4E00;&#x4E2A;&#x9875;&#x9762;" class="headerlink" title="hexo&#x5B89;&#x88C5;&#x5E76;&#x521B;&#x5EFA;&#x8FD0;&#x884C;&#x7B2C;&#x4E00;&#x4E2A;&#x9875;&#x9762;"></a>hexo&#x5B89;&#x88C5;&#x5E76;&#x521B;&#x5EFA;&#x8FD0;&#x884C;&#x7B2C;&#x4E00;&#x4E2A;&#x9875;&#x9762;</h2><h3 id="&#x4FEE;&#x6539;git&#x7528;&#x6237;&#x540D;&#x4E3A;&#x535A;&#x5BA2;&#x7684;&#x7528;&#x6237;&#x540D;"><a href="#&#x4FEE;&#x6539;git&#x7528;&#x6237;&#x540D;&#x4E3A;&#x535A;&#x5BA2;&#x7684;&#x7528;&#x6237;&#x540D;" class="headerlink" title="&#x4FEE;&#x6539;git&#x7528;&#x6237;&#x540D;&#x4E3A;&#x535A;&#x5BA2;&#x7684;&#x7528;&#x6237;&#x540D;"></a><strong>&#x4FEE;&#x6539;git&#x7528;&#x6237;&#x540D;&#x4E3A;&#x535A;&#x5BA2;&#x7684;&#x7528;&#x6237;&#x540D;</strong></h3><p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/changegitacc.png" alt="changegitacc"></p>
+<h3 id="&#x5EFA;&#x7ACB;&#x7F51;&#x7AD9;&#x8DDF;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x5B89;&#x88C5;hexo"><a href="#&#x5EFA;&#x7ACB;&#x7F51;&#x7AD9;&#x8DDF;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x5B89;&#x88C5;hexo" class="headerlink" title="&#x5EFA;&#x7ACB;&#x7F51;&#x7AD9;&#x8DDF;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x5B89;&#x88C5;hexo"></a><strong>&#x5EFA;&#x7ACB;&#x7F51;&#x7AD9;&#x8DDF;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x5B89;&#x88C5;hexo</strong></h3><p>&#x8FDB;&#x5165;&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/npm_install_hexo-cli-g.png" alt="npm_install_hexo-cli-g"></p>
+<h3 id="&#x5EFA;&#x7ACB;hexo&#x81EA;&#x5DF1;&#x7684;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;hexo-init"><a href="#&#x5EFA;&#x7ACB;hexo&#x81EA;&#x5DF1;&#x7684;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;hexo-init" class="headerlink" title="&#x5EFA;&#x7ACB;hexo&#x81EA;&#x5DF1;&#x7684;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;hexo init"></a><strong>&#x5EFA;&#x7ACB;hexo&#x81EA;&#x5DF1;&#x7684;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;hexo init</strong></h3><ol>
+<li><p>hexo init &#x5931;&#x8D25;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/hexo_init_fail.png" alt="hexo_init_fail"></p>
+</li>
+<li><p>hexo init &#x6210;&#x529F;</p>
+</li>
+</ol>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/hexo_init_suss.png" alt="hexo_init_suss"></p>
+<p><strong>3&#x3001;cd &#x5230;&#x9879;&#x76EE;&#x76EE;&#x5F55;</strong></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/cd_blog.png" alt="cd_blog"></p>
+<p><strong>4&#x3001;npm install</strong></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/npm_install.png" alt="npm_install"></p>
+<p><strong>5&#x3001;npm_audit_fix</strong></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/npm_audit_fix.png" alt="npm_audit_fix"></p>
+<p>6&#x3001;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x9875;&#x9762;</p>
+<p>hexo g</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/hexo_g.png" alt="hexo_g"></p>
+<p><strong>7&#x3001;&#x542F;&#x52A8;&#x670D;&#x52A1;&#x5668;</strong></p>
+<p>hexo s </p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/hexo_s.png" alt="hexo_s"></p>
+<p>8&#x3001;&#x8BBF;&#x95EE;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;</p>
+<p><a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/1-firsthexopage.png" alt="1-firsthexopage"></p>
+<h2 id="&#x672C;&#x5730;&#x535A;&#x5BA2;&#x53D1;&#x5E03;&#x4E3A;github-page"><a href="#&#x672C;&#x5730;&#x535A;&#x5BA2;&#x53D1;&#x5E03;&#x4E3A;github-page" class="headerlink" title="&#x672C;&#x5730;&#x535A;&#x5BA2;&#x53D1;&#x5E03;&#x4E3A;github page"></a>&#x672C;&#x5730;&#x535A;&#x5BA2;&#x53D1;&#x5E03;&#x4E3A;github page</h2><h3 id="&#x8FDB;&#x5165;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x5B89;&#x88C5;&#x53D1;&#x5E03;&#x7684;&#x8F6F;&#x4EF6;"><a href="#&#x8FDB;&#x5165;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x5B89;&#x88C5;&#x53D1;&#x5E03;&#x7684;&#x8F6F;&#x4EF6;" class="headerlink" title="&#x8FDB;&#x5165;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x5B89;&#x88C5;&#x53D1;&#x5E03;&#x7684;&#x8F6F;&#x4EF6;"></a><strong>&#x8FDB;&#x5165;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF0C;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF0C;&#x5B89;&#x88C5;&#x53D1;&#x5E03;&#x7684;&#x8F6F;&#x4EF6;</strong></h3><p>&#x4E0D;&#x662F;&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x5426;&#x5219;&#x90E8;&#x7F72;&#x4F1A;&#x62A5;&#x9519;&#x8BEF;&#x3002;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/2%E7%AB%99%E7%82%B9%E7%9B%AE%E5%BD%95%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6.png" alt="2&#x7AD9;&#x70B9;&#x76EE;&#x5F55;&#x5B89;&#x88C5;&#x63D2;&#x4EF6;"></p>
+<p><strong>2&#x3001;&#x751F;&#x6210;ssh&#x7684;rsa&#x5BC6;&#x94A5;</strong></p>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<p>1&#x3001;<a href="https://git-scm.com/book/zh/v1/&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;-Git-&#x751F;&#x6210;-SSH-&#x516C;&#x94A5;&#x3001;" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;-Git-&#x751F;&#x6210;-SSH-&#x516C;&#x94A5;&#x3001;</a></p>
+<p>2&#x3001;ssh-keygen&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x4EE5;&#x53CA;&#x53C2;&#x6570;</p>
+<p><a href="https://blog.csdn.net/qq_38570571/article/details/79268426" target="_blank" rel="noopener">https://blog.csdn.net/qq_38570571/article/details/79268426</a></p>
+</blockquote>
+<p>&#x6307;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -<span class="built_in">t</span> rsa -C <span class="string">&quot;&#x90AE;&#x7BB1;&#x5730;&#x5740;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x7136;&#x540E;&#x4E00;&#x76F4;&#x56DE;&#x8F66;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/3%E7%94%9F%E6%88%90ssh%E7%9A%84rsa%E5%AF%86%E9%92%A5.png" alt="3&#x751F;&#x6210;ssh&#x7684;rsa&#x5BC6;&#x94A5;"></p>
+<p>3&#x3001;&#x8FDB;&#x5165;&#x5230;<code>C:\Users\&#x7528;&#x6237;&#x540D;</code>,&#x6587;&#x4EF6;&#x5939;&#x5185;&#x5BFB;&#x627E;<code>.ssh</code>&#x6587;&#x4EF6;&#x5939;,&#x5E76;&#x6253;&#x5F00;&#x6B64;&#x6587;&#x4EF6;&#x5939;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/4lookforssh.png" alt="4lookforssh"></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/5rsa%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6.png" alt="5rsa&#x5BC6;&#x94A5;&#x6587;&#x4EF6;"></p>
+<p>5&#x3001;&#x8FDB;&#x5165;&#x5230;github&#x8D26;&#x6237;setting&#x90E8;&#x5206;&#xFF0C;&#x9009;&#x62E9;<code>SSH and GPG keys</code>&#x5E76;&#x70B9;&#x51FB;<code>New SSH key</code></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/6github_newsshkey.png" alt="6github_newsshkey"></p>
+<p>6&#x3001;&#x6253;&#x5F00;&#x6B65;&#x9AA4;4&#x627E;&#x5230;&#x7684;<code>id_ras.pub</code>&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x628A;&#x5185;&#x5BB9;&#x8F93;&#x5165;&#x5230;<code>Key</code>&#x90E8;&#x5206;,&#x5E76;&#x70B9;&#x51FB;<code>add SSH key</code></p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/7addsshkey.png" alt="7addsshkey"></p>
+<p>7&#x3001;&#x9A8C;&#x8BC1;ssh&#xFF0C;&#x8FDB;&#x5165;github bash&#x754C;&#x9762;&#xFF0C;&#x8F93;&#x5165;<code>ssh -T git@github.com</code>&#xFF0C;&#x663E;&#x793A;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF0C;&#x8868;&#x793A;&#x6210;&#x529F;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/8ssh%E9%AA%8C%E8%AF%81.png" alt="8ssh&#x9A8C;&#x8BC1;"></p>
+<p>8&#x3001;&#x8FDB;&#x5165;&#x535A;&#x5BA2;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#xFF0C;&#x627E;&#x5230;&#x535A;&#x5BA2;&#x914D;&#x7F6E;&#x6587;&#x4EF6;_config.yml&#xFF0C;&#x6253;&#x5F00;&#x540E;&#x6839;&#x636E;&#x4E0B;&#x56FE;&#x8FDB;&#x884C;&#x4FEE;&#x6539;</p>
+<blockquote>
+<p>&#x53EF;&#x53C2;&#x8003;&#xFF1A;<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/configuration</a></p>
+</blockquote>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A1%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="A1&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></p>
+<p>&#x5728;&#x6B64;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E0B;&#xFF0C;&#x67E5;&#x627E;<code>deploy</code>&#x5E76;&#x4E14;&#x8FDB;&#x884C;&#x914D;&#x7F6E;</p>
+<blockquote>
+<p><a href="https://hexo.io/zh-cn/docs/deployment" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/deployment</a></p>
+</blockquote>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A2%E9%83%A8%E7%BD%B2%E7%9A%84%E9%85%8D%E7%BD%AE.png" alt="A2&#x90E8;&#x7F72;&#x7684;&#x914D;&#x7F6E;"></p>
+<p>9&#x3001;&#x751F;&#x6210;&#x9759;&#x6001;&#x9875;&#x9762;hexo g</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A3%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2.png" alt="A3&#x751F;&#x6210;&#x9759;&#x6001;&#x9875;&#x9762;"></p>
+<p>10&#x3001;&#x90E8;&#x7F72;  hexo d</p>
+<p>&#x90E8;&#x7F72;&#x62A5;&#x9519;&#xFF0C;ERROR Deployer not found: git</p>
+<p>&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x76EE;&#x5F55;&#x4E0D;&#x6B63;&#x786E;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A4%E9%83%A8%E7%BD%B2%E9%94%99%E8%AF%AF.png" alt="A4&#x90E8;&#x7F72;&#x9519;&#x8BEF;"></p>
+<p>&#x9700;&#x8981;&#x91CD;&#x65B0;&#x518D;&#x535A;&#x5BA2;&#x76EE;&#x5F55;&#xFF08;hexo init &#x6587;&#x4EF6;&#x540D;&#xFF09;&#x4E0B;&#x9762;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x4EE5;&#x4E0A;&#x547D;&#x4EE4;&#xFF0C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x518D;&#x6267;&#x884C;hexo d</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A5%E9%83%A8%E7%BD%B2%E9%A1%B5%E9%9D%A2%E5%88%B0github.png" alt="A5&#x90E8;&#x7F72;&#x9875;&#x9762;&#x5230;github"></p>
+<p>11&#x3001;&#x90E8;&#x7F72;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x8FDB;&#x5165;<a href="https://xiao-bai-yuan.github.io/" target="_blank" rel="noopener">https://xiao-bai-yuan.github.io/</a> &#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A6%E9%AA%8C%E8%AF%81hexo%E9%83%A8%E7%BD%B2%E6%88%90%E5%8A%9F.png" alt="A6&#x9A8C;&#x8BC1;hexo&#x90E8;&#x7F72;&#x6210;&#x529F;"></p>
+<p>12&#x3001;&#x6620;&#x5C04;&#x57DF;&#x540D;&#x8BBF;&#x95EE;&#x8FD4;&#x56DE;404&#x3002;</p>
+<p>&#x200B;    hexo d&#x90E8;&#x7F72;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x53D1;&#x73B0; <a href="https://xiao-bai-yuan.github.io" target="_blank" rel="noopener">https://xiao-bai-yuan.github.io</a> &#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8BBF;&#x95EE;&#xFF0C;&#x4F46;&#x662F;&#x6620;&#x5C04;&#x57DF;&#x540D;&#x8BBF;&#x95EE;&#x8FD4;&#x56DE;404&#x3002;&#x7ECF;&#x8FC7;&#x5B9A;&#x4F4D;&#xFF0C;&#x53D1;&#x73B0;github pages&#x7684;&#x4ED3;&#x5E93;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#x7684;CNAME&#x4E0D;&#x89C1;&#x4E86;&#x3002;</p>
+<p>&#x539F;&#x56E0;&#x4EE5;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>&#x56E0;&#x4E3A;hexo&#x90E8;&#x7F72;&#x4F1A;&#x628A;&#x4E4B;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x4EF6;&#x7ED9;&#x6E05;&#x9664;&#x6389;&#xFF0C;&#x6240;&#x4EE5;CNAME&#x4F1A;&#x88AB;&#x6E05;&#x9664;&#x6389;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6709;&#x4E0D;&#x60F3;&#x88AB;&#x6E05;&#x9664;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x653E;&#x5728; source&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#xFF0C;&#x8FD9;&#x6837;hexo&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x628A;source&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6587;&#x4EF6;&#x653E;&#x5230;&#x4ED3;&#x5E93;&#x7684;&#x4E3B;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#x4E86;&#x3002;</p>
+<p>&#x5982;&#x4E0B;&#x56FE;&#xFF1A;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A7CNAMEsource.png" alt="A7CNAMEsource"></p>
+<p>&#x628A;CNAME&#x653E;&#x5230;&#x6B64;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#xFF0C;&#x91CD;&#x65B0;hexo g&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x6709;CNAME&#x751F;&#x6210;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A8%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81CNAME.png" alt="A8&#x751F;&#x6210;&#x9759;&#x6001;CNAME"></p>
+<p>&#x518D;&#x8FDB;&#x884C;hexo d&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x4ED3;&#x5E93;&#x91CC;&#x9762;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;CNAME&#x6587;&#x4EF6;&#x4E86;</p>
+<p><img src="/2019/07/09/hexo&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;/A9%E4%BB%93%E5%BA%93CNAME.png" alt="A9&#x4ED3;&#x5E93;CNAME"></p>
+<p>&#x81F3;&#x6B64;&#xFF0C;&#x57DF;&#x540D;&#x4EE5;&#x53CA;github.io&#x90FD;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8BBF;&#x95EE;&#x6211;&#x4EEC;&#x7684;&#x535A;&#x5BA2;&#x4E86;&#x3002;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo安装/" rel="tag"># hexo安装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/02/GitHub的注册以及GitHubpage的使用/" rel="next" title="GitHub的注册以及GitHubpage的使用">
+                <i class="fa fa-chevron-left"></i> GitHub的注册以及GitHubpage的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/16/Next主题的使用/" rel="prev" title="Next主题的使用">
+                Next主题的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo学习记录"><span class="nav-number">1.</span> <span class="nav-text">Hexo学习记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo安装并创建运行第一个页面"><span class="nav-number">1.1.</span> <span class="nav-text">hexo安装并创建运行第一个页面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改git用户名为博客的用户名"><span class="nav-number">1.1.1.</span> <span class="nav-text">修改git用户名为博客的用户名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立网站跟目录，并安装hexo"><span class="nav-number">1.1.2.</span> <span class="nav-text">建立网站跟目录，并安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立hexo自己的博客目录，hexo-init"><span class="nav-number">1.1.3.</span> <span class="nav-text">建立hexo自己的博客目录，hexo init</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地博客发布为github-page"><span class="nav-number">1.2.</span> <span class="nav-text">本地博客发布为github page</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入博客目录，执行以下命令，安装发布的软件"><span class="nav-number">1.2.1.</span> <span class="nav-text">进入博客目录，执行以下命令，安装发布的软件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">8.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

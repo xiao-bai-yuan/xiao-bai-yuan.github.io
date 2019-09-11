@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="github注册,gitpage以及域名映射,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Github&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;Github Pages&amp;#x521B;&amp;#x5EFA;&amp;#x53CA;&amp;#x6620;&amp;#x5C04;&amp;#x57DF;&amp;#x540D; &amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E00;&amp;#x4E0B;GitHub&amp;#x7684;&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;github">
+<meta name="keywords" content="github注册,gitpage以及域名映射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub的注册以及GitHubpage的使用">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="Github&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;Github Pages&amp;#x521B;&amp;#x5EFA;&amp;#x53CA;&amp;#x6620;&amp;#x5C04;&amp;#x57DF;&amp;#x540D; &amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E00;&amp;#x4E0B;GitHub&amp;#x7684;&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;github">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/1%E4%B8%BB%E9%A1%B5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/2%E6%B3%A8%E5%86%8C%E9%A1%B5%E9%9D%A2.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/3%E9%AA%8C%E8%AF%81.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/4%E9%80%89%E6%8B%A9free.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/5%E6%8F%90%E4%BA%A4.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/6%E9%82%AE%E7%AE%B1%E9%AA%8C%E8%AF%81.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/7%E7%82%B9%E5%87%BB%E9%AA%8C%E8%AF%81.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A1%E7%82%B9%E5%87%BB%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93%E6%8C%89%E9%92%AE.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A2%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A2%E9%80%89%E6%8B%A9%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A3%E6%96%B0%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%BB%E9%A1%B5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A4%E6%9F%A5%E7%9C%8Bgithub%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A5%E8%BF%94%E5%9B%9E404.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/B1%E9%80%89%E6%8B%A9%E8%BF%9B%E5%85%A5setting%E7%95%8C%E9%9D%A2.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/B2%E9%80%89%E6%8B%A9%E4%B8%BB%E9%A2%98.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/A4%E6%9F%A5%E7%9C%8Bgithub%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C0%E5%9F%9F%E5%90%8D%E6%98%BE%E7%A4%BA.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C1%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E5%9F%9F%E5%90%8D%E8%AE%B0%E5%BD%95.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C2%E6%B7%BB%E5%86%99%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C3%E9%80%89%E6%8B%A9%E5%B9%B6%E5%90%AF%E7%94%A8.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/B1%E9%80%89%E6%8B%A9%E8%BF%9B%E5%85%A5setting%E7%95%8C%E9%9D%A2.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C4setting_domain.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C5%E4%BB%93%E5%BA%93CNAME%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/C6%E9%AA%8C%E8%AF%81.png">
+<meta property="og:updated_time" content="2019-09-11T14:43:26.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub的注册以及GitHubpage的使用">
+<meta name="twitter:description" content="Github&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;Github Pages&amp;#x521B;&amp;#x5EFA;&amp;#x53CA;&amp;#x6620;&amp;#x5C04;&amp;#x57DF;&amp;#x540D; &amp;#x5927;&amp;#x6982;&amp;#x5199;&amp;#x4E00;&amp;#x4E0B;GitHub&amp;#x7684;&amp;#x6CE8;&amp;#x518C;&amp;#x4EE5;&amp;#x53CA;github">
+<meta name="twitter:image" content="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/1%E4%B8%BB%E9%A1%B5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/">
+
+
+
+
+
+  <title>GitHub的注册以及GitHubpage的使用 | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/02/GitHub的注册以及GitHubpage的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GitHub的注册以及GitHubpage的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T22:00:52+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-11T22:43:26+08:00">
+                2019-09-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Github博客/" itemprop="url" rel="index">
+                    <span itemprop="name">Github博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  603字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Github&#x6CE8;&#x518C;&#x4EE5;&#x53CA;Github-Pages&#x521B;&#x5EFA;&#x53CA;&#x6620;&#x5C04;&#x57DF;&#x540D;"><a href="#Github&#x6CE8;&#x518C;&#x4EE5;&#x53CA;Github-Pages&#x521B;&#x5EFA;&#x53CA;&#x6620;&#x5C04;&#x57DF;&#x540D;" class="headerlink" title="Github&#x6CE8;&#x518C;&#x4EE5;&#x53CA;Github Pages&#x521B;&#x5EFA;&#x53CA;&#x6620;&#x5C04;&#x57DF;&#x540D;"></a>Github&#x6CE8;&#x518C;&#x4EE5;&#x53CA;Github Pages&#x521B;&#x5EFA;&#x53CA;&#x6620;&#x5C04;&#x57DF;&#x540D;</h1><blockquote>
+<p>&#x5927;&#x6982;&#x5199;&#x4E00;&#x4E0B;GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;github Pages&#x7684;&#x4F7F;&#x7528;</p>
+</blockquote>
+<h2 id="&#x6CE8;&#x518C;GitHub&#x8D26;&#x53F7;"><a href="#&#x6CE8;&#x518C;GitHub&#x8D26;&#x53F7;" class="headerlink" title="&#x6CE8;&#x518C;GitHub&#x8D26;&#x53F7;"></a>&#x6CE8;&#x518C;GitHub&#x8D26;&#x53F7;</h2><p>1&#x3001;&#x6253;&#x5F00;GitHub&#x4E3B;&#x9875;&#xFF1A;<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/1%E4%B8%BB%E9%A1%B5.png" alt="1&#x4E3B;&#x9875;"></p>
+<p>2&#x3001;&#x4E3B;&#x9875;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF0C;&#x6216;&#x8005;&#x70B9;&#x51FB;sign up&#x8F6C;&#x5230;&#x6CE8;&#x518C;&#x9875;&#x9762;&#x8FDB;&#x884C;&#x6CE8;&#x518C;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/2%E6%B3%A8%E5%86%8C%E9%A1%B5%E9%9D%A2.png" alt="2&#x6CE8;&#x518C;&#x9875;&#x9762;"></p>
+<p>3&#x3001;&#x8FDB;&#x884C;&#x4EBA;&#x673A;&#x9A8C;&#x8BC1;&#xFF0C;github&#x7684;&#x9632;&#x6B62;&#x722C;&#x866B;&#x8FDB;&#x884C;&#x722C;&#x53D6;&#x8D26;&#x53F7;<br><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/3%E9%AA%8C%E8%AF%81.png" alt="3&#x9A8C;&#x8BC1;."></p>
+<p>4&#x3001;&#x9A8C;&#x8BC1;&#x8FC7;&#x540E;&#xFF0C;&#x9009;&#x62E9;&#x81EA;&#x5DF1;&#x60F3;&#x5EFA;&#x7ACB;&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x8FD9;&#x91CC;&#x9009;&#x62E9;free&#x514D;&#x8D39;&#x7684;&#x516C;&#x5F00;&#x7684;&#x4ED3;&#x5E93;&#xFF0C;&#x5E76;&#x70B9;&#x51FB;commit</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/4%E9%80%89%E6%8B%A9free.png" alt="&#x9009;&#x62E9;free"></p>
+<p>5&#x3001;&#x70B9;&#x51FB;&#x63D0;&#x4EA4; &#x9009;&#x62E9;submit&#x6216;&#x8005;skip the step &#x90FD;&#x53EF;&#x4EE5;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/5%E6%8F%90%E4%BA%A4.png" alt="5&#x63D0;&#x4EA4;"></p>
+<p>6&#x3001;&#x63D0;&#x4EA4;&#x5B8C;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x90AE;&#x7BB1;&#x9A8C;&#x8BC1;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/6%E9%82%AE%E7%AE%B1%E9%AA%8C%E8%AF%81.png" alt="image\githubpage\&#x8BC1;"></p>
+<p>7&#x3001;&#x8FDB;&#x5165;&#x81EA;&#x5DF1;&#x90AE;&#x7BB1;&#xFF0C;&#x70B9;&#x51FB;&#x6536;&#x5230;&#x7684;github&#x7684;&#x90AE;&#x4EF6;&#xFF0C;&#x70B9;&#x51FB;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/7%E7%82%B9%E5%87%BB%E9%AA%8C%E8%AF%81.png" alt="image\githubpage\&#x8BC1;"></p>
+<h2 id="&#x5EFA;&#x7ACB;&#x81EA;&#x5DF1;&#x7684;github-page"><a href="#&#x5EFA;&#x7ACB;&#x81EA;&#x5DF1;&#x7684;github-page" class="headerlink" title="&#x5EFA;&#x7ACB;&#x81EA;&#x5DF1;&#x7684;github page"></a>&#x5EFA;&#x7ACB;&#x81EA;&#x5DF1;&#x7684;github page</h2><p>1&#x3001;&#x5728;GitHub&#x7684;&#x4E3B;&#x9875;&#xFF0C;&#x9009;&#x62E9;&#x65B0;&#x5EFA;&#x4ED3;&#x5E93;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A1%E7%82%B9%E5%87%BB%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93%E6%8C%89%E9%92%AE.png" alt="A1&#x70B9;image\githubpage\&#x94AE;"></p>
+<p>2&#x3001;&#x5EFA;&#x7ACB;&#x4ED3;&#x5E93;&#xFF0C;&#x540D;&#x79F0;&#x9700;&#x8981;&#x548C;&#x81EA;&#x5DF1;&#x7684;github&#x8D26;&#x6237;&#x540D;&#x79F0;&#x4E00;&#x81F4;&#xFF0C;&#x6BD4;&#x5982;&#x8D26;&#x6237;&#x540D;&#x79F0;&#x4E3A;  A&#xFF0C;&#x90A3;&#x4E48;&#x4ED3;&#x5E93;&#x540D;&#x79F0;&#x9700;&#x8981;&#x662F; A.github.io&#xFF0C;&#x5728;&#x6B64;&#x9009;&#x62E9;&#x516C;&#x5171;&#x4ED3;&#x5E93;&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A2%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93.png" alt="image\githubpage\&#x5E93;"></p>
+<p>3&#x3001;&#x521B;&#x5EFA;&#x4ED3;&#x5E93;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;&#x4EE5;&#x4E0B;&#x754C;&#x9762;&#xFF0C;&#x9009;&#x62E9;&#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x70B9;&#x51FB;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;&#x6216;&#x8005;&#x957F;&#x4F20;&#x81EA;&#x5DF1;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A2%E9%80%89%E6%8B%A9%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6.png" alt="A2&#x9009;image\githubpage\&#x4EF6;"></p>
+<p>4&#x3001;&#x4ED3;&#x5E93;&#x4E0B;&#x9762;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;&#x540D;&#x4E3A;index.html&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x8F93;&#x5165;&#x81EA;&#x5DF1;&#x60F3;&#x8981;&#x8F93;&#x5165;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x7136;&#x540E;&#x70B9;&#x51FB;Create new file&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A3%E6%96%B0%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%BB%E9%A1%B5.png" alt="A3&#x65B0;&#x5EFA;&#x81EA;image\githubpage\&#x9875;"></p>
+<p>5&#x3001;&#x6587;&#x7AE0;&#x4FEE;&#x6539;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x8F93;&#x5165; &#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x4E3B;&#x9875;&#x9762;&#xFF0C;&#x8FDB;&#x884C;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;GitHub&#x4E3B;&#x9875; &#x2014;-https:// + username.github.io</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A4%E6%9F%A5%E7%9C%8Bgithub%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5.png" alt="A4&#x67E5;&#x770B;gitimage\githubpage\&#x9875;"></p>
+<p>6&#x3001;&#x6709;&#x65F6;&#x4F1A;&#x51FA;&#x73B0;404&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x7ECF;&#x8FC7;&#x5206;&#x6790;&#x53EF;&#x80FD;&#x7531;&#x4EE5;&#x4E0B;&#x539F;&#x56E0;&#x4EE5;&#x53CA;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A5%E8%BF%94%E5%9B%9E404.png" alt="image\githubpage\4"></p>
+<p>7&#x3001;&#x901A;&#x8FC7;&#x66F4;&#x6362;&#x4E3B;&#x9898;&#x6765;&#x8FDB;&#x884C;&#x6709;&#x9650;&#x5237;&#x65B0;github page</p>
+<ol>
+<li><p>&#x8FDB;&#x5165;&#x4ED3;&#x5E93;setting</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/B1%E9%80%89%E6%8B%A9%E8%BF%9B%E5%85%A5setting%E7%95%8C%E9%9D%A2.png" alt="B1&#x9009;&#x62E9;&#x8FDB;&#x5165;seimage\githubpage\&#x9762;"></p>
+</li>
+<li><p>&#x9009;&#x62E9;theme</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/B2%E9%80%89%E6%8B%A9%E4%B8%BB%E9%A2%98.png" alt="image\githubpage\&#x9898;"></p>
+</li>
+<li><p>&#x5237;&#x65B0;github page</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/A4%E6%9F%A5%E7%9C%8Bgithub%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5.png" alt="A4&#x67E5;&#x770B;gitimage\githubpage\&#x9875;"></p>
+<h1 id="&#x4E09;&#x3001;github-page-&#x6620;&#x5C04;&#x5230;&#x57DF;&#x540D;"><a href="#&#x4E09;&#x3001;github-page-&#x6620;&#x5C04;&#x5230;&#x57DF;&#x540D;" class="headerlink" title="&#x4E09;&#x3001;github page &#x6620;&#x5C04;&#x5230;&#x57DF;&#x540D;"></a>&#x4E09;&#x3001;github page &#x6620;&#x5C04;&#x5230;&#x57DF;&#x540D;</h1></li>
+</ol>
+<p>1&#x3001;&#x9996;&#x5148;&#x6253;&#x5F00;&#x7533;&#x8BF7;&#x597D;&#x7684;&#x963F;&#x91CC;&#x4E91;&#x7684;&#x57DF;&#x540D;&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x5E76;&#x70B9;&#x51FB;&#x5BF9;&#x5E94;&#x57DF;&#x540D;&#x7684;&#x89E3;&#x6790;&#x3002;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C0%E5%9F%9F%E5%90%8D%E6%98%BE%E7%A4%BA.png" alt="C0&#x57DF;&#x540D;&#x663E;&#x793A;"></p>
+<p>2&#x3001;&#x70B9;&#x51FB; &#x6DFB;&#x52A0;&#x8BB0;&#x5F55;&#x6309;&#x94AE;&#xFF0C;&#x8FDB;&#x884C;&#x6DFB;&#x52A0;&#x5B50;&#x57DF;&#x540D;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C1%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90%E5%9F%9F%E5%90%8D%E8%AE%B0%E5%BD%95.png" alt="C1&#x6DFB;&#x52A0;&#x89E3;&#x6790;&#x57DF;&#x540D;&#x8BB0;&#x5F55;"></p>
+<p>3&#x3001;&#x586B;&#x5199;&#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x5B50;&#x57DF;&#x540D;&#x4EE5;&#x53CA;&#x5BF9;&#x5E94;&#x7684;github page&#x7684;&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x70B9;&#x51FB;&#x786E;&#x8BA4;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C2%E6%B7%BB%E5%86%99%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF.png" alt="C2&#x6DFB;&#x5199;&#x76F8;&#x5173;&#x4FE1;&#x606F;"></p>
+<p>4&#x3001;&#x9009;&#x62E9;&#x5BF9;&#x5E94;&#x8BB0;&#x5F55;&#x5E76;&#x70B9;&#x51FB;&#x542F;&#x52A8;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C3%E9%80%89%E6%8B%A9%E5%B9%B6%E5%90%AF%E7%94%A8.png" alt="C3&#x9009;&#x62E9;&#x5E76;&#x542F;&#x7528;"></p>
+<p>5&#x3001;&#x8FDB;&#x5165;github&#x8D26;&#x53F7;&#xFF0C;&#x5E76;&#x8FDB;&#x5165;setting&#x90E8;&#x5206;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/B1%E9%80%89%E6%8B%A9%E8%BF%9B%E5%85%A5setting%E7%95%8C%E9%9D%A2.png" alt="B1&#x9009;&#x62E9;&#x8FDB;&#x5165;setting&#x754C;&#x9762;"></p>
+<p>6&#x3001;&#x628A;&#x7533;&#x8BF7;&#x5230;&#x7684;&#x6620;&#x5C04;&#x7684;&#x57DF;&#x540D;&#x586B;&#x5199;&#x5230;&#x8FD9;&#x4E2A;&#x90E8;&#x5206;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C4setting_domain.png" alt="C4setting_domain"></p>
+<p>7&#x3001;&#x586B;&#x5199;&#x5B8C;&#x57DF;&#x540D;&#x540E;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x4ED3;&#x5E93;&#x4E0B;&#x9762;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;CNAME&#x6587;&#x4EF6;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C5%E4%BB%93%E5%BA%93CNAME%E6%96%87%E4%BB%B6.png" alt="C5&#x4ED3;&#x5E93;CNAME&#x6587;&#x4EF6;"></p>
+<p>8&#x3001;&#x901A;&#x8FC7;&#x6620;&#x5C04;&#x7684;&#x57DF;&#x540D;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;</p>
+<p><img src="/2019/07/02/GitHub&#x7684;&#x6CE8;&#x518C;&#x4EE5;&#x53CA;GitHubpage&#x7684;&#x4F7F;&#x7528;/C6%E9%AA%8C%E8%AF%81.png" alt="C6&#x9A8C;&#x8BC1;"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github注册/" rel="tag"># github注册</a>
+          
+            <a href="/tags/gitpage以及域名映射/" rel="tag"># gitpage以及域名映射</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/25/node-js安装/" rel="next" title="node.js安装">
+                <i class="fa fa-chevron-left"></i> node.js安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/09/hexo的安装以及使用/" rel="prev" title="hexo的安装以及使用">
+                hexo的安装以及使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Github注册以及Github-Pages创建及映射域名"><span class="nav-number">1.</span> <span class="nav-text">Github注册以及Github Pages创建及映射域名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注册GitHub账号"><span class="nav-number">1.1.</span> <span class="nav-text">注册GitHub账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立自己的github-page"><span class="nav-number">1.2.</span> <span class="nav-text">建立自己的github page</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、github-page-映射到域名"><span class="nav-number">2.</span> <span class="nav-text">三、github page 映射到域名</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">8.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
