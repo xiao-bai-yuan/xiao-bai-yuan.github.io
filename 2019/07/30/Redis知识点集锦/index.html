@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://xby.yhjnl.com/2019/07/30/Redis知识点集锦/redis1.png">
 <meta property="og:image" content="http://xby.yhjnl.com/2019/07/30/Redis知识点集锦/redis2.jpeg">
 <meta property="og:image" content="http://xby.yhjnl.com/2019/07/30/Redis知识点集锦/redis3.jpeg">
-<meta property="og:updated_time" content="2019-09-16T07:26:18.496Z">
+<meta property="og:updated_time" content="2019-09-16T08:06:24.928Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis知识点集锦">
 <meta name="twitter:description" content="Redis&amp;#x77E5;&amp;#x8BC6;&amp;#x70B9;&amp;#x96C6;&amp;#x9526; &amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#xFF1A; https://msd.misuland.com/pd/3065794831805580868 https://www.cnblogs.com/lanqiu5ge/p/9442837.html      &amp;#x4E00;&amp;#x">
@@ -344,7 +344,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-16T15:26:18+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-16T16:06:24+08:00">
                 2019-09-16
               </time>
             
@@ -444,6 +444,8 @@
 <p><strong>&#x4E00;&#x3001;&#x4EC0;&#x4E48;&#x662F;Redis&#xFF1F;&#x7B80;&#x8FF0;&#x5B83;&#x7684;&#x4F18;&#x7F3A;&#x70B9;&#xFF1F;</strong></p>
 <p>Redis&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;Key-Value&#x7C7B;&#x578B;&#x7684;&#x5185;&#x5B58;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5F88;&#x50CF;memcached&#xFF0C;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x7EDF;&#x7EDF;&#x52A0;&#x8F7D;&#x5728;&#x5185;&#x5B58;&#x5F53;&#x4E2D;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x5B9A;&#x671F;&#x901A;&#x8FC7;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x628A;&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;flush&#x5230;&#x786C;&#x76D8;&#x4E0A;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;&#x3002;</p>
 <p>&#x56E0;&#x4E3A;&#x662F;&#x7EAF;&#x5185;&#x5B58;&#x64CD;&#x4F5C;&#xFF0C;Redis&#x7684;&#x6027;&#x80FD;&#x975E;&#x5E38;&#x51FA;&#x8272;&#xFF0C;&#x6BCF;&#x79D2;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x8D85;&#x8FC7; 10&#x4E07;&#x6B21;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#xFF0C;&#x662F;&#x5DF2;&#x77E5;&#x6027;&#x80FD;&#x6700;&#x5FEB;&#x7684;Key-Value DB&#x3002;</p>
+<a id="more"></a>
+
 <p>Redis&#x7684;&#x51FA;&#x8272;&#x4E4B;&#x5904;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x6027;&#x80FD;&#xFF0C;Redis&#x6700;&#x5927;&#x7684;&#x9B45;&#x529B;&#x662F;&#x652F;&#x6301;&#x4FDD;&#x5B58;&#x591A;&#x79CD;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x6B64;&#x5916;&#x5355;&#x4E2A;value&#x7684;&#x6700;&#x5927;&#x9650;&#x5236;&#x662F;1GB&#xFF0C;&#x4E0D;&#x50CF; memcached&#x53EA;&#x80FD;&#x4FDD;&#x5B58;1MB&#x7684;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;Redis&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5B9E;&#x73B0;&#x5F88;&#x591A;&#x6709;&#x7528;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
 <p>&#x6BD4;&#x65B9;&#x8BF4;&#x7528;&#x4ED6;&#x7684;List&#x6765;&#x505A;FIFO&#x53CC;&#x5411;&#x94FE;&#x8868;&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;&#x9AD8;&#x6027; &#x80FD;&#x6D88;&#x606F;&#x961F;&#x5217;&#x670D;&#x52A1;&#xFF0C;&#x7528;&#x4ED6;&#x7684;Set&#x53EF;&#x4EE5;&#x505A;&#x9AD8;&#x6027;&#x80FD;&#x7684;tag&#x7CFB;&#x7EDF;&#x7B49;&#x7B49;&#x3002;</p>
 <p>&#x53E6;&#x5916;Redis&#x4E5F;&#x53EF;&#x4EE5;&#x5BF9;&#x5B58;&#x5165;&#x7684;Key-Value&#x8BBE;&#x7F6E;expire&#x65F6;&#x95F4;&#xFF0C;&#x56E0;&#x6B64;&#x4E5F;&#x53EF;&#x4EE5;&#x88AB;&#x5F53;&#x4F5C;&#x4E00; &#x4E2A;&#x529F;&#x80FD;&#x52A0;&#x5F3A;&#x7248;&#x7684;memcached&#x6765;&#x7528;&#x3002; Redis&#x7684;&#x4E3B;&#x8981;&#x7F3A;&#x70B9;&#x662F;&#x6570;&#x636E;&#x5E93;&#x5BB9;&#x91CF;&#x53D7;&#x5230;&#x7269;&#x7406;&#x5185;&#x5B58;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x4E0D;&#x80FD;&#x7528;&#x4F5C;&#x6D77;&#x91CF;&#x6570;&#x636E;&#x7684;&#x9AD8;&#x6027;&#x80FD;&#x8BFB;&#x5199;&#xFF0C;&#x56E0;&#x6B64;Redis&#x9002;&#x5408;&#x7684;&#x573A;&#x666F;&#x4E3B;&#x8981;&#x5C40;&#x9650;&#x5728;&#x8F83;&#x5C0F;&#x6570;&#x636E;&#x91CF;&#x7684;&#x9AD8;&#x6027;&#x80FD;&#x64CD;&#x4F5C;&#x548C;&#x8FD0;&#x7B97;&#x4E0A;</p>
