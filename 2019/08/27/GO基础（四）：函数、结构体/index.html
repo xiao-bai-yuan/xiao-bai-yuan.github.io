@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="go基础,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E00;&amp;#x3001;&amp;#x51FD;&amp;#x6570;1&amp;#x3001;&amp;#x5B9A;&amp;#x4E49;&amp;#x65B9;&amp;#x5F0F; func [&amp;#x51FD;&amp;#x6570;&amp;#x540D;] &amp;#xFF08;[&amp;#x53C2;&amp;#x6570;1&amp;#xFF0C;&amp;#x53C2;&amp;#x6570;2&amp;#x3002;&amp;#x3002;&amp;#x3002;]&amp;#xFF09;[&amp;#xFF08;&amp;">
+<meta name="keywords" content="go基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO基础（四）：函数、结构体">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/08/27/GO基础（四）：函数、结构体/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="&amp;#x4E00;&amp;#x3001;&amp;#x51FD;&amp;#x6570;1&amp;#x3001;&amp;#x5B9A;&amp;#x4E49;&amp;#x65B9;&amp;#x5F0F; func [&amp;#x51FD;&amp;#x6570;&amp;#x540D;] &amp;#xFF08;[&amp;#x53C2;&amp;#x6570;1&amp;#xFF0C;&amp;#x53C2;&amp;#x6570;2&amp;#x3002;&amp;#x3002;&amp;#x3002;]&amp;#xFF09;[&amp;#xFF08;&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-03T13:51:55.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GO基础（四）：函数、结构体">
+<meta name="twitter:description" content="&amp;#x4E00;&amp;#x3001;&amp;#x51FD;&amp;#x6570;1&amp;#x3001;&amp;#x5B9A;&amp;#x4E49;&amp;#x65B9;&amp;#x5F0F; func [&amp;#x51FD;&amp;#x6570;&amp;#x540D;] &amp;#xFF08;[&amp;#x53C2;&amp;#x6570;1&amp;#xFF0C;&amp;#x53C2;&amp;#x6570;2&amp;#x3002;&amp;#x3002;&amp;#x3002;]&amp;#xFF09;[&amp;#xFF08;&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/08/27/GO基础（四）：函数、结构体/">
+
+
+
+
+
+  <title>GO基础（四）：函数、结构体 | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/08/27/GO基础（四）：函数、结构体/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GO基础（四）：函数、结构体</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-27T10:49:17+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T21:51:55+08:00">
+                2019-11-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x4E00;&#x3001;&#x51FD;&#x6570;"><a href="#&#x4E00;&#x3001;&#x51FD;&#x6570;" class="headerlink" title="&#x4E00;&#x3001;&#x51FD;&#x6570;"></a>&#x4E00;&#x3001;&#x51FD;&#x6570;</h2><h3 id="1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;"><a href="#1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;" class="headerlink" title="1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;"></a>1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;</h3><blockquote>
+<p>func [&#x51FD;&#x6570;&#x540D;] &#xFF08;[&#x53C2;&#x6570;1&#xFF0C;&#x53C2;&#x6570;2&#x3002;&#x3002;&#x3002;]&#xFF09;[&#xFF08;&#x8FD4;&#x56DE;&#x503C;1&#xFF0C;&#x8FD4;&#x56DE;&#x503C;2&#x3002;&#x3002;&#x3002;&#xFF09;]{</p>
+<p>&#x200B;    &#x51FD;&#x6570;&#x4F53;&#x3002;&#x3002;&#x3002;</p>
+<p>}</p>
+</blockquote>
+<p>&#x51FD;&#x6570;&#x7684;&#x4E00;&#x822C;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#x5982;&#x4E0A;&#x6240;&#x8FF0;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> b = show(<span class="string">&quot;Hello, xiao bai yuan!&quot;</span>)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">bool</span></span> {</span><br><span class="line">	fmt.Println(s)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Hello,</span> xiao bai yuan!</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5F53;&#x7136;&#xFF0C;&#x5B83;&#x7684;&#x53C2;&#x6570;&#x548C;&#x8FD4;&#x56DE;&#x503C;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x6CA1;&#x6709;&#x7684;&#xFF0C;&#x6216;&#x8005;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5165;&#x53C2;&#x5728;&#x6211;&#x4EEC;&#x7F16;&#x5199;&#x7A0B;&#x5E8F;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x77E5;&#x9053;&#x6709;&#x51E0;&#x4E2A;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x53EF;&#x53D8;&#x957F;&#x53C2;&#x6570;&#xFF0C;&#x5B83;&#x662F;&#x7528;&#x201C;&#x2026;&#x201D;&#x6765;&#x8868;&#x793A;&#x7684;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x53EF;&#x53D8;&#x957F;&#x53C2;&#x6570;&#x65F6;&#xFF0C;&#x5B83;&#x5FC5;&#x987B;&#x662F;&#x5728;&#x53C2;&#x6570;&#x4E2D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	show(<span class="number">1</span>, <span class="number">2</span>, <span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;xiao&quot;</span>, <span class="string">&quot;bai&quot;</span>, <span class="string">&quot;yuan!&quot;</span>)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(a <span class="keyword">int</span>, b <span class="keyword">int</span>, s ...<span class="keyword">string</span>)</span></span> {</span><br><span class="line">	fmt.Println(a, b, s)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">2</span> [Hello xiao bai yuan!]</span><br></pre></td></tr></table></figure>
+
+<p>&#x5BF9;&#x6BD4;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x8F93;&#x51FA;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#xFF0C;&#x672C;&#x4F8B;&#x7684;s&#x8F93;&#x51FA;&#x662F;&#x4E00;&#x4E2A;&#x5207;&#x7247;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53EF;&#x53D8;&#x957F;&#x53C2;&#x6570;&#x662F;&#x4EE5;&#x5207;&#x7247;&#x7684;&#x5F62;&#x5F0F;&#x4F20;&#x9012;&#x5230;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#xFF0C;&#x4F46;&#x5B83;&#x4EC5;&#x4EC5;&#x53EA;&#x662F;&#x503C;&#x7684;&#x4F20;&#x9012;&#x3002;</p>
+<h3 id="2&#x3001;&#x503C;&#x4F20;&#x9012;&#x548C;&#x5F15;&#x7528;&#x4F20;&#x9012;"><a href="#2&#x3001;&#x503C;&#x4F20;&#x9012;&#x548C;&#x5F15;&#x7528;&#x4F20;&#x9012;" class="headerlink" title="2&#x3001;&#x503C;&#x4F20;&#x9012;&#x548C;&#x5F15;&#x7528;&#x4F20;&#x9012;"></a>2&#x3001;&#x503C;&#x4F20;&#x9012;&#x548C;&#x5F15;&#x7528;&#x4F20;&#x9012;</h3><p>&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x503C;&#x4F20;&#x9012;&#x548C;&#x5F15;&#x7528;&#x4F20;&#x9012;&#x3002;&#x8FD9;&#x4E24;&#x79CD;&#x4F20;&#x9012;&#x7684;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x76F4;&#x89C2;&#x7684;&#x7406;&#x89E3;&#x4E3A;&#xFF1A;&#x503C;&#x4F20;&#x9012;&#x65F6;&#xFF0C;&#x5B83;&#x53EA;&#x662F;&#x5B9E;&#x53C2;&#x7684;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#xFF0C;&#x6539;&#x53D8;&#x5F62;&#x53C2;&#x7684;&#x503C;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;&#x5B9E;&#x53C2;&#x503C;&#x7684;&#x6539;&#x53D8;&#xFF1B;&#x800C;&#x5F15;&#x7528;&#x4F20;&#x9012;&#x5219;&#x521A;&#x597D;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x662F;&#x4F20;&#x9012;&#x7684;&#x5B9E;&#x53C2;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x6539;&#x53D8;&#x5F62;&#x53C2;&#x7684;&#x503C;&#x5C06;&#x4F1A;&#x76F4;&#x63A5;&#x6539;&#x53D8;&#x5B9E;&#x53C2;&#x7684;&#x503C;&#x3002;</p>
+<p>&#x4EE5;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#x4E3A;&#x4F8B;&#xFF0C;&#x7531;&#x4E8E;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#x5B9E;&#x9645;&#x662F;&#x4EE5;&#x5207;&#x7247;&#x7684;&#x5F62;&#x5F0F;&#x4F20;&#x53C2;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x5207;&#x7247;&#x4EE3;&#x66FF;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#x5462;&#xFF1F;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> a []<span class="keyword">int</span> = []<span class="keyword">int</span>{<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>}</span><br><span class="line">	b1 := <span class="number">1</span></span><br><span class="line">	b2 := <span class="number">2</span></span><br><span class="line">	b3 := <span class="number">3</span></span><br><span class="line">	b4 := <span class="number">4</span></span><br><span class="line"></span><br><span class="line">	test1(b1, b2, b3, b4)</span><br><span class="line">	fmt.Println(b2)</span><br><span class="line">	test2(a)</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test1</span><span class="params">(a ...<span class="keyword">int</span>)</span></span> {</span><br><span class="line">	a[<span class="number">1</span>] = <span class="number">0</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;test1&quot;</span>, a)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test2</span><span class="params">(a []<span class="keyword">int</span>)</span></span> {</span><br><span class="line">	a[<span class="number">1</span>] = <span class="number">0</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;test2&quot;</span>, a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test1 [<span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">4</span>]</span><br><span class="line"><span class="number">2</span></span><br><span class="line">test2 [<span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">4</span>]</span><br><span class="line">[<span class="number">1</span> <span class="number">0</span> <span class="number">3</span> <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;test1&#x548C;test2&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x4E2D;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x5143;&#x7D20;&#x90FD;&#x5DF2;&#x7ECF;&#x53D8;&#x6210;0&#x4E86;&#xFF0C;&#x800C;&#x5728;main&#x51FD;&#x6570;&#x4E2D;&#xFF0C;&#x6267;&#x884C;&#x5B8C;test1&#x4E4B;&#x540E;&#xFF0C;b2&#x7684;&#x503C;&#x4F9D;&#x7136;&#x662F;2&#xFF0C;&#x800C;&#x6267;&#x884C;&#x5B8C;test2&#x540E;&#xFF0C;&#x5207;&#x7247;a&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x5143;&#x7D20;&#x53D8;&#x6210;&#x4E86;0&#x3002;&#x4ECE;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5728;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x7684;&#x5904;&#x7406;&#x80FD;&#x5F71;&#x54CD;&#x5230;&#x51FD;&#x6570;&#x5916;&#x9762;&#x7684;&#x53D8;&#x91CF;&#x503C;&#xFF0C;&#x90A3;&#x5C31;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5F15;&#x7528;&#x4F20;&#x9012;&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
+<h3 id="3&#x3001;&#x533F;&#x540D;&#x51FD;&#x6570;"><a href="#3&#x3001;&#x533F;&#x540D;&#x51FD;&#x6570;" class="headerlink" title="3&#x3001;&#x533F;&#x540D;&#x51FD;&#x6570;"></a>3&#x3001;&#x533F;&#x540D;&#x51FD;&#x6570;</h3><p>&#x5728;go&#x4E2D;&#xFF0C;&#x4E00;&#x5207;&#x7686;&#x7C7B;&#x578B;&#xFF0C;&#x6240;&#x4EE5;&#x51FD;&#x6570;&#x5176;&#x5B9E;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8D4B;&#x503C;&#x7ED9;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x5F88;&#x591A;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x5355;&#x72EC;&#x5199;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x51FD;&#x6570;&#x4E86;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x533F;&#x540D;&#x51FD;&#x6570;&#x3002;&#x6240;&#x8C13;&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x662F;&#x6CA1;&#x6709;&#x540D;&#x5B57;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	a := <span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">int</span>)</span></span> {</span><br><span class="line">		fmt.Println(a + b)</span><br><span class="line">	}</span><br><span class="line">	a(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x793A;&#x4F8B;&#x7B2C;8&#x884C;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x4F46;&#x6CA1;&#x6709;&#x51FD;&#x6570;&#x540D;&#xFF0C;&#x76F4;&#x63A5;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;a&#xFF0C;&#x90A3;&#x4E48;a&#x5C31;&#x4EE3;&#x8868;&#x4E86;&#x5B9A;&#x4E49;&#x7684;&#x533F;&#x540D;&#x51FD;&#x6570;&#xFF0C;&#x8981;&#x8C03;&#x7528;&#x533F;&#x540D;&#x51FD;&#x6570;&#x65F6;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x53D8;&#x91CF;a&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<h3 id="4&#x3001;&#x95ED;&#x5305;"><a href="#4&#x3001;&#x95ED;&#x5305;" class="headerlink" title="4&#x3001;&#x95ED;&#x5305;"></a>4&#x3001;&#x95ED;&#x5305;</h3><p>&#x767E;&#x5EA6;&#x767E;&#x79D1;&#x89E3;&#x91CA;&#xFF1A;&#x95ED;&#x5305;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x5176;&#x5B83;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x51FD;&#x6570;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x5B9A;&#x4E49;&#x5728;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x662F;&#x5C06;&#x51FD;&#x6570;&#x5185;&#x90E8;&#x548C;&#x51FD;&#x6570;&#x5916;&#x90E8;&#x8FDE;&#x63A5;&#x8D77;&#x6765;&#x7684;&#x6865;&#x6881;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	f := test(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ {</span><br><span class="line">		fmt.Println(<span class="string">&quot;main&quot;</span>, f(i))</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="title">int</span></span> {</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(b <span class="keyword">int</span>)</span> <span class="title">int</span></span> {</span><br><span class="line">		fmt.Println(<span class="string">&quot;test&quot;</span>, a, b)</span><br><span class="line">		<span class="keyword">return</span> a + b</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">test </span>1 0</span><br><span class="line">main 1</span><br><span class="line"><span class="keyword">test </span>1 1</span><br><span class="line">main 2</span><br><span class="line"><span class="keyword">test </span>1 2</span><br><span class="line">main 3</span><br><span class="line"><span class="keyword">test </span>1 3</span><br><span class="line">main 4</span><br><span class="line"><span class="keyword">test </span>1 4</span><br><span class="line">main 5</span><br></pre></td></tr></table></figure>
+
+<h2 id="&#x4E8C;&#x3001;&#x7ED3;&#x6784;&#x4F53;"><a href="#&#x4E8C;&#x3001;&#x7ED3;&#x6784;&#x4F53;" class="headerlink" title="&#x4E8C;&#x3001;&#x7ED3;&#x6784;&#x4F53;"></a>&#x4E8C;&#x3001;&#x7ED3;&#x6784;&#x4F53;</h2><h3 id="1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;-1"><a href="#1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;-1" class="headerlink" title="1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;"></a>1&#x3001;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;</h3><p>go&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#x548C;C&#x8BED;&#x8A00;&#x6BD4;&#x8F83;&#x76F8;&#x4F3C;&#xFF0C;&#x5B83;&#x6CA1;&#x6709;&#x5176;&#x5B83;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8BED;&#x8A00;&#x7684;class&#x7684;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#xFF0C;&#x4F7F;&#x7528;struct&#x5C31;&#x80FD;&#x5F88;&#x597D;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x5B83;&#x4F7F;&#x7528;</p>
+<blockquote>
+<p>type &#x7ED3;&#x6784;&#x4F53;&#x540D;&#x79F0; struct {</p>
+<p>&#x200B;    &#x53D8;&#x91CF;&#x540D; &#x53D8;&#x91CF;&#x7C7B;&#x578B;</p>
+<p>&#x200B;    &#x53D8;&#x91CF;&#x540D; &#x53D8;&#x91CF;&#x7C7B;&#x578B;</p>
+<p>&#x200B;            .</p>
+<p>&#x200B;            .</p>
+<p>&#x200B;            .</p>
+<p>}</p>
+</blockquote>
+<p>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	a := Student{}</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{ <span class="number">0</span>}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x5C31;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;Student&#x7ED3;&#x6784;&#x4F53;a&#x3002;&#x5982;&#x4F55;&#x7ED9;&#x5B83;&#x8D4B;&#x503C;&#x5462;&#xFF1F;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;a&#x65F6;&#x5C31;&#x53EF;&#x4EE5;&#x8D4B;&#x503C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	a := Student{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">23</span>}</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{xiaobaiyuan <span class="number">23</span>}</span><br></pre></td></tr></table></figure>
+
+<p>&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#x540E;&#xFF0C;&#x5206;&#x522B;&#x7ED9;&#x7ED3;&#x6784;&#x4F53;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x201C;.&#x201D;&#x8BBF;&#x95EE;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	a := Student{}</span><br><span class="line">	a.name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	a.age = <span class="number">24</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{xiaobaiyuan <span class="number">24</span>}</span><br></pre></td></tr></table></figure>
+
+<h3 id="2&#x3001;&#x7ED3;&#x6784;&#x4F53;&#x5D4C;&#x5957;"><a href="#2&#x3001;&#x7ED3;&#x6784;&#x4F53;&#x5D4C;&#x5957;" class="headerlink" title="2&#x3001;&#x7ED3;&#x6784;&#x4F53;&#x5D4C;&#x5957;"></a>2&#x3001;&#x7ED3;&#x6784;&#x4F53;&#x5D4C;&#x5957;</h3><p>&#x5F53;&#x7ED3;&#x6784;&#x4F53;&#x5185;&#x9700;&#x8981;&#x7528;&#x5230;&#x5176;&#x5B83;&#x7ED3;&#x6784;&#x4F53;&#x65F6;&#xFF0C;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#x4E0E;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x5B9A;&#x4E49;&#x4E00;&#x81F4;&#x3002;&#x5728;go&#x4E2D;&#xFF0C;&#x7ED3;&#x6784;&#x4F53;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> {</span><br><span class="line">	Sex    <span class="keyword">bool</span> <span class="comment">//true&#x8868;&#x793A;&#x7537; false&#x8868;&#x793A;&#x5973;</span></span><br><span class="line">	Weight <span class="keyword">float32</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	per  Person</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	a := Student{}</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{{<span class="literal">false</span> <span class="number">0</span>}  <span class="number">0</span>}</span><br></pre></td></tr></table></figure>
+
+<p>&#x7ED3;&#x6784;&#x4F53;&#x5D4C;&#x5957;&#x7684;&#x8D4B;&#x503C;&#x65B9;&#x5F0F;&#xFF0C;&#x548C;&#x666E;&#x901A;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#x4E00;&#x6837;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> {</span><br><span class="line">	Sex    <span class="keyword">bool</span> <span class="comment">//true&#x8868;&#x793A;&#x7537; false&#x8868;&#x793A;&#x5973;</span></span><br><span class="line">	Weight <span class="keyword">float32</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	per  Person</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    <span class="comment">//&#x7B2C;&#x4E00;&#x79CD;&#x8D4B;&#x503C;&#x65B9;&#x5F0F;</span></span><br><span class="line">	a := Student{Person{<span class="literal">true</span>, <span class="number">55.0</span>}, <span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">23</span>}</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">    <span class="comment">//&#x7B2C;&#x4E8C;&#x79CD;&#x8D4B;&#x503C;&#x65B9;&#x5F0F;</span></span><br><span class="line">	b := Student{}</span><br><span class="line">	b.per.Sex = <span class="literal">true</span></span><br><span class="line">	b.per.Weight = <span class="number">56.0</span></span><br><span class="line">	b.name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	b.age = <span class="number">24</span></span><br><span class="line">	fmt.Println(b)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">{{<span class="literal">true</span> <span class="number">55</span>} xiaobaiyuan <span class="number">23</span>}</span><br><span class="line">{{<span class="literal">true</span> <span class="number">56</span>} xiaobaiyuan <span class="number">24</span>}</span><br></pre></td></tr></table></figure>
+
+<h3 id="3&#x3001;&#x503C;&#x4F20;&#x9012;&#x4E0E;&#x5F15;&#x7528;&#x4F20;&#x9012;"><a href="#3&#x3001;&#x503C;&#x4F20;&#x9012;&#x4E0E;&#x5F15;&#x7528;&#x4F20;&#x9012;" class="headerlink" title="3&#x3001;&#x503C;&#x4F20;&#x9012;&#x4E0E;&#x5F15;&#x7528;&#x4F20;&#x9012;"></a>3&#x3001;&#x503C;&#x4F20;&#x9012;&#x4E0E;&#x5F15;&#x7528;&#x4F20;&#x9012;</h3><p>&#x5728;&#x51FD;&#x6570;&#x7684;&#x4F20;&#x53C2;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#x4EE5;&#x5207;&#x7247;&#x4F20;&#x9012;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C31;&#x662F;&#x5F15;&#x7528;&#x4F20;&#x9012;&#xFF0C;&#x90A3;&#x5982;&#x679C;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5B83;&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x65B9;&#x5F0F;&#x5462;&#xFF1F;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	per := Person{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">24</span>}</span><br><span class="line">	fmt.Println(<span class="string">&quot;before test&quot;</span>, per)</span><br><span class="line">	test(per)</span><br><span class="line">	fmt.Println(<span class="string">&quot;after test&quot;</span>, per)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(per Person)</span></span> {</span><br><span class="line">	per.name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	per.age = <span class="number">23</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;test&quot;</span>, per)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before test {xiaobaiyuan 24}</span><br><span class="line"><span class="keyword">test </span>{xiaobaiyuan 23}</span><br><span class="line">after test {xiaobaiyuan 24}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x770B;&#xFF0C;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x4F20;&#x53C2;&#x662F;&#x503C;&#x4F20;&#x9012;&#x3002;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x8D4B;&#x503C;&#x80FD;&#x6539;&#x53D8;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8981;&#x6C42;&#x5F15;&#x7528;&#x4F20;&#x9012;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4FEE;&#x6539;&#x4E3A;&#x7ED3;&#x6784;&#x4F53;&#x6307;&#x9488;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	per := Person{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">24</span>}</span><br><span class="line">	fmt.Println(<span class="string">&quot;before test&quot;</span>, per)</span><br><span class="line">	test(&amp;per)<span class="comment">//&#x4F20;&#x9012;&#x7ED3;&#x6784;&#x4F53;&#x5730;&#x5740;</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;after test&quot;</span>, per)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(per *Person)</span></span> {<span class="comment">//&#x7ED3;&#x6784;&#x4F53;&#x6307;&#x9488;</span></span><br><span class="line">	per.name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	per.age = <span class="number">23</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;test&quot;</span>, per)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before test {xiaobaiyuan 24}</span><br><span class="line"><span class="keyword">test </span>&amp;{xiaobaiyuan 23}</span><br><span class="line">after test {xiaobaiyuan 23}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x5728;&#x8C03;&#x7528;test&#x51FD;&#x6570;&#x4E4B;&#x540E;&#xFF0C;age&#x88AB;&#x4FEE;&#x6539;&#x4E3A;23&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5F15;&#x7528;&#x4F20;&#x9012;&#x3002;&#x901A;&#x5E38;&#xFF0C;&#x5C06;&#x7ED3;&#x6784;&#x4F53;&#x5730;&#x5740;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x8C03;&#x7528;&#x65F6;&#x4F1A;&#x66F4;&#x52A0;&#x7B80;&#x4FBF;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	per := &amp;Person{}</span><br><span class="line">	per.name = <span class="string">&quot;xiaobaiyuan&quot;</span> <span class="comment">//&#x6210;&#x5458;&#x7684;&#x8D4B;&#x503C;&#x65B9;&#x5F0F;&#x4E0E;&#x4E4B;&#x524D;&#x4E00;&#x81F4;</span></span><br><span class="line">	per.age = <span class="number">24</span> <span class="comment">//&#x6210;&#x5458;&#x7684;&#x8D4B;&#x503C;&#x65B9;&#x5F0F;&#x4E0E;&#x4E4B;&#x524D;&#x4E00;&#x81F4;</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;before test&quot;</span>, per)</span><br><span class="line">	test(per) <span class="comment">//&#x8C03;&#x7528;&#x65F6;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x53D8;&#x91CF;&#x540D;&#x5373;&#x53EF;</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;after test&quot;</span>, per)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(per *Person)</span></span> {</span><br><span class="line">	per.name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	per.age = <span class="number">23</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;test&quot;</span>, per)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before test &amp;{xiaobaiyuan 24}</span><br><span class="line"><span class="keyword">test </span>&amp;{xiaobaiyuan 23}</span><br><span class="line">after test &amp;{xiaobaiyuan 23}</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go基础/" rel="tag"># go基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/20/GO基础（三）：循环控制、数组、切片、map/" rel="next" title="GO基础（三）：循环控制、数组、切片、map">
+                <i class="fa fa-chevron-left"></i> GO基础（三）：循环控制、数组、切片、map
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/03/GO基础（五）：方法、接口、反射、并发/" rel="prev" title="GO基础（五）：方法、接口、反射、并发">
+                GO基础（五）：方法、接口、反射、并发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、函数"><span class="nav-number">1.</span> <span class="nav-text">一、函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、定义方式"><span class="nav-number">1.1.</span> <span class="nav-text">1、定义方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、值传递和引用传递"><span class="nav-number">1.2.</span> <span class="nav-text">2、值传递和引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、匿名函数"><span class="nav-number">1.3.</span> <span class="nav-text">3、匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、闭包"><span class="nav-number">1.4.</span> <span class="nav-text">4、闭包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、结构体"><span class="nav-number">2.</span> <span class="nav-text">二、结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、定义方式-1"><span class="nav-number">2.1.</span> <span class="nav-text">1、定义方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、结构体嵌套"><span class="nav-number">2.2.</span> <span class="nav-text">2、结构体嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、值传递与引用传递"><span class="nav-number">2.3.</span> <span class="nav-text">3、值传递与引用传递</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">43.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

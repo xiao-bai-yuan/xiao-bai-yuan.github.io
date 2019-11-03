@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="go基础,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E00;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;(method)&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;go&amp;#x8BED;&amp;#x8A00;&amp;#x4E2D;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x6CA1;&amp;#x6709;class&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;">
+<meta name="keywords" content="go基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO基础（五）：方法、接口、反射、并发">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/09/03/GO基础（五）：方法、接口、反射、并发/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="&amp;#x4E00;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;(method)&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;go&amp;#x8BED;&amp;#x8A00;&amp;#x4E2D;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x6CA1;&amp;#x6709;class&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-03T13:54:01.132Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GO基础（五）：方法、接口、反射、并发">
+<meta name="twitter:description" content="&amp;#x4E00;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;(method)&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;go&amp;#x8BED;&amp;#x8A00;&amp;#x4E2D;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x6CA1;&amp;#x6709;class&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/09/03/GO基础（五）：方法、接口、反射、并发/">
+
+
+
+
+
+  <title>GO基础（五）：方法、接口、反射、并发 | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/03/GO基础（五）：方法、接口、反射、并发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GO基础（五）：方法、接口、反射、并发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T10:49:17+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T21:54:01+08:00">
+                2019-11-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.8k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  30分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x4E00;&#x3001;&#x65B9;&#x6CD5;-method"><a href="#&#x4E00;&#x3001;&#x65B9;&#x6CD5;-method" class="headerlink" title="&#x4E00;&#x3001;&#x65B9;&#x6CD5;(method)"></a>&#x4E00;&#x3001;&#x65B9;&#x6CD5;(method)</h2><h3 id="&#x65B9;&#x6CD5;&#x7684;&#x6982;&#x5FF5;"><a href="#&#x65B9;&#x6CD5;&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="&#x65B9;&#x6CD5;&#x7684;&#x6982;&#x5FF5;"></a>&#x65B9;&#x6CD5;&#x7684;&#x6982;&#x5FF5;</h3><p>go&#x8BED;&#x8A00;&#x4E2D;&#xFF0C;&#x867D;&#x7136;&#x6CA1;&#x6709;class&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7ED3;&#x6784;&#x4F53;&#x6765;&#x5B9E;&#x73B0;class&#x7684;&#x529F;&#x80FD;&#x3002;&#x5728;&#x5176;&#x5B83;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x8BED;&#x8A00;&#x4E2D;&#xFF0C;class&#x91CC;&#x9762;&#x662F;&#x53EF;&#x4EE5;&#x652F;&#x6301;&#x65B9;&#x6CD5;&#x7684;&#xFF0C;&#x901A;&#x8FC7;&#x7C7B;&#x6216;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x6765;&#x8C03;&#x8BD5;&#x7C7B;&#x4E2D;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5728;go&#x4E2D;&#xFF0C;&#x4E5F;&#x6709;&#x65B9;&#x6CD5;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5B83;&#x7684;&#x5B9E;&#x73B0;&#x5341;&#x5206;&#x5DE7;&#x5999;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Age  <span class="keyword">uint</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	stu := Student{Name: <span class="string">&quot;xiaobaiyuan&quot;</span>, Age: <span class="number">23</span>}</span><br><span class="line">	stu.toString()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(stu Student)</span> <span class="title">toString</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Printf(<span class="string">&quot;name:%s, age:%d&quot;</span>, stu.Name, stu.Age)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">name</span><span class="selector-pseudo">:xiaobaiyuan</span>, <span class="selector-tag">age</span><span class="selector-pseudo">:23</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE3;&#x7801;&#x7B2C;14&#x884C;&#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x65B9;&#x5F0F;&#x4E0E;&#x5176;&#x5B83;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x8BED;&#x8A00;&#x7684;&#x4E00;&#x81F4;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x7B2C;17&#x884C;&#x5F00;&#x59CB;toString&#x7684;&#x5B9A;&#x4E49;&#x4E0E;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#x6709;&#x4E00;&#x4E9B;&#x533A;&#x522B;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x5728;&#x51FD;&#x6570;&#x540D;&#x524D;&#x9762;&#x591A;&#x4E86;()&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x5B83;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x4E0E;Student&#x7C7B;&#x578B;&#x7ED1;&#x5B9A;&#x7684;&#xFF0C;&#x53EA;&#x8981;&#x53D8;&#x91CF;&#x662F;Student&#x7C7B;&#x578B;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x80FD;&#x4F7F;&#x7528;toString&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;"><a href="#&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;"></a>&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;</h3><p>&#x7531;&#x6B64;&#xFF0C;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x65B9;&#x6CD5;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x4E0E;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x7684;&#x4E3B;&#x8981;&#x533A;&#x522B;&#xFF0C;&#x5C31;&#x662F;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4E0E;&#x7C7B;&#x578B;&#x7684;&#x7ED1;&#x5B9A;&#x5173;&#x7CFB;&#x3002;</p>
+<blockquote>
+<p>func (&#x65B9;&#x6CD5;&#x7ED1;&#x5B9A;&#x7684;&#x7C7B;&#x578B;) &#x65B9;&#x6CD5;&#x540D;(&#x53C2;&#x6570;&#x5217;&#x8868;) (&#x8FD4;&#x56DE;&#x503C;&#x5217;&#x8868;){</p>
+<p>&#x200B;    &#x65B9;&#x6CD5;&#x5B9E;&#x4F53;</p>
+<p>}</p>
+</blockquote>
+<p>&#x540C;&#x6837;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5728;&#x65B9;&#x6CD5;&#x91CC;&#x9762;&#x4FEE;&#x6539;&#x53D8;&#x91CF;&#x7684;&#x503C;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7ED1;&#x5B9A;&#x7C7B;&#x578B;&#x4FEE;&#x6539;&#x4E3A;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x5373;&#x53EF;&#x3002;&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#x7A0D;&#x505A;&#x4FEE;&#x6539;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Age  <span class="keyword">uint</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	stu := &amp;Student{Name: <span class="string">&quot;xiaobaiyuan&quot;</span>, Age: <span class="number">23</span>}</span><br><span class="line">	stu.toString()</span><br><span class="line">	fmt.Println(<span class="string">&quot;[main]&quot;</span>, stu)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(stu *Student)</span> <span class="title">toString</span><span class="params">()</span></span> {</span><br><span class="line">	stu.Age = <span class="number">24</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;[toString]name:%s, age:%d\n&quot;</span>, stu.Name, stu.Age)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[toString]</span><span class="selector-tag">name</span><span class="selector-pseudo">:xiaobaiyuan</span>, <span class="selector-tag">age</span><span class="selector-pseudo">:24</span></span><br><span class="line"><span class="selector-attr">[main]</span> <span class="selector-tag">&amp;</span>{<span class="selector-tag">xiaobaiyuan</span> <span class="selector-tag">24</span>}</span><br></pre></td></tr></table></figure>
+
+<p>&#x521D;&#x59CB;&#x5316;stu&#x65F6;&#xFF0C;Age&#x7684;&#x503C;&#x4E3A;23&#xFF0C;&#x8C03;&#x7528;&#x5B8C;toString&#x65B9;&#x6CD5;&#x540E;&#xFF0C;Age&#x7684;&#x503C;&#x88AB;&#x4FEE;&#x6539;&#x6210;24&#x3002;</p>
+<h3 id="&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;"><a href="#&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;" class="headerlink" title="&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;"></a>&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;</h3><p>&#x6709;&#x65F6;&#x5019;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x800C;&#x8981;&#x5B9E;&#x73B0;&#x5B83;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x7F16;&#x5199;&#x5982;&#x4E0B;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	i := <span class="number">10</span></span><br><span class="line">	i.toString()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">toString</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;[toString]&quot;</span>, i)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;&#x7F16;&#x8BD1;&#x4E0A;&#x8FF0;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x4F1A;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#xFF0C;&#x9519;&#x8BEF;&#x5206;&#x522B;&#x5728;&#x7B2C;9&#x884C;&#x548C;12&#x884C;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># command-line-arguments</span><br><span class="line">.\method2.go:<span class="number">9</span>:<span class="number">3</span>: i.toString undefined (<span class="keyword">type</span> int <span class="keyword">has</span> no field <span class="keyword">or</span> <span class="function"><span class="keyword">method</span> <span class="title">toString</span>)</span></span><br><span class="line"><span class="function">.\<span class="title">method2</span>.<span class="title">go</span>:</span><span class="number">12</span>:<span class="number">6</span>: cannot define <span class="keyword">new</span> methods <span class="keyword">on</span> non-local <span class="keyword">type</span> int</span><br></pre></td></tr></table></figure>
+
+<p>&#x5927;&#x81F4;&#x610F;&#x601D;&#x662F;&#xFF1A;int&#x7C7B;&#x578B;&#x6CA1;&#x6709;toString&#x65B9;&#x6CD5;&#xFF0C;&#x4E0D;&#x80FD;&#x4E3A;&#x975E;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;&#x65B0;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x5982;&#x679C;&#x771F;&#x78B0;&#x5230;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x53C8;&#x5FC5;&#x987B;&#x8981;&#x7ED9;int&#x81EA;&#x5B9A;&#x4E49;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;&#x6765;&#x64CD;&#x4F5C;&#xFF0C;&#x5B83;&#x662F;&#x901A;&#x8FC7;type&#x5173;&#x952E;&#x5B57;&#x6765;&#x91CD;&#x65B0;&#x7ED9;&#x67D0;&#x4E2A;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x540D;&#x5B57;&#xFF0C;&#x7C7B;&#x4F3C;C&#x8BED;&#x8A00;&#x4E2D;&#x7684;#define&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#x7A0D;&#x4F5C;&#x4FEE;&#x6539;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> _INT <span class="keyword">int</span> <span class="comment">//1.&#x5B9A;&#x4E49;int&#x7C7B;&#x578B;&#x7684;&#x522B;&#x79F0;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="comment">//	i := 10</span></span><br><span class="line">	<span class="keyword">var</span> i _INT = <span class="number">10</span> <span class="comment">//2.&#x5C06;&#x53D8;&#x91CF;i&#x5B9A;&#x4E49;&#x4E3A;_INT&#x7C7B;&#x578B;</span></span><br><span class="line">	i.toString()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i _INT)</span> <span class="title">toString</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;[toString]&quot;</span>, i)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[toString] <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x4E24;&#x4E2A;&#x5904;&#x4EE3;&#x7801;&#xFF0C;&#x5C31;&#x5B9E;&#x73B0;&#x4E86;int&#x7C7B;&#x578B;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x65B9;&#x6CD5;&#xFF0C;&#x4EE5;&#x540E;&#x5728;&#x5982;&#x679C;&#x518D;&#x5B9A;&#x4E49;int&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4E14;&#x9700;&#x8981;&#x4F7F;&#x7528;toString&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x8BE5;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x7684;_INT&#x7C7B;&#x578B;&#x5373;&#x53EF;&#x3002;</p>
+<h2 id="&#x4E8C;&#x3001;&#x63A5;&#x53E3;-interface"><a href="#&#x4E8C;&#x3001;&#x63A5;&#x53E3;-interface" class="headerlink" title="&#x4E8C;&#x3001;&#x63A5;&#x53E3;(interface)"></a>&#x4E8C;&#x3001;&#x63A5;&#x53E3;(interface)</h2><p>&#x63A5;&#x53E3;&#xFF0C;&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x51FD;&#x6570;&#x58F0;&#x660E;&#x7684;&#x96C6;&#x5408;&#x3002;&#x63A5;&#x53E3;&#x4E2D;&#x7684;&#x51FD;&#x6570;&#x53EA;&#x6709;&#x58F0;&#x660E;&#xFF0C;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x5B9E;&#x73B0;&#x4E86;&#x63A5;&#x53E3;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C31;&#x5B9E;&#x73B0;&#x4E86;&#x8BE5;&#x63A5;&#x53E3;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;go&#x4E2D;&#x7684;&#x63A5;&#x53E3;&#x4E0D;&#x9700;&#x8981;&#x663E;&#x793A;&#x7684;implements&#x3002;</p>
+<h3 id="&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;"><a href="#&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;"></a>&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;</h3><p>&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;&#x4E0E;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5B9A;&#x4E49;&#x7C7B;&#x578B;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;struct&#x66FF;&#x6362;&#x6210;interface&#x5373;&#x53EF;&#xFF1A;</p>
+<blockquote>
+<p>type &#x63A5;&#x53E3;&#x540D; interface {</p>
+<p>&#x200B;    &#x51FD;&#x6570;1</p>
+<p>&#x200B;    &#x51FD;&#x6570;2</p>
+<p>&#x200B;        .</p>
+<p>&#x200B;        .</p>
+<p>&#x200B;        .</p>
+<p>}</p>
+</blockquote>
+<p>&#x4EE5;&#x4E0A;&#x5373;&#x53EF;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Com <span class="keyword">interface</span> {</span><br><span class="line">	Connect() <span class="keyword">bool</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UsbCom <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(usb UsbCom)</span> <span class="title">Connect</span><span class="params">()</span> <span class="title">bool</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Connected:&quot;</span>, usb.name)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> c Com</span><br><span class="line">	c = UsbCom{<span class="string">&quot;UsbCom&quot;</span>}</span><br><span class="line">	c.Connect()</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Connected:</span> UsbCom</span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0A;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF0C;&#x9996;&#x5148;&#x5728;&#x7B2C;7&#x884C;&#x5B9A;&#x4E49;&#x4E86;Com&#x63A5;&#x53E3;&#xFF0C;&#x7136;&#x540E;&#x5B9A;&#x4E49;&#x4E86;UsbCom&#x7ED3;&#x6784;&#x4F53;&#x7C7B;&#x578B;&#xFF0C;&#x4E14;&#x5B9E;&#x73B0;&#x4E86;&#x63A5;&#x53E3;&#x4E2D;&#x7684;Connect&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x5C31;&#x8868;&#x793A;UsbCom&#x7C7B;&#x578B;&#x5B9E;&#x73B0;&#x4E86;Com&#x63A5;&#x53E3;&#xFF0C;&#x5728;&#x4EE3;&#x7801;&#x7B2C;22&#x884C;&#xFF0C;&#x5C06;UsbCom&#x7C7B;&#x578B;&#x8D4B;&#x503C;&#x7ED9;&#x4E86;Com&#x63A5;&#x53E3;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;c&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;Com&#x63A5;&#x53E3;&#xFF0C;&#x8BE5;&#x884C;&#x7F16;&#x8BD1;&#x4F1A;&#x51FA;&#x9519;&#x3002;</p>
+<h3 id="ok-pattern&#x6A21;&#x5F0F;"><a href="#ok-pattern&#x6A21;&#x5F0F;" class="headerlink" title="ok-pattern&#x6A21;&#x5F0F;"></a>ok-pattern&#x6A21;&#x5F0F;</h3><p>&#x5728;&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x589E;&#x52A0;Disconnect&#x63A5;&#x53E3;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Com <span class="keyword">interface</span> {</span><br><span class="line">	Connect() <span class="keyword">bool</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UsbCom <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(usb UsbCom)</span> <span class="title">Connect</span><span class="params">()</span> <span class="title">bool</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Connected:&quot;</span>, usb.name)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Disconnect</span><span class="params">(c Com)</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Disconnected.&quot;</span>, c.name)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> c Com</span><br><span class="line">	c = UsbCom{<span class="string">&quot;UsbCom&quot;</span>}</span><br><span class="line">	c.Connect()</span><br><span class="line">	Disconnect(c)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x6DFB;&#x52A0;&#x4E86;Disconnect&#x51FD;&#x6570;&#xFF0C;&#x7F16;&#x8BD1;&#x65F6;&#x7B2C;21&#x884C;&#x62A5;&#x9519;&#xFF0C;&#x63D0;&#x793A;</p>
+<blockquote>
+<p>c.name undefined (type Com has no field or method name)</p>
+</blockquote>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;Com&#x7C7B;&#x578B;&#x4E2D;&#x662F;&#x4E0D;&#x5B58;&#x5728;name&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x6216;&#x65B9;&#x6CD5;&#x7684;&#xFF0C;&#x90A3;&#x5E94;&#x8BE5;&#x600E;&#x6837;&#x624D;&#x80FD;&#x8F93;&#x51FA;name&#x5462;&#xFF1F;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x5165;&#x53C2;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x5982;&#x679C;&#x662F;UsbCom&#x7C7B;&#x578B;&#xFF0C;&#x5C31;&#x80FD;&#x6B63;&#x5E38;&#x8C03;&#x7528;&#x8F93;&#x51FA;name&#x7684;&#x503C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Com <span class="keyword">interface</span> {</span><br><span class="line">	Connect() <span class="keyword">bool</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UsbCom <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(usb UsbCom)</span> <span class="title">Connect</span><span class="params">()</span> <span class="title">bool</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Connected:&quot;</span>, usb.name)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Disconnect</span><span class="params">(c Com)</span></span> {</span><br><span class="line">	<span class="keyword">if</span> v, ok := c.(UsbCom); ok {</span><br><span class="line">		fmt.Println(<span class="string">&quot;Disconnected:&quot;</span>, v.name)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line">	fmt.Println(<span class="string">&quot;Disconnected: Unknow Device&quot;</span>)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> c Com</span><br><span class="line">	c = UsbCom{<span class="string">&quot;UsbCom&quot;</span>}</span><br><span class="line">	c.Connect()</span><br><span class="line">	Disconnect(c)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Connected:</span> UsbCom</span><br><span class="line"><span class="symbol">Disconnected:</span> UsbCom</span><br></pre></td></tr></table></figure>
+
+<p>&#x793A;&#x4F8B;&#x4E2D;&#x589E;&#x52A0;&#x4E86;&#x51FD;&#x6570;Disconnect&#xFF0C;&#x5B83;&#x7684;&#x5165;&#x53C2;&#x662F;Com&#x7C7B;&#x578B;&#xFF0C;&#x800C;Com&#x7C7B;&#x578B;&#x662F;&#x6CA1;&#x6709;name&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x51FD;&#x6570;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;ok pattern&#x6A21;&#x5F0F;&#xFF0C;&#x5982;&#x679C;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x662F;UsbCom&#x7C7B;&#x578B;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x5B83;&#x7684;name&#x5B57;&#x6BB5;&#x7684;&#x503C;&#xFF0C;&#x6CE8;&#x610F;&#x7B2C;22&#x884C;&#xFF0C;&#x662F;&#x901A;&#x8FC7;&#x53D8;&#x91CF;v&#x83B7;&#x53D6;&#x7684;name&#x503C;&#x3002;</p>
+<h3 id="&#x7A7A;&#x63A5;&#x53E3;"><a href="#&#x7A7A;&#x63A5;&#x53E3;" class="headerlink" title="&#x7A7A;&#x63A5;&#x53E3;"></a>&#x7A7A;&#x63A5;&#x53E3;</h3><p>&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x7A7A;&#x63A5;&#x53E3;&#xFF0C;&#x53EF;&#x4EE5;&#x8BF4;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;&#x8BE5;&#x63A5;&#x53E3;&#x3002;&#x7531;&#x4E8E;&#x5728;go&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#x7EE7;&#x627F;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x4E3A;&#x4E86;&#x548C;&#x5176;&#x5B83;OOP&#x8BED;&#x8A00;&#x7C7B;&#x4F3C;&#xFF0C;&#x53EF;&#x4EE5;&#x95F4;&#x63A5;&#x7684;&#x7406;&#x89E3;&#x4E3A;&#x7A7A;&#x63A5;&#x53E3;&#x662F;&#x6240;&#x6709;&#x7C7B;&#x578B;&#x7684;&#x7236;&#x7C7B;&#x3002;&#x90A3;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7A7A;&#x63A5;&#x53E3;&#x6765;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Com <span class="keyword">interface</span> {</span><br><span class="line">	Connect() <span class="keyword">bool</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UsbCom <span class="keyword">struct</span> {</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(usb UsbCom)</span> <span class="title">Connect</span><span class="params">()</span> <span class="title">bool</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Connected:&quot;</span>, usb.name)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Disconnect</span><span class="params">(a <span class="keyword">interface</span>{})</span></span> {</span><br><span class="line">	<span class="keyword">switch</span> t := a.(<span class="keyword">type</span>) {</span><br><span class="line">	<span class="keyword">case</span> UsbCom:</span><br><span class="line">		fmt.Println(<span class="string">&quot;Disconnected:&quot;</span>, a.name)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">&quot;Disconnected: unknow&quot;</span>)</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> c Com</span><br><span class="line">	c = UsbCom{<span class="string">&quot;UsbCom&quot;</span>}</span><br><span class="line">	c.Connect()</span><br><span class="line">	Disconnect(c)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Connected:</span> UsbCom</span><br><span class="line"><span class="symbol">Disconnected:</span> UsbCom</span><br></pre></td></tr></table></figure>
+
+<p>&#x4FEE;&#x6539;Disconnect&#x7684;&#x5165;&#x53C2;&#xFF0C;&#x4F7F;&#x7528;&#x7A7A;&#x63A5;&#x53E3;&#x7684;&#x65B9;&#x5F0F;&#x4F20;&#x53C2;&#xFF0C;&#x8FD9;&#x6837;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#x90FD;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x5165;&#x53C2;&#xFF0C;&#x6B64;&#x65F6;&#x4F7F;&#x7528;ok-pattern&#x7684;&#x65B9;&#x5F0F;&#x6548;&#x679C;&#x76F8;&#x540C;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8F93;&#x51FA;&#x6B63;&#x786E;&#x7684;name&#x53C2;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x6548;&#x7387;&#x6781;&#x4F4E;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x53EF;&#x80FD;&#x6BCF;&#x79CD;&#x7C7B;&#x578B;&#x90FD;&#x505A;ok-pattern&#x7684;&#x5904;&#x7406;&#xFF0C;&#x6240;&#x4EE5;&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x7B80;&#x6D01;&#x9AD8;&#x6548;&#x7684;type-switch&#x65B9;&#x5F0F;&#xFF0C;&#x5B83;&#x7684;&#x7528;&#x6CD5;&#x5373;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x7B2C;21&#x884C;&#xFF0C;&#x901A;&#x8FC7;&#x201C;a.(type)&#x201D;&#x7684;&#x65B9;&#x5F0F;&#x5224;&#x65AD;&#x5165;&#x53C2;&#x662F;&#x4EC0;&#x4E48;&#x7C7B;&#x578B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5BF9;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x5904;&#x7406;&#x4E86;&#x3002;</p>
+<h2 id="&#x4E09;&#x3001;&#x53CD;&#x5C04;-reflect"><a href="#&#x4E09;&#x3001;&#x53CD;&#x5C04;-reflect" class="headerlink" title="&#x4E09;&#x3001;&#x53CD;&#x5C04;(reflect)"></a>&#x4E09;&#x3001;&#x53CD;&#x5C04;(reflect)</h2><p>&#x5F88;&#x591A;oop&#x8BED;&#x8A00;&#x90FD;&#x6709;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x3002;&#x5728;go&#x4E2D;&#xFF0C;&#x6307;&#x5B9A;&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#x7684;&#x7C7B;&#x578B;&#x662F;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x5728;&#x521B;&#x5EFA;&#x53D8;&#x91CF;&#x65F6;&#x5C31;&#x5DF2;&#x7ECF;&#x786E;&#x5B9A;&#x4E86;&#xFF0C;&#x800C;&#x53CD;&#x5C04;&#x5219;&#x4E3B;&#x8981;&#x662F;&#x4E0E;interface&#x6709;&#x5173;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53EA;&#x6709;interface&#x624D;&#x6709;&#x53CD;&#x5C04;&#x3002;</p>
+<p>&#x5728;go&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;interface&#x53D8;&#x91CF;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;pair&#xFF0C;pair&#x4E2D;&#x8BB0;&#x5F55;&#x4E86;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x548C;&#x7C7B;&#x578B;&#xFF1A;&#xFF08;value&#xFF0C;type&#xFF09;&#xFF0C;&#x5176;&#x4E2D;value&#x662F;&#x53D8;&#x91CF;&#x7684;&#x503C;&#xFF0C;type&#x662F;&#x53D8;&#x91CF;&#x7684;&#x7C7B;&#x578B;&#x3002;&#x4E00;&#x4E2A;interface&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x5305;&#x542B;&#x4E86;&#x4E24;&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x6307;&#x5411;&#x503C;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x6307;&#x5411;&#x5B9E;&#x9645;&#x7684;&#x503C;&#x3002;</p>
+<p>interface&#x53CA;&#x5176;pair&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x662F;Go&#x4E2D;&#x5B9E;&#x73B0;&#x53CD;&#x5C04;&#x7684;&#x524D;&#x63D0;&#xFF0C;&#x7406;&#x89E3;&#x4E86;pair&#xFF0C;&#x5C31;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x53CD;&#x5C04;&#x3002;&#x53CD;&#x5C04;&#x5C31;&#x662F;&#x7528;&#x6765;&#x68C0;&#x6D4B;&#x5B58;&#x50A8;&#x5728;&#x63A5;&#x53E3;&#x53D8;&#x91CF;&#x5185;&#x90E8;(&#x503C;value&#xFF1B;&#x7C7B;&#x578B;concrete type) pair&#x5BF9;&#x7684;&#x4E00;&#x79CD;&#x673A;&#x5236;&#x3002;&#xFF08;<a href="https://studygolang.com/articles/12348?fr=sidebar&#xFF09;" target="_blank" rel="noopener">https://studygolang.com/articles/12348?fr=sidebar&#xFF09;</a></p>
+<h3 id="TypeOf&#x548C;ValueOf"><a href="#TypeOf&#x548C;ValueOf" class="headerlink" title="TypeOf&#x548C;ValueOf"></a>TypeOf&#x548C;ValueOf</h3><p>&#x5728;go&#x7684;reflect&#x5305;&#x4E2D;&#xFF0C;&#x5305;&#x542B;&#x4E86;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#xFF1A;reflect.TypeOf&#x548C;reflect.ValueOf&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;&#x6211;&#x4EEC;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x8BBF;&#x95EE;&#x63A5;&#x53E3;&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> i <span class="keyword">int</span> = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;i.type:&quot;</span>, reflect.TypeOf(i))</span><br><span class="line">	fmt.Println(<span class="string">&quot;i.value:&quot;</span>, reflect.ValueOf(i))</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">i</span><span class="selector-class">.type</span>: int</span><br><span class="line"><span class="selector-tag">i</span><span class="selector-class">.value</span>: <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4E0B;&#x9762;&#x5206;&#x522B;&#x770B;&#x4E0B;TypeOf&#x548C;ValueOf&#x7684;&#x6E90;&#x7801;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TypeOf returns the reflection Type that represents the dynamic type of i.</span></span><br><span class="line"><span class="comment">// If i is a nil interface value, TypeOf returns nil.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TypeOf</span><span class="params">(i <span class="keyword">interface</span>{})</span> <span class="title">Type</span></span> {</span><br><span class="line">	eface := *(*emptyInterface)(unsafe.Pointer(&amp;i))</span><br><span class="line">	<span class="keyword">return</span> toType(eface.typ)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ValueOf returns a new Value initialized to the concrete value</span></span><br><span class="line"><span class="comment">// stored in the interface i. ValueOf(nil) returns the zero Value.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ValueOf</span><span class="params">(i <span class="keyword">interface</span>{})</span> <span class="title">Value</span></span> {</span><br><span class="line">	<span class="keyword">if</span> i == <span class="literal">nil</span> {</span><br><span class="line">		<span class="keyword">return</span> Value{}</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span> Maybe allow contents of a Value to live on the stack.</span></span><br><span class="line">	<span class="comment">// For now we make the contents always escape to the heap. It</span></span><br><span class="line">	<span class="comment">// makes life easier in a few places (see chanrecv/mapassign</span></span><br><span class="line">	<span class="comment">// comment below).</span></span><br><span class="line">	escapes(i)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> unpackEface(i)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4ECE;&#x6E90;&#x7801;&#x53EF;&#x4EE5;&#x5F88;&#x6E05;&#x695A;&#x7684;&#x770B;&#x5230;&#xFF0C;&#x5B83;&#x4EEC;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5206;&#x522B;&#x662F;Type&#x7C7B;&#x578B;&#x548C;Value&#x7C7B;&#x578B;&#x3002;Type&#x5373;&#x53CD;&#x5C04;&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x8868;&#x793A;&#x5165;&#x53C2;&#x7684;&#x52A8;&#x6001;&#x7C7B;&#x578B;&#xFF1B;Value&#x5373;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x5165;&#x53C2;&#x7684;&#x771F;&#x5B9E;&#x503C;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x90A3;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53CD;&#x5C04;&#x53EF;&#x4EE5;&#x5C06;&#x201C;&#x63A5;&#x53E3;&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#x201D;&#x8F6C;&#x6362;&#x4E3A;&#x201C;&#x53CD;&#x5C04;&#x7C7B;&#x578B;&#x5BF9;&#x8C61;&#x201D;&#x3002;</p>
+<p>&#x65E2;&#x7136;&#x5982;&#x6B64;&#xFF0C;&#x90A3;&#x600E;&#x6837;&#x53D6;&#x5F97;interface&#x91CC;&#x7684;&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x548C;&#x503C;&#x5462;&#xFF1F;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;</p>
+<h3 id="&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;"><a href="#&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;" class="headerlink" title="&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;"></a>&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;</h3><p>&#x5982;&#x679C;&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x901A;&#x8FC7;reflect.ValueOf&#x540E;&#xFF0C;&#x5F97;&#x5230;reflect.Value&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#xFF0C;&#x518D;&#x901A;&#x8FC7;&#x5B83;&#x7684;interface&#x65B9;&#x6CD5;&#x83B7;&#x5F97;&#x63A5;&#x53E3;&#x53D8;&#x91CF;&#x7684;&#x771F;&#x5B9E;&#x5185;&#x5BB9;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x4E3A;&#x539F;&#x6709;&#x771F;&#x5B9E;&#x7C7B;&#x578B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> f <span class="keyword">float32</span> = <span class="number">3.14</span></span><br><span class="line">	<span class="keyword">var</span> f1 <span class="keyword">float32</span> = <span class="number">3.14</span></span><br><span class="line"></span><br><span class="line">	r_value := reflect.ValueOf(f)</span><br><span class="line">	r_value_p := reflect.ValueOf(&amp;f1)</span><br><span class="line">	c_value := r_value.Interface().(<span class="keyword">float32</span>)</span><br><span class="line">	c_value_p := r_value_p.Interface().(*<span class="keyword">float32</span>)</span><br><span class="line"></span><br><span class="line">	c_value = <span class="number">10.0</span></span><br><span class="line">	*c_value_p = <span class="number">20.0</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;c_value:&quot;</span>, c_value)</span><br><span class="line">	fmt.Println(<span class="string">&quot;c_value_p:&quot;</span>, c_value_p)</span><br><span class="line">	fmt.Println(<span class="string">&quot;f:&quot;</span>, f)</span><br><span class="line">	fmt.Println(<span class="string">&quot;f1:&quot;</span>, f1)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">c_value:</span> <span class="number">10</span></span><br><span class="line"><span class="symbol">c_value_p:</span> <span class="number">0xc000054058</span></span><br><span class="line"><span class="symbol">f:</span> <span class="number">3.14</span></span><br><span class="line"><span class="symbol">f1:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE3;&#x7801;&#x7B2C;12&#x884C;&#x548C;13&#x884C;&#xFF0C;&#x5206;&#x522B;&#x5C06;&#x53D8;&#x91CF;f&#x548C;f1&#x7684;&#x5730;&#x5740;&#x8F6C;&#x6362;&#x6210;reflect.Value&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#x540E;&#xFF0C;&#x518D;&#x4F7F;&#x7528;Interface()&#x65B9;&#x6CD5;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x6210;float32&#x548C;*float32&#x7C7B;&#x578B;&#xFF0C;&#x4EE3;&#x7801;&#x7B2C;17&#x884C;&#x548C;18&#x884C;&#xFF0C;&#x518D;&#x5206;&#x522B;&#x5BF9;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x540E;&#x7684;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x7B2C;22&#x884C;&#x548C;23&#x884C;&#x5206;&#x522B;&#x8F93;&#x51FA;f&#x548C;f1&#x7684;&#x503C;&#xFF0C;&#x901A;&#x8FC7;&#x8F93;&#x51FA;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x673A;&#x5236;&#xFF0C;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x53D6;&#x5F97;&#x539F;&#x6570;&#x636E;&#x7684;&#x503C;&#xFF0C;&#x8FD8;&#x80FD;&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x503C;&#x3002;</p>
+<h3 id="&#x672A;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;"><a href="#&#x672A;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;" class="headerlink" title="&#x672A;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;"></a>&#x672A;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;</h3><p>&#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x662F;&#x5728;&#x4E0D;&#x77E5;&#x9053;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x7684;&#x3002;&#x90A3;&#x5982;&#x4F55;&#x53D6;&#x5F97;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x548C;&#x7C7B;&#x578B;&#xFF0C;&#x5E76;&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x503C;&#x5462;&#xFF1F;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> {</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Age    <span class="keyword">int</span></span><br><span class="line">	Weight <span class="keyword">float32</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> p1 = People{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">23</span>, <span class="number">62.3</span>}</span><br><span class="line">	getValueAndTypeByReflect(p1)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getValueAndTypeByReflect</span><span class="params">(in <span class="keyword">interface</span>{})</span></span> {</span><br><span class="line">	r_type := reflect.TypeOf(in)</span><br><span class="line">	fmt.Println(r_type)</span><br><span class="line">	r_value := reflect.ValueOf(in)</span><br><span class="line">	fmt.Println(r_value)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; r_type.NumField(); i++ {</span><br><span class="line">		field := r_type.Field(i)</span><br><span class="line">		value := r_value.Field(i).Interface()</span><br><span class="line">		fmt.Printf(<span class="string">&quot;%s:%v = %v\n&quot;</span>, field.Name, field.Type, value)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">main.People</span><br><span class="line">{xiaobaiyuan <span class="number">23</span> <span class="number">62.3</span>}</span><br><span class="line"><span class="symbol">Name:</span>string = xiaobaiyuan</span><br><span class="line"><span class="symbol">Age:</span>int = <span class="number">23</span></span><br><span class="line"><span class="symbol">Weight:</span>float32 = <span class="number">62.3</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0A;&#xFF0C;&#x901A;&#x8FC7;&#x904D;&#x5386;&#xFF0C;&#x83B7;&#x5F97;&#x4E86;struct&#x7C7B;&#x578B;&#x53D8;&#x91CF;p1&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x7C7B;&#x578B;&#x548C;&#x503C;&#x3002;</p>
+<p>&#x80FD;&#x5426;&#x83B7;&#x5F97;&#x7ED1;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#x5462;&#xFF1F;&#x5728;&#x4EE5;&#x4E0A;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x589E;&#x52A0;&#x65B9;&#x6CD5;&#x7ED1;&#x5B9A;&#xFF0C;&#x518D;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> {</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Age    <span class="keyword">int</span></span><br><span class="line">	Weight <span class="keyword">float32</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p People)</span> <span class="title">show</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;show:&quot;</span>, p.Name, p.Age, p.Weight)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	p1 := People{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">23</span>, <span class="number">62.3</span>}</span><br><span class="line">	getValueAndTypeByReflect(p1)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getValueAndTypeByReflect</span><span class="params">(in <span class="keyword">interface</span>{})</span></span> {</span><br><span class="line">	r_type := reflect.TypeOf(in)</span><br><span class="line">	fmt.Println(r_type)</span><br><span class="line">	r_value := reflect.ValueOf(in)</span><br><span class="line">	fmt.Println(r_value)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; r_type.NumField(); i++ {</span><br><span class="line">		field := r_type.Field(i)</span><br><span class="line">		value := r_value.Field(i).Interface()</span><br><span class="line">		fmt.Printf(<span class="string">&quot;%s:%v = %v\n&quot;</span>, field.Name, field.Type, value)</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;NumMethod:&quot;</span>, r_type.NumMethod())</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; r_type.NumMethod(); i++ {</span><br><span class="line">		method := r_type.Method(i)</span><br><span class="line">		fmt.Printf(<span class="string">&quot;%s:%v\n&quot;</span>, method.Name, method.Type)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">main.People</span><br><span class="line">{xiaobaiyuan <span class="number">23</span> <span class="number">62.3</span>}</span><br><span class="line"><span class="symbol">Name:</span>string = xiaobaiyuan</span><br><span class="line"><span class="symbol">Age:</span>int = <span class="number">23</span></span><br><span class="line"><span class="symbol">Weight:</span>float32 = <span class="number">62.3</span></span><br><span class="line"><span class="symbol">NumMethod:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x589E;&#x52A0;&#x4E86;show()&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x901A;&#x8FC7;Type.NumMethod()&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#x6570;&#x91CF;&#x65F6;&#xFF0C;&#x8FD4;&#x56DE;&#x503C;&#x4E3A;0&#x3002;&#x800C;&#x5982;&#x679C;&#x5C06;&#x65B9;&#x6CD5;&#x540D;&#x4FEE;&#x6539;&#x4E3A;Show()&#xFF0C;&#x5219;&#x8F93;&#x51FA;&#x53D8;&#x4E3A;&#xFF1A;</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main.People</span><br><span class="line">{xiaobaiyuan <span class="number">23</span> <span class="number">62.3</span>}</span><br><span class="line"><span class="symbol">Name:</span>string = xiaobaiyuan</span><br><span class="line"><span class="symbol">Age:</span>int = <span class="number">23</span></span><br><span class="line"><span class="symbol">Weight:</span>float32 = <span class="number">62.3</span></span><br><span class="line"><span class="symbol">NumMethod:</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">Show:</span>func(main.People)</span><br></pre></td></tr></table></figure>
+
+<p>&#x7531;&#x6B64;&#x53EF;&#x89C1;&#xFF0C;&#x53EA;&#x6709;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x88AB;&#x5916;&#x90E8;&#x8C03;&#x7528;&#xFF08;&#x9996;&#x5B57;&#x6BCD;&#x5927;&#x5199;&#xFF09;&#x65F6;&#xFF0C;&#x53CD;&#x5C04;&#x624D;&#x80FD;&#x6B63;&#x786E;&#x8BC6;&#x522B;&#x5230;&#x5B83;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x5185;&#x5BB9;"><a href="#&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x5185;&#x5BB9;" class="headerlink" title="&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x5185;&#x5BB9;"></a>&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x7684;&#x5185;&#x5BB9;</h3><p>&#x4E4B;&#x524D;&#x5728;&#x5DF2;&#x77E5;&#x539F;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x65F6;&#xFF0C;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x539F;&#x6570;&#x636E;&#x6307;&#x9488;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x539F;&#x6570;&#x636E;&#x5185;&#x5BB9;&#x3002;&#x5176;&#x5B9E;&#x5BF9;&#x539F;&#x6570;&#x636E;&#x7684;&#x91CD;&#x65B0;&#x8D4B;&#x503C;&#x6709;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> f <span class="keyword">float32</span> = <span class="number">3.14</span></span><br><span class="line">	rValuePoint := reflect.ValueOf(&amp;f) <span class="comment">//&#x6B64;&#x5904;&#x5FC5;&#x987B;&#x4E3A;&#x6307;&#x9488;&#x7C7B;&#x578B;&#x624D;&#x80FD;&#x4FEE;&#x6539;</span></span><br><span class="line"></span><br><span class="line">	newValue := rValuePoint.Elem()</span><br><span class="line">	newValue.SetFloat(<span class="number">10.0</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(f)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;Elem()&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x6307;&#x9488;&#x6307;&#x5411;&#x7684;&#x6570;&#x636E;&#x5185;&#x5BB9;&#xFF0C;&#x518D;&#x901A;&#x8FC7;SetXX&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x539F;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x8D4B;&#x503C;&#x4E86;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7B2C;10&#x884C;&#x53D6;&#x7684;&#x4E0D;&#x662F;&#x5730;&#x5740;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6267;&#x884C;&#x7B2C;12&#x884C;&#x8BED;&#x53E5;&#x65F6;&#xFF0C;&#x4F1A;&#x5F15;&#x53D1;panic&#xFF0C;&#x4EE5;&#x9632;&#x4E07;&#x4E00;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5C3D;&#x53EF;&#x80FD;&#x5B8C;&#x6574;&#x7684;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8C03;&#x7528;CanSet()&#x65B9;&#x6CD5;&#x5224;&#x65AD;&#x662F;&#x5426;&#x80FD;&#x5BF9;&#x539F;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x8D4B;&#x503C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> f <span class="keyword">float32</span> = <span class="number">3.14</span></span><br><span class="line">	rValuePoint := reflect.ValueOf(f)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> rValuePoint.CanSet() {</span><br><span class="line">		newValue := rValuePoint.Elem()</span><br><span class="line">		newValue.SetFloat(<span class="number">10.0</span>)</span><br><span class="line">		fmt.Println(f)</span><br><span class="line">	} <span class="keyword">else</span> {</span><br><span class="line">		fmt.Println(<span class="string">&quot;Can not Reset!&quot;</span>)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can <span class="keyword">not</span> Reset!</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B9;&#x6CD5;"><a href="#&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B9;&#x6CD5;" class="headerlink" title="&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B9;&#x6CD5;"></a>&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B9;&#x6CD5;</h3><p>&#x7EE7;&#x7EED;&#x4EE5;People&#x7ED3;&#x6784;&#x4F53;&#x4E3A;&#x4F8B;&#xFF0C;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x5B83;&#x7684;Show()&#x65B9;&#x6CD5;&#x5462;&#xFF1F;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> People <span class="keyword">struct</span> {</span><br><span class="line">	Name   <span class="keyword">string</span></span><br><span class="line">	Age    <span class="keyword">int</span></span><br><span class="line">	Weight <span class="keyword">float32</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p People)</span> <span class="title">Show</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;Show:&quot;</span>, p.Name, p.Age, p.Weight)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p People)</span> <span class="title">ToString</span><span class="params">(name <span class="keyword">string</span>, age <span class="keyword">int</span>, wei <span class="keyword">float32</span>)</span></span> {</span><br><span class="line">	p.Name = name</span><br><span class="line">	p.Age = age</span><br><span class="line">	p.Weight = wei</span><br><span class="line"></span><br><span class="line">	p.Show()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">var</span> p = People{<span class="string">&quot;xiaobaiyuan&quot;</span>, <span class="number">23</span>, <span class="number">62.3</span>}</span><br><span class="line"></span><br><span class="line">	rType := reflect.TypeOf(p)</span><br><span class="line">	rValue := reflect.ValueOf(p)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; rType.NumMethod(); i++ {</span><br><span class="line">		m := rType.Method(i)</span><br><span class="line">		fmt.Printf(<span class="string">&quot;%s:%v\n&quot;</span>, m.Name, m.Type)</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	mValue := rValue.MethodByName(rType.Method(<span class="number">0</span>).Name)</span><br><span class="line">	mValue.Call(<span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">	args := []reflect.Value{reflect.ValueOf(<span class="string">&quot;xiaobaiyuan1&quot;</span>), reflect.ValueOf(<span class="number">28</span>), reflect.ValueOf(<span class="keyword">float32</span>(<span class="number">66.0</span>))}</span><br><span class="line">	mValue = rValue.MethodByName(rType.Method(<span class="number">1</span>).Name)</span><br><span class="line">	mValue.Call(args)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Show:<span class="function"><span class="keyword">func</span><span class="params">(main.People)</span></span></span><br><span class="line"><span class="function"><span class="title">ToString</span>:<span class="title">func</span><span class="params">(main.People, <span class="keyword">string</span>, <span class="keyword">int</span>, <span class="keyword">float32</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">Show</span>: <span class="title">xiaobaiyuan</span> 23 62.3</span></span><br><span class="line"><span class="function"><span class="title">Show</span>: <span class="title">xiaobaiyuan1</span> 28 66</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="&#x56DB;&#x3001;&#x5E76;&#x53D1;-Concurrency"><a href="#&#x56DB;&#x3001;&#x5E76;&#x53D1;-Concurrency" class="headerlink" title="&#x56DB;&#x3001;&#x5E76;&#x53D1;(Concurrency)"></a>&#x56DB;&#x3001;&#x5E76;&#x53D1;(Concurrency)</h2><h3 id="&#x534F;&#x7A0B;-goroutine"><a href="#&#x534F;&#x7A0B;-goroutine" class="headerlink" title="&#x534F;&#x7A0B;(goroutine)"></a>&#x534F;&#x7A0B;(goroutine)</h3><p>&#x76F8;&#x4FE1;&#x5F88;&#x591A;&#x6700;&#x521D;&#x60F3;&#x5B66;go&#x8BED;&#x8A00;&#x5F00;&#x53D1;&#x7684;&#x670B;&#x53CB;&#xFF0C;&#x90FD;&#x662F;&#x88AB;&#x5B83;&#x5BA3;&#x4F20;&#x7684;&#x539F;&#x751F;&#x652F;&#x6301;&#x9AD8;&#x5E76;&#x53D1;&#x5904;&#x7406;&#x6240;&#x5438;&#x5F15;&#xFF0C;&#x6BD5;&#x7ADF;&#x5728;&#x73B0;&#x5728;&#x79FB;&#x52A8;&#x4E92;&#x8054;&#x7F51;&#x8C03;&#x8BD5;&#x53D1;&#x8FBE;&#x7684;&#x65F6;&#x4EE3;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5E76;&#x53D1;&#x5904;&#x7406;&#x6548;&#x7387;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x3002;go&#x8BED;&#x8A00;&#x5B8C;&#x6210;&#x5B9E;&#x73B0;&#x5E76;&#x53D1;&#x7684;&#x673A;&#x5236;&#x662F;goroutine&#xFF0C;&#x5B83;&#x662F;&#x6BD4;&#x7EBF;&#x7A0B;&#x66F4;&#x5C0F;&#x7684;&#x8C03;&#x8BD5;&#x5355;&#x5143;&#x3002;</p>
+<p>&#x534F;&#x7A0B;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x662F;&#x4F7F;&#x7528;go&#x5173;&#x952E;&#x5B57;&#x8C03;&#x7528;&#x76F8;&#x5E94;&#x7684;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="keyword">go</span> run()</span><br><span class="line">	time.Sleep(time.Second * <span class="number">2</span>)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;xiaobaiyuan go go go!&quot;</span>)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xiaobaiyuan <span class="keyword">go</span> <span class="keyword">go</span> <span class="keyword">go</span>!</span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0A;&#x793A;&#x4F8B;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x5E76;&#x53D1;&#x7A0B;&#x5E8F;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x589E;&#x52A0;&#x7B2C;10&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x662F;&#x4E0D;&#x4F1A;&#x6709;&#x8F93;&#x51FA;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x8C03;&#x7528;run&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x8FD8;&#x6CA1;&#x6765;&#x5F97;&#x53CA;&#x8F93;&#x51FA;&#xFF0C;main&#x51FD;&#x6570;&#x5C31;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x4E86;&#x3002;</p>
+<h3 id="&#x901A;&#x9053;-channel"><a href="#&#x901A;&#x9053;-channel" class="headerlink" title="&#x901A;&#x9053;(channel)"></a>&#x901A;&#x9053;(channel)</h3><p>channel&#x7684;&#x51E0;&#x4E2A;&#x7279;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>channel&#x662F;goroutine&#x6C9F;&#x901A;&#x7684;&#x6865;&#x6881;</p>
+<p>channel&#x4F7F;&#x7528;make&#x521B;&#x5EFA;&#xFF0C;close&#x5173;&#x95ED;</p>
+<p>channel&#x662F;&#x5F15;&#x7528;&#x7C7B;&#x578B;</p>
+<p>channel&#x53EF;&#x4EE5;&#x4F7F;&#x7528;for range&#x8FED;&#x4EE3;&#x64CD;&#x4F5C;</p>
+<p>channel&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x5355;&#x5411;&#x901A;&#x9053;&#x6216;&#x8005;&#x53CC;&#x5411;&#x901A;&#x9053;</p>
+<p>channel&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x7F13;&#x51B2;&#x5927;&#x5C0F;</p>
+</blockquote>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#x53EF;&#x4EE5;&#x6539;&#x4E3A;&#x4F7F;&#x7528;channel&#x6765;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">chan</span> <span class="keyword">bool</span> <span class="comment">//&#x58F0;&#x660E;&#x4E00;&#x4E2A;bool&#x578B;channel&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	c = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>) <span class="comment">//&#x5206;&#x914D;&#x7A7A;&#x95F4;</span></span><br><span class="line">	<span class="keyword">go</span> run()</span><br><span class="line">	&lt;-c <span class="comment">//&#x68C0;&#x67E5;channel&#x7684;&#x503C;&#xFF0C;&#x4E3A;false&#x65F6;&#x963B;&#x585E;&#xFF0C;&#x4E3A;true&#x65F6;&#x8FD4;&#x56DE;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span></span> {</span><br><span class="line">	fmt.Println(<span class="string">&quot;xiaobaiyuan go go go!&quot;</span>)</span><br><span class="line">	c &lt;- <span class="literal">true</span> <span class="comment">//&#x5C06;channel&#x8BBE;&#x7F6E;&#x4E3A;true</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xiaobaiyuan <span class="keyword">go</span> <span class="keyword">go</span> <span class="keyword">go</span>!</span><br></pre></td></tr></table></figure>
+
+<p>&#x7ED3;&#x679C;&#x4E00;&#x81F4;&#x3002;</p>
+<p>&#x5728;&#x521B;&#x5EFA;channel&#x65F6;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C31;&#x662F;&#x963B;&#x585E;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x5982;&#x679C;&#x5411;channel&#x4E2D;&#x6709;&#x53D1;&#x9001;&#x4E86;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x53EA;&#x6709;&#x5F53;channel&#x7684;&#x6570;&#x636E;&#x88AB;&#x8BFB;&#x53D6;&#x4E4B;&#x540E;&#xFF0C;&#x624D;&#x80FD;&#x518D;&#x5411;channel&#x4E2D;&#x5199;&#x5165;&#x65B0;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x7B49;&#x5F85;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> quitChan <span class="keyword">chan</span> <span class="keyword">bool</span> <span class="comment">//&#x5B9A;&#x4E49;&#x63A7;&#x5236;&#x5E76;&#x53D1;&#x7ED3;&#x675F;&#x7684;channel</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	ChanWithNobuffer()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	&#x4F7F;&#x7528;&#x6CA1;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7684;channel</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ChanWithNobuffer</span><span class="params">()</span></span> {</span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">//&#x5B9A;&#x4E49;&#x6CA1;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7684;channel</span></span><br><span class="line">	quitChan = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>)</span><br><span class="line">	<span class="keyword">go</span> Send(c)</span><br><span class="line">	<span class="keyword">go</span> Recv(c)</span><br><span class="line"></span><br><span class="line">	&lt;-quitChan</span><br><span class="line">	<span class="built_in">close</span>(c)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5165;&#x53C2;&#x662F;&#x53EA;&#x53D1;channel</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Send</span><span class="params">(c <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ {</span><br><span class="line">		fmt.Println(<span class="string">&quot;before send:&quot;</span>, i)</span><br><span class="line">		c &lt;- i</span><br><span class="line">		fmt.Println(<span class="string">&quot;send:&quot;</span>, i)</span><br><span class="line">	}</span><br><span class="line">	quitChan &lt;- <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5165;&#x53C2;&#x662F;&#x53EA;&#x6536;channel</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Recv</span><span class="params">(c &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> c {</span><br><span class="line">		fmt.Println(<span class="string">&quot;recv:&quot;</span>, i)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">efore <span class="string">send:</span> <span class="number">0</span></span><br><span class="line"><span class="string">send:</span> <span class="number">0</span>       </span><br><span class="line">before <span class="string">send:</span> <span class="number">1</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">0</span>       </span><br><span class="line"><span class="string">recv:</span> <span class="number">1</span>       </span><br><span class="line"><span class="string">send:</span> <span class="number">1</span>       </span><br><span class="line">before <span class="string">send:</span> <span class="number">2</span></span><br><span class="line"><span class="string">send:</span> <span class="number">2</span>       </span><br><span class="line">before <span class="string">send:</span> <span class="number">3</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">2</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">3</span></span><br><span class="line"><span class="string">send:</span> <span class="number">3</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">4</span></span><br><span class="line"><span class="string">send:</span> <span class="number">4</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">5</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">4</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">5</span></span><br><span class="line"><span class="string">send:</span> <span class="number">5</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">6</span></span><br><span class="line"><span class="string">send:</span> <span class="number">6</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">7</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">6</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">7</span></span><br><span class="line"><span class="string">send:</span> <span class="number">7</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">8</span></span><br><span class="line"><span class="string">send:</span> <span class="number">8</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">9</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">8</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">9</span></span><br><span class="line"><span class="string">send:</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x4E86;&#x5E26;&#x7F13;&#x51B2;&#x533A;&#x7684;channel&#x5462;&#xFF1F;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> quitChan <span class="keyword">chan</span> <span class="keyword">bool</span> <span class="comment">//&#x5B9A;&#x4E49;&#x63A7;&#x5236;&#x5E76;&#x53D1;&#x7ED3;&#x675F;&#x7684;channel</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	quitChan = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>)</span><br><span class="line">	<span class="comment">// ChanWithNobuffer()</span></span><br><span class="line">	ChanWithBuffer()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	&#x4F7F;&#x7528;&#x6CA1;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7684;channel</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ChanWithNobuffer</span><span class="params">()</span></span> {</span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">//&#x5B9A;&#x4E49;&#x6CA1;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7684;channel</span></span><br><span class="line">	<span class="keyword">go</span> Send(c)</span><br><span class="line">	<span class="keyword">go</span> Recv(c)</span><br><span class="line"></span><br><span class="line">	&lt;-quitChan</span><br><span class="line">	<span class="built_in">close</span>(c)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	&#x4F7F;&#x7528;&#x5E26;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7684;channel</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ChanWithBuffer</span><span class="params">()</span></span> {</span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>) <span class="comment">//&#x5B9A;&#x4E49;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#x4E3A;10&#x7684;channel</span></span><br><span class="line">	<span class="keyword">go</span> Send(c)</span><br><span class="line">	<span class="keyword">go</span> Recv(c)</span><br><span class="line"></span><br><span class="line">	&lt;-quitChan</span><br><span class="line">	<span class="built_in">close</span>(c)</span><br><span class="line"></span><br><span class="line">	time.Sleep(time.Second * <span class="number">3</span>) <span class="comment">//&#x5EF6;&#x65F6;&#x540E;&#x7ED3;&#x675F;&#x7A0B;&#x5E8F;&#xFF0C;&#x5426;&#x5219;&#x65E0;&#x6CD5;&#x8F93;&#x51FA;&#x63A5;&#x6536;&#x6570;&#x636E;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5165;&#x53C2;&#x662F;&#x53EA;&#x53D1;channel</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Send</span><span class="params">(c <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ {</span><br><span class="line">		fmt.Println(<span class="string">&quot;before send:&quot;</span>, i)</span><br><span class="line">		c &lt;- i</span><br><span class="line">		fmt.Println(<span class="string">&quot;send:&quot;</span>, i)</span><br><span class="line">	}</span><br><span class="line">	quitChan &lt;- <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5165;&#x53C2;&#x662F;&#x53EA;&#x6536;channel</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Recv</span><span class="params">(c &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> c {</span><br><span class="line">		fmt.Println(<span class="string">&quot;recv:&quot;</span>, i)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">before <span class="string">send:</span> <span class="number">0</span></span><br><span class="line"><span class="string">send:</span> <span class="number">0</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">1</span></span><br><span class="line"><span class="string">send:</span> <span class="number">1</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">2</span></span><br><span class="line"><span class="string">send:</span> <span class="number">2</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">3</span></span><br><span class="line"><span class="string">send:</span> <span class="number">3</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">4</span></span><br><span class="line"><span class="string">send:</span> <span class="number">4</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">5</span></span><br><span class="line"><span class="string">send:</span> <span class="number">5</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">6</span></span><br><span class="line"><span class="string">send:</span> <span class="number">6</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">7</span></span><br><span class="line"><span class="string">send:</span> <span class="number">7</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">8</span></span><br><span class="line"><span class="string">send:</span> <span class="number">8</span></span><br><span class="line">before <span class="string">send:</span> <span class="number">9</span></span><br><span class="line"><span class="string">send:</span> <span class="number">9</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">0</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">1</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">2</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">3</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">4</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">5</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">6</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">7</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">8</span></span><br><span class="line"><span class="string">recv:</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x660E;&#x663E;&#x770B;&#x5230;&#xFF0C;&#x6570;&#x636E;&#x662F;&#x5168;&#x90E8;&#x53D1;&#x9001;&#x5B8C;&#x4E86;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x5168;&#x90E8;&#x63A5;&#x6536;&#x7684;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x53EA;&#x6709;&#x5F53;&#x7F13;&#x51B2;&#x533A;&#x5199;&#x6EE1;&#x6570;&#x636E;&#x540E;&#xFF0C;channel&#x624D;&#x4F1A;&#x963B;&#x585E;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x7F13;&#x51B2;&#x533A;&#x7A7A;&#x95F2;&#x4E0B;&#x6765;&#xFF0C;&#x624D;&#x4F1A;&#x7EE7;&#x7EED;&#x5199;&#x5165;&#x5269;&#x4E0B;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>&#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x4E2D;&#x6709;&#x591A;&#x4E2A;channel&#xFF0C;go&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E0A;&#x7EDF;&#x4E00;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x5C31;&#x662F;select&#xFF0C;&#x6709;&#x5B83;&#x5982;&#x4E0B;&#x7279;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;channel&#x7684;&#x53D1;&#x9001;&#x548C;&#x63A5;&#x6536;</p>
+<p>&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8D85;&#x65F6;&#x65F6;&#x95F4;</p>
+<p>&#x6709;&#x591A;&#x4E2A;&#x53EF;&#x7528;channel&#x65F6;&#xFF0C;&#x6309;&#x968F;&#x673A;&#x987A;&#x5E8F;&#x5904;&#x7406;</p>
+</blockquote>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	c1, c2 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>), <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">	quiteChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> {</span><br><span class="line">		<span class="keyword">for</span> {</span><br><span class="line">			<span class="keyword">select</span> {</span><br><span class="line">			<span class="keyword">case</span> v, ok := &lt;-c1:</span><br><span class="line">				<span class="keyword">if</span> !ok {</span><br><span class="line">					quiteChan &lt;- <span class="literal">true</span></span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				}</span><br><span class="line">				fmt.Println(<span class="string">&quot;c1&quot;</span>, v)</span><br><span class="line">			<span class="keyword">case</span> v, ok := &lt;-c2:</span><br><span class="line">				<span class="keyword">if</span> !ok {</span><br><span class="line">					quiteChan &lt;- <span class="literal">true</span></span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				}</span><br><span class="line">				fmt.Println(<span class="string">&quot;c2&quot;</span>, v)</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ {</span><br><span class="line">		c1 &lt;- i</span><br><span class="line">		c2 &lt;- <span class="string">&quot;Hello&quot;</span></span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="built_in">close</span>(c1)</span><br><span class="line">	<span class="built_in">close</span>(c2)</span><br><span class="line"></span><br><span class="line">	&lt;-quiteChan</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">c</span><span class="number">1</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">c</span><span class="number">2</span> Hello</span><br><span class="line"><span class="keyword">c</span><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">c</span><span class="number">2</span> Hello</span><br><span class="line"><span class="keyword">c</span><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">c</span><span class="number">2</span> Hello</span><br><span class="line"><span class="keyword">c</span><span class="number">1</span> <span class="number">3</span></span><br><span class="line"><span class="keyword">c</span><span class="number">2</span> Hello</span><br><span class="line"><span class="keyword">c</span><span class="number">1</span> <span class="number">4</span></span><br><span class="line"><span class="keyword">c</span><span class="number">2</span> Hello</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E00;&#x822C;&#x7684;&#xFF0C;&#x90FD;&#x4F1A;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x7B2C;11&#x884C;&#x548C;12&#x884C;&#x7684;for-select&#x7ED3;&#x6784;&#x6765;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;time&#x5305;&#x4E2D;&#x7684;After&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x8FD4;&#x56DE;&#x7684;&#x662F;time&#x7C7B;&#x578B;&#x7684;channel&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;select&#x6765;&#x5904;&#x7406;&#x7684;&#x3002;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">select</span> {</span><br><span class="line">	<span class="keyword">case</span> v, ok := &lt;-c:</span><br><span class="line">		<span class="keyword">if</span> ok {</span><br><span class="line">			fmt.Println(<span class="string">&quot;c&quot;</span>, v)</span><br><span class="line">		}</span><br><span class="line">	<span class="keyword">case</span> &lt;-time.After(time.Second * <span class="number">3</span>):</span><br><span class="line">		fmt.Println(<span class="string">&quot;timeout&quot;</span>)</span><br><span class="line">        <span class="built_in">close</span>(c)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">timeout</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x5411;c&#x4E2D;&#x5199;&#x5165;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x7B49;&#x5F85;3&#x79D2;&#x540E;&#xFF0C;&#x8F93;&#x51FA;&#x4E86;timeout&#x3002;</p>
+<p><strong>&#x5B66;&#x4E60;&#x8D35;&#x5728;&#x6301;&#x4E4B;&#x4EE5;&#x6052;&#xFF0C;&#x6211;&#x4EEC;&#x4E00;&#x8D77;&#x52A0;&#x6CB9;&#x5427;&#xFF01;</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go基础/" rel="tag"># go基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/27/GO基础（四）：函数、结构体/" rel="next" title="GO基础（四）：函数、结构体">
+                <i class="fa fa-chevron-left"></i> GO基础（四）：函数、结构体
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/10/SNMP协议及其应用/" rel="prev" title="GO基础（五）：方法、接口、反射、并发">
+                GO基础（五）：方法、接口、反射、并发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、方法-method"><span class="nav-number">1.</span> <span class="nav-text">一、方法(method)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法的概念"><span class="nav-number">1.1.</span> <span class="nav-text">方法的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法的定义"><span class="nav-number">1.2.</span> <span class="nav-text">方法的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型的别称"><span class="nav-number">1.3.</span> <span class="nav-text">类型的别称</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、接口-interface"><span class="nav-number">2.</span> <span class="nav-text">二、接口(interface)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口的定义"><span class="nav-number">2.1.</span> <span class="nav-text">接口的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ok-pattern模式"><span class="nav-number">2.2.</span> <span class="nav-text">ok-pattern模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空接口"><span class="nav-number">2.3.</span> <span class="nav-text">空接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、反射-reflect"><span class="nav-number">3.</span> <span class="nav-text">三、反射(reflect)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeOf和ValueOf"><span class="nav-number">3.1.</span> <span class="nav-text">TypeOf和ValueOf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已知原数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">已知原数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未知原数据类型"><span class="nav-number">3.3.</span> <span class="nav-text">未知原数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改原数据的内容"><span class="nav-number">3.4.</span> <span class="nav-text">修改原数据的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过反射调用方法"><span class="nav-number">3.5.</span> <span class="nav-text">通过反射调用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、并发-Concurrency"><span class="nav-number">4.</span> <span class="nav-text">四、并发(Concurrency)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协程-goroutine"><span class="nav-number">4.1.</span> <span class="nav-text">协程(goroutine)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通道-channel"><span class="nav-number">4.2.</span> <span class="nav-text">通道(channel)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">4.3.</span> <span class="nav-text">select</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">43.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
