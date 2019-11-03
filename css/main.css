@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fff;
+  background: #db06c9;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3157,12 +3157,12 @@ body {
 }
 .headband {
   height: 3px;
-  background: #096;
+  background: #9400d3;
 }
 .site-meta {
   padding: 20px 0;
   color: #fff;
-  background: #096;
+  background: #9400d3;
 }
 .site-subtitle {
   margin-top: 10px;
