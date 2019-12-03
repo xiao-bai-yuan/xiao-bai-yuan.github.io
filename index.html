@@ -295,6 +295,1177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/24/SpringBean(二)：装配及Spring DI(依赖注入)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/24/SpringBean(二)：装配及Spring DI(依赖注入)/" itemprop="url">SpringBean的装配及Spring DI(依赖注入)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-24T19:39:17+08:00">
+                2019-09-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:34:56+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Bean/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Bean</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="SpringBean&#x7684;&#x88C5;&#x914D;&#x53CA;Spring-DI-&#x4F9D;&#x8D56;&#x6CE8;&#x5165;"><a href="#SpringBean&#x7684;&#x88C5;&#x914D;&#x53CA;Spring-DI-&#x4F9D;&#x8D56;&#x6CE8;&#x5165;" class="headerlink" title="SpringBean&#x7684;&#x88C5;&#x914D;&#x53CA;Spring DI(&#x4F9D;&#x8D56;&#x6CE8;&#x5165;)"></a>SpringBean&#x7684;&#x88C5;&#x914D;&#x53CA;Spring DI(&#x4F9D;&#x8D56;&#x6CE8;&#x5165;)</h2><p><strong>&#x6B63;&#x6587;&#x4E4B;&#x524D;</strong></p>
+<blockquote>
+<p>&#x4E0A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x5DF2;&#x7ECF;&#x4ECB;&#x7ECD;&#x4E86; Bean &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;&#xFF0C;&#x6240;&#x4EE5;&#x4ECA;&#x5929;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x57FA;&#x4E8E;&#x4E0A;&#x4E00;&#x7BC7;&#x4E2D; Bean &#x7684;&#x4E09;&#x79CD;&#x88C5;&#x914D;&#x65B9;&#x5F0F;&#x6765;&#x8FDB;&#x4E00;&#x6B65;&#x63A2;&#x8BA8;&#xFF0C;&#x5185;&#x5BB9;&#x4E2D;&#x4F1A;&#x7A7F;&#x63D2;&#x7740;&#x57FA;&#x7840;&#x7684;&#x4F9D;&#x8D56;&#x6CE8;&#x5165;(DI)&#x7684;&#x6982;&#x5FF5;</p>
+<p>&#x4E3B;&#x8981;&#x5185;&#x5BB9;</p>
+<ol>
+<li>&#x81EA;&#x52A8;&#x88C5;&#x914D;</li>
+<li>&#x4F7F;&#x7528; XML &#x88C5;&#x914D;</li>
+<li>&#x4F7F;&#x7528; Java &#x88C5;&#x914D;</li>
+</ol>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/24/SpringBean(二)：装配及Spring DI(依赖注入)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/20/redis的安装以及使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/20/redis的安装以及使用/" itemprop="url">redis的安装以及使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T20:48:17+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:36:48+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>REmote DIctionary Server(Redis) &#x662F;&#x4E00;&#x4E2A;&#x7531;Salvatore Sanfilippo&#x5199;&#x7684;key-value&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x3002;</p>
+<p> Redis&#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x7684;&#x4F7F;&#x7528;ANSI C&#x8BED;&#x8A00;&#x7F16;&#x5199;&#x3001;&#x9075;&#x5B88;BSD&#x534F;&#x8BAE;&#x3001;&#x652F;&#x6301;&#x7F51;&#x7EDC;&#x3001;&#x53EF;&#x57FA;&#x4E8E;&#x5185;&#x5B58;&#x4EA6;&#x53EF;&#x6301;&#x4E45;&#x5316;&#x7684;&#x65E5;&#x5FD7;&#x578B;&#x3001;Key-Value&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x591A;&#x79CD;&#x8BED;&#x8A00;&#x7684;API&#x3002; </p>
+<p> &#x5B83;&#x901A;&#x5E38;&#x88AB;&#x79F0;&#x4E3A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x56E0;&#x4E3A;&#x503C;&#xFF08;value&#xFF09;&#x53EF;&#x4EE5;&#x662F; &#x5B57;&#x7B26;&#x4E32;(String), &#x54C8;&#x5E0C;(Hash), &#x5217;&#x8868;(list), &#x96C6;&#x5408;(sets) &#x548C; &#x6709;&#x5E8F;&#x96C6;&#x5408;(sorted sets)&#x7B49;&#x7C7B;&#x578B;&#x3002;</p>
+<h2 id="redis&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;"><a href="#redis&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;" class="headerlink" title="redis&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;"></a>redis&#x7684;&#x5B89;&#x88C5;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;</h2><blockquote>
+<p>redis&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x6709;&#x5F88;&#x591A;&#x8D44;&#x6599;&#x4E86;</p>
+<p>redis&#x7684;&#x5B98;&#x65B9;&#x7F51;&#x7AD9; <a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a></p>
+<p>redis&#x7684;&#x4E2D;&#x6587;&#x5B98;&#x65B9;&#x7F51;&#x7AD9; <a href="http://www.redis.cn/" target="_blank" rel="noopener">www.redis.cn/</a></p>
+<p>redis&#x57FA;&#x7840;&#x5B66;&#x4E60; <a href="https://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-tutorial.html</a></p>
+<p>Redis &#x5728;&#x7EBF;&#x6D4B;&#x8BD5;&#xFF1A;<a href="http://try.redis.io/" target="_blank" rel="noopener">http://try.redis.io/</a></p>
+</blockquote>
+<p>&#x4EE5;&#x4E0B;&#x4E3B;&#x8981;&#x8BF4;&#x660E;&#x5B66;&#x4E60;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x3002;</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/20/redis的安装以及使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/17/Spring Bean(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/17/Spring Bean(一)/" itemprop="url">Spring Bean及Spring IOC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T11:39:17+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:35:04+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Bean/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Bean</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Spring-Bean&#x53CA;Spring-IOC"><a href="#Spring-Bean&#x53CA;Spring-IOC" class="headerlink" title="Spring Bean&#x53CA;Spring IOC"></a>Spring Bean&#x53CA;Spring IOC</h2><p><strong>1.JavaBean&#x7684;&#x6982;&#x5FF5;</strong></p>
+<p><strong>JavaBean&#x662F;&#x4EC0;&#x4E48;</strong></p>
+<p>&#x8FD9;&#x91CC;&#x7684; Bean &#x5F53;&#x7136;&#x4E0D;&#x662F;&#x76F4;&#x8BD1;&#x8FC7;&#x6765;&#x7684;&#x610F;&#x601D;&#xFF0C;&#x5173;&#x4E8E;Bean&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x767E;&#x5EA6;&#x767E;&#x79D1;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p> JavaBean &#x662F;&#x4E00;&#x79CD;JAVA&#x8BED;&#x8A00;&#x5199;&#x6210;&#x7684;&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;&#x3002;&#x4E3A;&#x5199;&#x6210;JavaBean&#xFF0C;&#x7C7B;&#x5FC5;&#x987B;&#x662F;&#x5177;&#x4F53;&#x7684;&#x548C;&#x516C;&#x5171;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x5177;&#x6709;&#x65E0;&#x53C2;&#x6570;&#x7684;&#x6784;&#x9020;&#x5668;&#x3002;JavaBean &#x901A;&#x8FC7;&#x63D0;&#x4F9B;&#x7B26;&#x5408;&#x4E00;&#x81F4;&#x6027;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x7684;&#x516C;&#x5171;&#x65B9;&#x6CD5;&#x5C06;&#x5185;&#x90E8;&#x57DF;&#x66B4;&#x9732;&#x6210;&#x5458;&#x5C5E;&#x6027;&#xFF0C;set&#x548C;get&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x3002;&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;&#x5C5E;&#x6027;&#x540D;&#x79F0;&#x7B26;&#x5408;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#xFF0C;&#x5176;&#x4ED6;Java &#x7C7B;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x81EA;&#x7701;&#x673A;&#x5236;(&#x53CD;&#x5C04;&#x673A;&#x5236;)&#x53D1;&#x73B0;&#x548C;&#x64CD;&#x4F5C;&#x8FD9;&#x4E9B;JavaBean &#x7684;&#x5C5E;&#x6027;&#x3002;&#x540D;&#x79F0;&#x4E2D;&#x7684; &#x201C;Bean&#x201D; &#x662F;&#x7528;&#x4E8E;Java&#x7684;&#x53EF;&#x91CD;&#x7528;&#x8F6F;&#x4EF6;&#x7EC4;&#x4EF6;&#x7684;&#x60EF;&#x7528;&#x53EB;&#x6CD5; &#x3002;</p>
+</blockquote>
+<p><strong>Bean&#x7684;&#x4F8B;&#x5B50;</strong></p>
+<p> 1.&#x521B;&#x5EFA;Bean&#x7C7B;</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/17/Spring Bean(一)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/13/Beego(一)：Beego框架初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/13/Beego(一)：Beego框架初识/" itemprop="url">Beego框架初识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T11:49:17+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:35:15+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Beego框架/" itemprop="url" rel="index">
+                    <span itemprop="name">Beego框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="&#x4E00;&#x3001;&#x7B80;&#x4ECB;"><a href="#&#x4E00;&#x3001;&#x7B80;&#x4ECB;" class="headerlink" title="&#x4E00;&#x3001;&#x7B80;&#x4ECB;"></a>&#x4E00;&#x3001;&#x7B80;&#x4ECB;</h2><p>&#x4EE5;golang&#x4E3A;&#x57FA;&#x7840;&#x7684;web&#x5F00;&#x53D1;&#x6846;&#x67B6;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x6311;&#x9009;&#x4E86;&#x5176;&#x4E2D;&#x7684;Beego&#x5F00;&#x59CB;&#x5B66;&#x4E60;&#xFF0C;&#x5B83;&#x7684;&#x5B98;&#x7F51;&#x5730;&#x5740;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p><a href="https://beego.me" target="_blank" rel="noopener">https://beego.me</a></p>
+</blockquote>
+<p>&#x5168;&#x4E2D;&#x6587;&#xFF0C;&#x5BF9;&#x5B66;&#x4E60;&#x4F7F;&#x7528;beego&#x6709;&#x5F88;&#x5927;&#x5E2E;&#x52A9;&#x3002;</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/13/Beego(一)：Beego框架初识/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/13/英文经典语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/13/英文经典语句/" itemprop="url">英语语句积累</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T11:49:17+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:35:32+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/英语积累/" itemprop="url" rel="index">
+                    <span itemprop="name">英语积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  167字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>1&#x3001;Be just to all, but trust not all.</strong></p>
+<p> &#x5BF9;&#x6240;&#x6709;&#x4EBA;&#x516C;&#x6B63;&#xFF0C;&#x4F46;&#x4E0D;&#x8F7B;&#x4FE1;&#x6240;&#x6709;&#x4EBA;&#x3002; </p>
+<p><strong>2&#x3001;How happy we are to meet friends from afar.</strong></p>
+<p> &#x6709;&#x670B;&#x81EA;&#x8FDC;&#x65B9;&#x6765;&#xFF0C;&#x4E0D;&#x4EA6;&#x4E50;&#x4E4E; </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/13/英文经典语句/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/13/Beego(二)：Beego框架详解controller/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/13/Beego(二)：Beego框架详解controller/" itemprop="url">Beego(二)：Beego框架详解controller</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T11:49:17+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:35:27+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Beego框架/" itemprop="url" rel="index">
+                    <span itemprop="name">Beego框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Beego-&#x4E8C;-&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller"><a href="#Beego-&#x4E8C;-&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller" class="headerlink" title="Beego(&#x4E8C;)&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller"></a>Beego(&#x4E8C;)&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller</h2><h3 id="controller&#x7684;&#x8BBE;&#x8BA1;"><a href="#controller&#x7684;&#x8BBE;&#x8BA1;" class="headerlink" title="controller&#x7684;&#x8BBE;&#x8BA1;"></a>controller&#x7684;&#x8BBE;&#x8BA1;</h3><p>&#x672C;&#x5B66;&#x4E60;&#x8BB0;&#x5F55;&#x4E3B;&#x8981;&#x53C2;&#x8003;&#x5B98;&#x65B9;&#x5F00;&#x53D1;&#x6587;&#x6863;&#xFF1A;</p>
+<blockquote>
+<p> <a href="https://beego.me/docs/mvc/controller/config.md" target="_blank" rel="noopener">https://beego.me/docs/mvc/controller/config.md</a></p>
+</blockquote>
+<h4 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="headerlink" title="&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h4><p>beego&#x9879;&#x76EE;&#x4E2D;&#xFF0C;conf&#x76EE;&#x5F55;&#x4E0B;&#x7684;app.conf&#x6587;&#x4EF6;&#x5373;&#x4E3A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;main.go&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x9996;&#x5148;&#x5BFC;&#x5165;&#x4E86;routers&#x5305;&#xFF0C;&#x6267;&#x884C;&#x4E86;routers&#x5305;&#x7684;init&#x65B9;&#x6CD5;&#xFF0C;&#x6CE8;&#x518C;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x8DEF;&#x7531;&#x3002;&#x7136;&#x540E;&#x5BFC;&#x5165;beego&#x5305;&#xFF0C;&#x540C;&#x6837;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x5148;&#x6267;&#x884C;beego&#x5305;&#x4E2D;&#x7684;init&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x5176;&#x5B9E;&#x662F;&#x5728;beego/config.go&#x4E2D;&#xFF1A;</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/13/Beego(二)：Beego框架详解controller/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/10/SNMP协议及其应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -927,8 +2098,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T22:19:18+08:00">
-                2019-11-03
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:34:42+08:00">
+                2019-12-03
               </time>
             
           </span>
@@ -1063,1167 +2234,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/08/13/GO基础二变量常量与运算符篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/13/GO基础二变量常量与运算符篇/" itemprop="url">GO基础（二）：变量、常量与运算符篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T10:49:17+08:00">
-                2019-08-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T23:15:55+08:00">
-                2019-11-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go语言/" itemprop="url" rel="index">
-                    <span itemprop="name">go语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.5k字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  22分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="&#x4E00;&#x3001;-&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;"><a href="#&#x4E00;&#x3001;-&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;" class="headerlink" title="&#x4E00;&#x3001; &#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;"></a>&#x4E00;&#x3001; &#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;</h2><h3 id="1&#x3001;&#x6574;&#x578B;"><a href="#1&#x3001;&#x6574;&#x578B;" class="headerlink" title="1&#x3001;&#x6574;&#x578B;"></a>1&#x3001;&#x6574;&#x578B;</h3><p>&#x548C;&#x5176;&#x5B83;&#x5927;&#x90E8;&#x5206;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x4E00;&#x6837;&#xFF0C;&#x5728;go&#x8BED;&#x8A00;&#x4E2D;&#xFF0C;&#x6574;&#x578B;&#x540C;&#x6837;&#x53EF;&#x5206;&#x4E3A;&#x6709;&#x7B26;&#x53F7;&#x578B;&#x548C;&#x65E0;&#x7B26;&#x53F7;&#x578B;&#x3002;&#x5176;&#x4E2D;&#xFF0C;&#x6709;&#x7B26;&#x53F7;&#x6574;&#x578B;&#x53C8;&#x5206;&#x4E3A;int8&#x3001;int16&#x3001;int32&#x548C;int64&#xFF0C;&#x540C;&#x6837;&#xFF0C;&#x65E0;&#x7B26;&#x53F7;&#x6574;&#x578B;&#x4E5F;&#x53EF;&#x5206;&#x4E3A;uint8&#x3001;uint16&#x3001;uint32&#x548C;uint64&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x8FD8;&#x6839;&#x636E;&#x4E0D;&#x540C;CPU&#x5E73;&#x53F0;&#x6709;&#x4E0D;&#x540C;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x7684;int&#x548C;uint&#x4E24;&#x79CD;&#xFF0C;&#x5728;32&#x4F4D;&#x5B57;&#x8282;&#x7801;CPU&#x4E2D;&#xFF0C;int&#x4E0E;int32&#x4E00;&#x6837;&#xFF0C;uint&#x4E0E;uint32&#x4E00;&#x6837;&#xFF0C;&#x800C;&#x5728;64&#x4F4D;&#x5B57;&#x8282;&#x7801;CPU&#x4E2D;&#xFF0C;int&#x4E0E;int64&#x4E00;&#x6837;&#xFF0C;uint&#x4E0E;uint64&#x4E00;&#x6837;&#x3002;<br>&#x5404;&#x6574;&#x578B;&#x7684;&#x53D6;&#x503C;&#x8303;&#x56F4;&#xFF1A;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/13/GO基础二变量常量与运算符篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/08/06/GO基础一环境搭建篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/06/GO基础一环境搭建篇/" itemprop="url">GO基础（一）环境搭建篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-06T10:49:17+08:00">
-                2019-08-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T23:14:35+08:00">
-                2019-11-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go语言/" itemprop="url" rel="index">
-                    <span itemprop="name">go语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  785字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>GO&#x652F;&#x6301;&#x5404;&#x79CD;&#x7CFB;&#x7EDF;&#xFF1A;linux&#x3001;windows&#x3001;MacOS&#x7B49;&#xFF0C;&#x7531;&#x4E8E;&#x73B0;&#x5728;&#x5F00;&#x53D1;&#x90FD;&#x662F;&#x5728;windwos&#x4E0B;&#x8FDB;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;windows&#x7CFB;&#x7EDF;&#x4E0B;&#x7684;&#x73AF;&#x5883;&#x642D;&#x5EFA;&#xFF0C;&#x5176;&#x5B83;&#x7CFB;&#x7EDF;&#x7684;&#x73AF;&#x5883;&#x5927;&#x540C;&#x5C0F;&#x5F02;&#xFF0C;&#x8BF7;&#x81EA;&#x884C;&#x53C2;&#x8003;&#x3002;</p>
-<h1 id="&#x4E00;&#x3001;&#x5F00;&#x53D1;&#x5305;&#x4E0B;&#x8F7D;&#x53CA;&#x5B89;&#x88C5;"><a href="#&#x4E00;&#x3001;&#x5F00;&#x53D1;&#x5305;&#x4E0B;&#x8F7D;&#x53CA;&#x5B89;&#x88C5;" class="headerlink" title="&#x4E00;&#x3001;&#x5F00;&#x53D1;&#x5305;&#x4E0B;&#x8F7D;&#x53CA;&#x5B89;&#x88C5;"></a>&#x4E00;&#x3001;&#x5F00;&#x53D1;&#x5305;&#x4E0B;&#x8F7D;&#x53CA;&#x5B89;&#x88C5;</h1><p><img src="/2019/08/06/GO&#x57FA;&#x7840;&#x4E00;&#x73AF;&#x5883;&#x642D;&#x5EFA;&#x7BC7;/1240.png" alt="1240.png"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/06/GO基础一环境搭建篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/31/Redis配置参数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/31/Redis配置参数/" itemprop="url">Redis配置参数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T10:49:17+08:00">
-                2019-07-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T22:20:36+08:00">
-                2019-11-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  12分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>Redis &#x652F;&#x6301;&#x5F88;&#x591A;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x4F46;&#x90FD;&#x6709;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</strong></p>
-<p><strong>daemonize</strong></p>
-<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C; redis &#x4E0D;&#x662F;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#xFF0C;&#x628A;&#x8BE5;&#x9879;&#x7684;&#x503C;&#x66F4;&#x6539;&#x4E3A; yes&#x3002;</p>
-<p><strong>pidfile</strong></p>
-<p>&#x5F53; Redis &#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C; Redis &#x9ED8;&#x8BA4;&#x4F1A;&#x628A; pid &#x6587;&#x4EF6;&#x653E;&#x5728;/var/run/redis.pid&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x914D;</p>
-<p>&#x7F6E;&#x5230;&#x5176;&#x4ED6;&#x5730;&#x5740;&#x3002;&#x5F53;&#x8FD0;&#x884C;&#x591A;&#x4E2A; redis &#x670D;&#x52A1;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x4E0D;&#x540C;&#x7684; pid &#x6587;&#x4EF6;&#x548C;&#x7AEF;&#x53E3;</p>
-<p><strong>bind</strong></p>
-<p>&#x6307;&#x5B9A; Redis &#x53EA;&#x63A5;&#x6536;&#x6765;&#x81EA;&#x4E8E;&#x8BE5; IP &#x5730;&#x5740;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x8FDB;&#x884C;&#x8BBE;&#x7F6E;&#xFF0C;&#x90A3;&#x4E48;&#x5C06;&#x5904;&#x7406;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x5728;</p>
-<p>&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#x6700;&#x597D;&#x8BBE;&#x7F6E;&#x8BE5;&#x9879;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/31/Redis配置参数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/30/Redis知识点集锦/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/30/Redis知识点集锦/" itemprop="url">Redis知识点集锦</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T10:49:17+08:00">
-                2019-07-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-16T16:06:24+08:00">
-                2019-09-16
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  10.5k字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  65分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Redis&#x77E5;&#x8BC6;&#x70B9;&#x96C6;&#x9526;"><a href="#Redis&#x77E5;&#x8BC6;&#x70B9;&#x96C6;&#x9526;" class="headerlink" title="Redis&#x77E5;&#x8BC6;&#x70B9;&#x96C6;&#x9526;"></a>Redis&#x77E5;&#x8BC6;&#x70B9;&#x96C6;&#x9526;</h1><blockquote>
-<p><strong>&#x4E3B;&#x8981;&#x53C2;&#x8003;&#xFF1A;</strong></p>
-<p><a href="https://msd.misuland.com/pd/3065794831805580868" target="_blank" rel="noopener">https://msd.misuland.com/pd/3065794831805580868</a></p>
-<p><a href="https://www.cnblogs.com/lanqiu5ge/p/9442837.html" target="_blank" rel="noopener">https://www.cnblogs.com/lanqiu5ge/p/9442837.html</a>    </p>
-</blockquote>
-<p><strong>&#x4E00;&#x3001;&#x4EC0;&#x4E48;&#x662F;Redis&#xFF1F;&#x7B80;&#x8FF0;&#x5B83;&#x7684;&#x4F18;&#x7F3A;&#x70B9;&#xFF1F;</strong></p>
-<p>Redis&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;Key-Value&#x7C7B;&#x578B;&#x7684;&#x5185;&#x5B58;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5F88;&#x50CF;memcached&#xFF0C;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x7EDF;&#x7EDF;&#x52A0;&#x8F7D;&#x5728;&#x5185;&#x5B58;&#x5F53;&#x4E2D;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x5B9A;&#x671F;&#x901A;&#x8FC7;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x628A;&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;flush&#x5230;&#x786C;&#x76D8;&#x4E0A;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;&#x3002;</p>
-<p>&#x56E0;&#x4E3A;&#x662F;&#x7EAF;&#x5185;&#x5B58;&#x64CD;&#x4F5C;&#xFF0C;Redis&#x7684;&#x6027;&#x80FD;&#x975E;&#x5E38;&#x51FA;&#x8272;&#xFF0C;&#x6BCF;&#x79D2;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x8D85;&#x8FC7; 10&#x4E07;&#x6B21;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#xFF0C;&#x662F;&#x5DF2;&#x77E5;&#x6027;&#x80FD;&#x6700;&#x5FEB;&#x7684;Key-Value DB&#x3002;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/30/Redis知识点集锦/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/23/markdown的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/23/markdown的使用/" itemprop="url">markdown的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T10:56:23+08:00">
-                2019-07-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T22:18:42+08:00">
-                2019-11-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Github博客/" itemprop="url" rel="index">
-                    <span itemprop="name">Github博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  969字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Markdown&#x7684;&#x4F7F;&#x7528;"><a href="#Markdown&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="Markdown&#x7684;&#x4F7F;&#x7528;"></a>Markdown&#x7684;&#x4F7F;&#x7528;</h1><blockquote>
-<p>&#x5173;&#x4E8E;Markdown&#x7684;&#x4ECB;&#x7ECD;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;&#x7684;&#x8D44;&#x6599;&#x76EE;&#x524D;&#x5DF2;&#x7ECF;&#x5F88;&#x591A;&#x800C;&#x4E14;&#x5F88;&#x5168;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x5C31;&#x4E0D;&#x4E00;&#x4E00;&#x4E66;&#x5199;&#x76F8;&#x5173;&#x8BED;&#x6CD5;</p>
-<p>&#x4E3B;&#x8981;&#x5BF9;&#x641C;&#x96C6;&#x5230;&#x7684;&#x597D;&#x7684;&#x8D44;&#x6599;&#xFF0C;&#x8FDB;&#x884C;&#x5217;&#x4E3E;&#x4EE5;&#x53CA;&#x5E38;&#x7528;&#x7684;&#x7F16;&#x8F91;&#x5668;&#x7A0D;&#x5FAE;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;</p>
-</blockquote>
-<h2 id="&#x4ECB;&#x7ECD;"><a href="#&#x4ECB;&#x7ECD;" class="headerlink" title="&#x4ECB;&#x7ECD;"></a>&#x4ECB;&#x7ECD;</h2><p>Markdown&#x662F;&#x4E00;&#x79CD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x666E;&#x901A;&#x6587;&#x672C;&#x7F16;&#x8F91;&#x5668;&#x7F16;&#x5199;&#x7684;&#x6807;&#x8BB0;&#x8BED;&#x8A00;&#xFF0C;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x7684;&#x6807;&#x8BB0;&#x8BED;&#x6CD5;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x4F7F;&#x666E;&#x901A;&#x6587;&#x672C;&#x5185;&#x5BB9;&#x5177;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x683C;&#x5F0F;&#x3002;</p>
-<p>Markdown&#x5177;&#x6709;&#x4E00;&#x7CFB;&#x5217;&#x884D;&#x751F;&#x7248;&#x672C;&#xFF0C;&#x7528;&#x4E8E;&#x6269;&#x5C55;Markdown&#x7684;&#x529F;&#x80FD;&#xFF08;&#x5982;&#x8868;&#x683C;&#x3001;&#x811A;&#x6CE8;&#x3001;&#x5185;&#x5D4C;HTML&#x7B49;&#x7B49;&#xFF09;&#xFF0C;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x539F;&#x521D;&#x7684;Markdown&#x5C1A;&#x4E0D;&#x5177;&#x5907;&#xFF0C;&#x5B83;&#x4EEC;&#x80FD;&#x8BA9;Markdown&#x8F6C;&#x6362;&#x6210;&#x66F4;&#x591A;&#x7684;&#x683C;&#x5F0F;&#xFF0C;&#x4F8B;&#x5982;<a href="https://baike.baidu.com/item/LaTeX" target="_blank" rel="noopener">LaTeX</a>&#xFF0C;<a href="https://baike.baidu.com/item/Docbook" target="_blank" rel="noopener">Docbook</a>&#x3002;Markdown&#x589E;&#x5F3A;&#x7248;&#x4E2D;&#x6BD4;&#x8F83;&#x6709;&#x540D;&#x7684;&#x6709;Markdown Extra&#x3001;MultiMarkdown&#x3001; Maruku&#x7B49;&#x3002;&#x8FD9;&#x4E9B;&#x884D;&#x751F;&#x7248;&#x672C;&#x8981;&#x4E48;&#x57FA;&#x4E8E;&#x5DE5;&#x5177;&#xFF0C;&#x5982;<a href="https://baike.baidu.com/item/Pandoc" target="_blank" rel="noopener">Pandoc</a>&#xFF1B;&#x8981;&#x4E48;&#x57FA;&#x4E8E;&#x7F51;&#x7AD9;&#xFF0C;&#x5982;<a href="https://baike.baidu.com/item/GitHub" target="_blank" rel="noopener">GitHub</a>&#x548C;<a href="https://baike.baidu.com/item/Wikipedia" target="_blank" rel="noopener">Wikipedia</a>&#xFF0C;&#x5728;&#x8BED;&#x6CD5;&#x4E0A;&#x57FA;&#x672C;&#x517C;&#x5BB9;&#xFF0C;&#x4F46;&#x5728;&#x4E00;&#x4E9B;&#x8BED;&#x6CD5;&#x548C;&#x6E32;&#x67D3;&#x6548;&#x679C;&#x4E0A;&#x6709;&#x6539;&#x52A8;&#x3002;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/23/markdown的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/07/16/Next主题的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xiaobai yuan">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XiaoBai Yuan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/Next主题的使用/" itemprop="url">Next主题的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T22:18:41+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-03T23:15:28+08:00">
-                2019-11-03
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Github博客/" itemprop="url" rel="index">
-                    <span itemprop="name">Github博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4.9k字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  30分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>[TOC]</p>
-<h1 id="Next&#x4E3B;&#x9898;&#x7684;&#x4F7F;&#x7528;"><a href="#Next&#x4E3B;&#x9898;&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="Next&#x4E3B;&#x9898;&#x7684;&#x4F7F;&#x7528;"></a>Next&#x4E3B;&#x9898;&#x7684;&#x4F7F;&#x7528;</h1><p>&#x4EE5;&#x4E0B;&#x4E3B;&#x8981;&#x4E3A;&#x6211;&#x642D;&#x5EFA;hexo+Next&#x535A;&#x5BA2;&#x8FC7;&#x7A0B;&#x4E2D;&#x6240;&#x4F7F;&#x7528;&#x5230;&#x7684;&#x6240;&#x6709;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x5E0C;&#x671B;&#x53EF;&#x4EE5;&#x7ED9;&#x5927;&#x5BB6;&#x642D;&#x5EFA;hexo&#x535A;&#x5BA2;&#x5E26;&#x6765;&#x66F4;&#x591A;&#x7684;&#x4FBF;&#x5229;&#x3002;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/16/Next主题的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2271,7 +2286,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2282,7 +2297,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2293,7 +2308,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2344,7 +2359,7 @@
     
       <span class="post-meta-item-text">站点总字数&#58;</span>
     
-    <span title="站点总字数">43.7k</span>
+    <span title="站点总字数">54.9k</span>
   
 </div>
 

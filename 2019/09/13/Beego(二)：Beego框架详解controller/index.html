@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Beego,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Beego(&amp;#x4E8C;)&amp;#xFF1A;Beego&amp;#x6846;&amp;#x67B6;&amp;#x8BE6;&amp;#x89E3;controllercontroller&amp;#x7684;&amp;#x8BBE;&amp;#x8BA1;&amp;#x672C;&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x5B98;&amp;#x65B9;&amp;#x5F00;">
+<meta name="keywords" content="Beego">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Beego(二)：Beego框架详解controller">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/09/13/Beego(二)：Beego框架详解controller/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="Beego(&amp;#x4E8C;)&amp;#xFF1A;Beego&amp;#x6846;&amp;#x67B6;&amp;#x8BE6;&amp;#x89E3;controllercontroller&amp;#x7684;&amp;#x8BBE;&amp;#x8BA1;&amp;#x672C;&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x5B98;&amp;#x65B9;&amp;#x5F00;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-03T08:35:27.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Beego(二)：Beego框架详解controller">
+<meta name="twitter:description" content="Beego(&amp;#x4E8C;)&amp;#xFF1A;Beego&amp;#x6846;&amp;#x67B6;&amp;#x8BE6;&amp;#x89E3;controllercontroller&amp;#x7684;&amp;#x8BBE;&amp;#x8BA1;&amp;#x672C;&amp;#x5B66;&amp;#x4E60;&amp;#x8BB0;&amp;#x5F55;&amp;#x4E3B;&amp;#x8981;&amp;#x53C2;&amp;#x8003;&amp;#x5B98;&amp;#x65B9;&amp;#x5F00;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/09/13/Beego(二)：Beego框架详解controller/">
+
+
+
+
+
+  <title>Beego(二)：Beego框架详解controller | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/13/Beego(二)：Beego框架详解controller/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Beego(二)：Beego框架详解controller</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-13T11:49:17+08:00">
+                2019-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-03T16:35:27+08:00">
+                2019-12-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Beego框架/" itemprop="url" rel="index">
+                    <span itemprop="name">Beego框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Beego-&#x4E8C;-&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller"><a href="#Beego-&#x4E8C;-&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller" class="headerlink" title="Beego(&#x4E8C;)&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller"></a>Beego(&#x4E8C;)&#xFF1A;Beego&#x6846;&#x67B6;&#x8BE6;&#x89E3;controller</h2><h3 id="controller&#x7684;&#x8BBE;&#x8BA1;"><a href="#controller&#x7684;&#x8BBE;&#x8BA1;" class="headerlink" title="controller&#x7684;&#x8BBE;&#x8BA1;"></a>controller&#x7684;&#x8BBE;&#x8BA1;</h3><p>&#x672C;&#x5B66;&#x4E60;&#x8BB0;&#x5F55;&#x4E3B;&#x8981;&#x53C2;&#x8003;&#x5B98;&#x65B9;&#x5F00;&#x53D1;&#x6587;&#x6863;&#xFF1A;</p>
+<blockquote>
+<p> <a href="https://beego.me/docs/mvc/controller/config.md" target="_blank" rel="noopener">https://beego.me/docs/mvc/controller/config.md</a></p>
+</blockquote>
+<h4 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="headerlink" title="&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h4><p>beego&#x9879;&#x76EE;&#x4E2D;&#xFF0C;conf&#x76EE;&#x5F55;&#x4E0B;&#x7684;app.conf&#x6587;&#x4EF6;&#x5373;&#x4E3A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;main.go&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x9996;&#x5148;&#x5BFC;&#x5165;&#x4E86;routers&#x5305;&#xFF0C;&#x6267;&#x884C;&#x4E86;routers&#x5305;&#x7684;init&#x65B9;&#x6CD5;&#xFF0C;&#x6CE8;&#x518C;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x8DEF;&#x7531;&#x3002;&#x7136;&#x540E;&#x5BFC;&#x5165;beego&#x5305;&#xFF0C;&#x540C;&#x6837;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x5148;&#x6267;&#x884C;beego&#x5305;&#x4E2D;&#x7684;init&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x5176;&#x5B9E;&#x662F;&#x5728;beego/config.go&#x4E2D;&#xFF1A;</p>
+<a id="more"></a>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> {</span><br><span class="line">	BConfig = newBConfig()</span><br><span class="line">	<span class="keyword">var</span> err error</span><br><span class="line">	<span class="keyword">if</span> AppPath, err = filepath.Abs(filepath.Dir(os.Args[<span class="number">0</span>])); err != <span class="literal">nil</span> {</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	}</span><br><span class="line">	workPath, err := os.Getwd()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">var</span> filename = <span class="string">&quot;app.conf&quot;</span></span><br><span class="line">	<span class="keyword">if</span> os.Getenv(<span class="string">&quot;BEEGO_RUNMODE&quot;</span>) != <span class="string">&quot;&quot;</span> {</span><br><span class="line">		filename = os.Getenv(<span class="string">&quot;BEEGO_RUNMODE&quot;</span>) + <span class="string">&quot;.app.conf&quot;</span></span><br><span class="line">	}</span><br><span class="line">	appConfigPath = filepath.Join(workPath, <span class="string">&quot;conf&quot;</span>, filename)</span><br><span class="line">	<span class="keyword">if</span> !utils.FileExists(appConfigPath) {</span><br><span class="line">		appConfigPath = filepath.Join(AppPath, <span class="string">&quot;conf&quot;</span>, filename)</span><br><span class="line">		<span class="keyword">if</span> !utils.FileExists(appConfigPath) {</span><br><span class="line">			AppConfig = &amp;beegoAppConfig{innerConfig: config.NewFakeConfig()}</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> err = parseConfig(appConfigPath); err != <span class="literal">nil</span> {</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4ECE;&#x51FD;&#x6570;&#x4E2D;&#x53EF;&#x4EE5;&#x660E;&#x663E;&#x770B;&#x51FA;&#xFF0C;BConfig&#x3001;AppConfig&#x90FD;&#x662F;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x5176;&#x5B83;&#x5305;&#x53EF;&#x7528;&#x7684;&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x5305;&#x5185;&#x53EF;&#x7528;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3002;&#x5728;config.go&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x7B2C;118&#x884C;&#x5F00;&#x59CB;&#x5B9A;&#x4E49;&#x4E86;&#x4EE5;&#x4E0B;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x53EF;&#x4EE5;&#x8BC1;&#x5B9E;&#x4EE5;&#x4E0A;&#x5206;&#x6790;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	<span class="comment">// BConfig is the default config for Application</span></span><br><span class="line">	BConfig *Config</span><br><span class="line">	<span class="comment">// AppConfig is the instance of Config, store the config information from file</span></span><br><span class="line">	AppConfig *beegoAppConfig</span><br><span class="line">	<span class="comment">// AppPath is the absolute path to the app</span></span><br><span class="line">	AppPath <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// GlobalSessions is the instance for the session manager</span></span><br><span class="line">	GlobalSessions *session.Manager</span><br><span class="line"></span><br><span class="line">	<span class="comment">// appConfigPath is the path to the config files</span></span><br><span class="line">	appConfigPath <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// appConfigProvider is the provider for the config, default is ini</span></span><br><span class="line">	appConfigProvider = <span class="string">&quot;ini&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>init&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x8C03;&#x7528;newConfig&#x51FD;&#x6570;&#x5BF9;&#x5168;&#x5C40;&#x53D8;&#x91CF;BConfig&#x505A;&#x4E86;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5B83;&#x662F;&#x7528;&#x6765;&#x4FDD;&#x5B58;&#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x7684;&#x5404;&#x4E2A;&#x914D;&#x7F6E;&#x9879;&#x7684;&#x6570;&#x636E;&#x7684;&#x3002;&#x4E00;&#x5F00;&#x59CB;&#xFF0C;&#x5B83;&#x505A;&#x4E86;&#x5982;&#x4E0B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x8D4B;&#x503C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newBConfig</span><span class="params">()</span> *<span class="title">Config</span></span> {</span><br><span class="line">	<span class="keyword">return</span> &amp;Config{</span><br><span class="line">		AppName:             <span class="string">&quot;beego&quot;</span>,</span><br><span class="line">		RunMode:             PROD,</span><br><span class="line">		RouterCaseSensitive: <span class="literal">true</span>,</span><br><span class="line">		ServerName:          <span class="string">&quot;beegoServer:&quot;</span> + VERSION,</span><br><span class="line">		RecoverPanic:        <span class="literal">true</span>,</span><br><span class="line">		RecoverFunc:         recoverPanic,</span><br><span class="line">		CopyRequestBody:     <span class="literal">false</span>,</span><br><span class="line">		EnableGzip:          <span class="literal">false</span>,</span><br><span class="line">		MaxMemory:           <span class="number">1</span> &lt;&lt; <span class="number">26</span>, <span class="comment">//64MB</span></span><br><span class="line">		EnableErrorsShow:    <span class="literal">true</span>,</span><br><span class="line">		EnableErrorsRender:  <span class="literal">true</span>,</span><br><span class="line">		Listen: Listen{</span><br><span class="line">			Graceful:      <span class="literal">false</span>,</span><br><span class="line">			ServerTimeOut: <span class="number">0</span>,</span><br><span class="line">			ListenTCP4:    <span class="literal">false</span>,</span><br><span class="line">			EnableHTTP:    <span class="literal">true</span>,</span><br><span class="line">			AutoTLS:       <span class="literal">false</span>,</span><br><span class="line">			Domains:       []<span class="keyword">string</span>{},</span><br><span class="line">			TLSCacheDir:   <span class="string">&quot;.&quot;</span>,</span><br><span class="line">			HTTPAddr:      <span class="string">&quot;&quot;</span>,</span><br><span class="line">			HTTPPort:      <span class="number">8080</span>,</span><br><span class="line">			EnableHTTPS:   <span class="literal">false</span>,</span><br><span class="line">			HTTPSAddr:     <span class="string">&quot;&quot;</span>,</span><br><span class="line">			HTTPSPort:     <span class="number">10443</span>,</span><br><span class="line">			HTTPSCertFile: <span class="string">&quot;&quot;</span>,</span><br><span class="line">			HTTPSKeyFile:  <span class="string">&quot;&quot;</span>,</span><br><span class="line">			EnableAdmin:   <span class="literal">false</span>,</span><br><span class="line">			AdminAddr:     <span class="string">&quot;&quot;</span>,</span><br><span class="line">			AdminPort:     <span class="number">8088</span>,</span><br><span class="line">			EnableFcgi:    <span class="literal">false</span>,</span><br><span class="line">			EnableStdIo:   <span class="literal">false</span>,</span><br><span class="line">		},</span><br><span class="line">		WebConfig: WebConfig{</span><br><span class="line">			AutoRender:             <span class="literal">true</span>,</span><br><span class="line">			EnableDocs:             <span class="literal">false</span>,</span><br><span class="line">			FlashName:              <span class="string">&quot;BEEGO_FLASH&quot;</span>,</span><br><span class="line">			FlashSeparator:         <span class="string">&quot;BEEGOFLASH&quot;</span>,</span><br><span class="line">			DirectoryIndex:         <span class="literal">false</span>,</span><br><span class="line">			StaticDir:              <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>{<span class="string">&quot;/static&quot;</span>: <span class="string">&quot;static&quot;</span>},</span><br><span class="line">			StaticExtensionsToGzip: []<span class="keyword">string</span>{<span class="string">&quot;.css&quot;</span>, <span class="string">&quot;.js&quot;</span>},</span><br><span class="line">			TemplateLeft:           <span class="string">&quot;{{&quot;</span>,</span><br><span class="line">			TemplateRight:          <span class="string">&quot;}}&quot;</span>,</span><br><span class="line">			ViewsPath:              <span class="string">&quot;views&quot;</span>,</span><br><span class="line">			EnableXSRF:             <span class="literal">false</span>,</span><br><span class="line">			XSRFKey:                <span class="string">&quot;beegoxsrf&quot;</span>,</span><br><span class="line">			XSRFExpire:             <span class="number">0</span>,</span><br><span class="line">			Session: SessionConfig{</span><br><span class="line">				SessionOn:                    <span class="literal">false</span>,</span><br><span class="line">				SessionProvider:              <span class="string">&quot;memory&quot;</span>,</span><br><span class="line">				SessionName:                  <span class="string">&quot;beegosessionID&quot;</span>,</span><br><span class="line">				SessionGCMaxLifetime:         <span class="number">3600</span>,</span><br><span class="line">				SessionProviderConfig:        <span class="string">&quot;&quot;</span>,</span><br><span class="line">				SessionDisableHTTPOnly:       <span class="literal">false</span>,</span><br><span class="line">				SessionCookieLifeTime:        <span class="number">0</span>, <span class="comment">//set cookie default is the browser life</span></span><br><span class="line">				SessionAutoSetCookie:         <span class="literal">true</span>,</span><br><span class="line">				SessionDomain:                <span class="string">&quot;&quot;</span>,</span><br><span class="line">				SessionEnableSidInHTTPHeader: <span class="literal">false</span>, <span class="comment">// enable store/get the sessionId into/from http headers</span></span><br><span class="line">				SessionNameInHTTPHeader:      <span class="string">&quot;Beegosessionid&quot;</span>,</span><br><span class="line">				SessionEnableSidInURLQuery:   <span class="literal">false</span>, <span class="comment">// enable get the sessionId from Url Query params</span></span><br><span class="line">			},</span><br><span class="line">		},</span><br><span class="line">		Log: LogConfig{</span><br><span class="line">			AccessLogs:       <span class="literal">false</span>,</span><br><span class="line">			EnableStaticLogs: <span class="literal">false</span>,</span><br><span class="line">			AccessLogsFormat: <span class="string">&quot;APACHE_FORMAT&quot;</span>,</span><br><span class="line">			FileLineNum:      <span class="literal">true</span>,</span><br><span class="line">			Outputs:          <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>{<span class="string">&quot;console&quot;</span>: <span class="string">&quot;&quot;</span>},</span><br><span class="line">		},</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5728;&#x5F00;&#x53D1;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x65F6;&#xFF0C;&#x53EF;&#x914D;&#x7F6E;&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x5C31;&#x53EF;&#x4EE5;&#x4ECE;&#x4E0A;&#x8FF0;&#x6E90;&#x4EE3;&#x7801;&#x4E2D;&#x5F97;&#x5230;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;Config&#x7684;&#x5B9A;&#x4E49;&#x6765;&#x67E5;&#x770B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Config <span class="keyword">struct</span> {</span><br><span class="line">	AppName             <span class="keyword">string</span> <span class="comment">//Application name</span></span><br><span class="line">	RunMode             <span class="keyword">string</span> <span class="comment">//Running Mode: dev | prod</span></span><br><span class="line">	RouterCaseSensitive <span class="keyword">bool</span></span><br><span class="line">	ServerName          <span class="keyword">string</span></span><br><span class="line">	RecoverPanic        <span class="keyword">bool</span></span><br><span class="line">	RecoverFunc         <span class="function"><span class="keyword">func</span><span class="params">(*context.Context)</span></span></span><br><span class="line"><span class="function">	<span class="title">CopyRequestBody</span>     <span class="title">bool</span></span></span><br><span class="line"><span class="function">	<span class="title">EnableGzip</span>          <span class="title">bool</span></span></span><br><span class="line"><span class="function">	<span class="title">MaxMemory</span>           <span class="title">int64</span></span></span><br><span class="line"><span class="function">	<span class="title">EnableErrorsShow</span>    <span class="title">bool</span></span></span><br><span class="line"><span class="function">	<span class="title">EnableErrorsRender</span>  <span class="title">bool</span></span></span><br><span class="line"><span class="function">	<span class="title">Listen</span>              <span class="title">Listen</span></span></span><br><span class="line"><span class="function">	<span class="title">WebConfig</span>           <span class="title">WebConfig</span></span></span><br><span class="line"><span class="function">	<span class="title">Log</span>                 <span class="title">LogConfig</span></span></span><br><span class="line"><span class="function">}</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5F53;&#x7136;&#xFF0C;&#x9664;&#x4E86;&#x4E0A;&#x8FF0;&#x56FA;&#x5B9A;&#x7684;&#x5B57;&#x6BB5;&#x4EE5;&#x5916;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x9700;&#x8981;&#x589E;&#x52A0;&#x7684;&#x5B57;&#x6BB5;&#xFF0C;beego&#x5C01;&#x88C5;&#x4E86;&#x8BFB;&#x53D6;&#x4FDD;&#x5B58;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5B57;&#x6BB5;&#x7684;&#x503C;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Configer <span class="keyword">interface</span> {</span><br><span class="line">	Set(key, val <span class="keyword">string</span>) error   <span class="comment">//support section::key type in given key when using ini type.</span></span><br><span class="line">	String(key <span class="keyword">string</span>) <span class="keyword">string</span>    <span class="comment">//support section::key type in key string when using ini and json type; Int,Int64,Bool,Float,DIY are same.</span></span><br><span class="line">	Strings(key <span class="keyword">string</span>) []<span class="keyword">string</span> <span class="comment">//get string slice</span></span><br><span class="line">	Int(key <span class="keyword">string</span>) (<span class="keyword">int</span>, error)</span><br><span class="line">	Int64(key <span class="keyword">string</span>) (<span class="keyword">int64</span>, error)</span><br><span class="line">	Bool(key <span class="keyword">string</span>) (<span class="keyword">bool</span>, error)</span><br><span class="line">	Float(key <span class="keyword">string</span>) (<span class="keyword">float64</span>, error)</span><br><span class="line">	DefaultString(key <span class="keyword">string</span>, defaultVal <span class="keyword">string</span>) <span class="keyword">string</span>      <span class="comment">// support section::key type in key string when using ini and json type; Int,Int64,Bool,Float,DIY are same.</span></span><br><span class="line">	DefaultStrings(key <span class="keyword">string</span>, defaultVal []<span class="keyword">string</span>) []<span class="keyword">string</span> <span class="comment">//get string slice</span></span><br><span class="line">	DefaultInt(key <span class="keyword">string</span>, defaultVal <span class="keyword">int</span>) <span class="keyword">int</span></span><br><span class="line">	DefaultInt64(key <span class="keyword">string</span>, defaultVal <span class="keyword">int64</span>) <span class="keyword">int64</span></span><br><span class="line">	DefaultBool(key <span class="keyword">string</span>, defaultVal <span class="keyword">bool</span>) <span class="keyword">bool</span></span><br><span class="line">	DefaultFloat(key <span class="keyword">string</span>, defaultVal <span class="keyword">float64</span>) <span class="keyword">float64</span></span><br><span class="line">	DIY(key <span class="keyword">string</span>) (<span class="keyword">interface</span>{}, error)</span><br><span class="line">	GetSection(section <span class="keyword">string</span>) (<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>, error)</span><br><span class="line">	SaveConfigFile(filename <span class="keyword">string</span>) error</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x65B9;&#x6CD5;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x5FEB;&#x6377;&#x7684;&#x8BFB;&#x53D6;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;&#x4E86;&#x3002;</p>
+<p>&#x521D;&#x59CB;&#x5316;BConfig&#x4E4B;&#x540E;&#xFF0C;&#x5F53;&#x7136;&#x8981;&#x5F00;&#x59CB;&#x89E3;&#x6790;&#x6BCF;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x914D;&#x7F6E;&#x4E86;&#xFF0C;&#x5373;&#x5206;&#x522B;&#x5206;&#x6790;&#x89E3;&#x6790;&#x9879;&#x76EE;&#x5355;&#x72EC;&#x7684;conf&#x76EE;&#x5F55;&#x4E0B;&#x7684;app.conf&#x6587;&#x4EF6;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x7B2C;137&#x884C;&#x83B7;&#x53D6;&#x9879;&#x76EE;&#x751F;&#x6210;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x6240;&#x5728;&#x76EE;&#x5F55;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x7B2C;140&#x884C;&#x83B7;&#x53D6;&#x9879;&#x76EE;&#x6240;&#x5728;&#x76EE;&#x5F55;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x7B2C;148&#x884C;&#x5F00;&#x59CB;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E0B;&#x7684;conf&#x76EE;&#x5F55;&#x4E0B;&#x662F;&#x5426;&#x5B58;&#x5728;app.conf&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x518D;&#x5224;&#x65AD;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x6240;&#x5728;&#x76EE;&#x5F55;&#x4E0B;&#x7684;conf&#x76EE;&#x5F55;&#x4E0B;&#x662F;&#x5426;&#x5B58;&#x5728;app.conf&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F9D;&#x7136;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x7B2C;152&#x884C;&#xFF0C;&#x5C06;beegoAppConfig&#x7684;&#x5730;&#x5740;&#x8D4B;&#x503C;&#x7ED9;&#x4E86;AppConfig&#xFF0C;&#x518D;&#x6DF1;&#x5165;&#x770B;&#x6E90;&#x7801;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> beegoAppConfig <span class="keyword">struct</span> {</span><br><span class="line">	innerConfig config.Configer</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>beegoAppConfig&#x5C31;&#x662F;config.Configer&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;&#x89E3;&#x6790;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6240;&#x9700;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x5982;&#x679C;&#x6846;&#x67B6;&#x5728;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x548C;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x8FD0;&#x884C;&#x7684;&#x76EE;&#x5F55;&#x4E0B;&#x90FD;&#x627E;&#x4E0D;&#x5230;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;AppConfig&#x3002;&#x8FD4;&#x56DE;&#x6E90;&#x7801;148&#x884C;&#x5904;&#xFF0C;&#x5982;&#x679C;&#x627E;&#x5230;&#x4E86;app.conf&#x6587;&#x4EF6;&#x5462;&#xFF1F;&#x90A3;&#x5C31;&#x6267;&#x884C;&#x7B2C;156&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x901A;&#x8FC7;AppConfig&#x5F00;&#x59CB;&#x6267;&#x884C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x89E3;&#x6790;&#x3002;</p>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x8FD8;&#x80FD;&#x518D;&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x6E90;&#x7801;&#x8FDB;&#x884C;&#x5206;&#x6790;&#xFF0C;&#x5E76;&#x4E14;&#x6E90;&#x7801;&#x4E2D;&#x7528;&#x5230;&#x53CD;&#x5C04;&#x6765;&#x5904;&#x7406;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x89E3;&#x6790;&#xFF0C;&#x7531;&#x4E8E;&#x7406;&#x89E3;&#x6DF1;&#x5EA6;&#x4E0D;&#x591F;&#xFF0C;&#x5728;&#x6B64;&#x6682;&#x4E0D;&#x505A;&#x66F4;&#x6DF1;&#x5165;&#x7684;&#x89E3;&#x6790;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x603B;&#x7ED3;&#x8D77;&#x6765;&#xFF0C;AppConfig&#x5C31;&#x662F;&#x89E3;&#x6790;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x4EE5;&#x4E0A;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5C31;&#x662F;&#x901A;&#x8FC7;AppConfig&#x6765;&#x89E3;&#x6790;&#x9879;&#x76EE;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
+<p>PS&#xFF1A;&#x4E0A;&#x8FF0;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6709;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4E0D;&#x592A;&#x6E05;&#x695A;&#x5177;&#x4F53;&#x662F;&#x505A;&#x4EC0;&#x4E48;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x7F16;&#x5199;&#x4E86;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x6765;&#x5206;&#x6790;&#x786E;&#x5B9A;&#x6846;&#x67B6;&#x6E90;&#x7801;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;path/filepath&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	AppPath       <span class="keyword">string</span></span><br><span class="line">	err           error</span><br><span class="line">	appConfigPath <span class="keyword">string</span></span><br><span class="line">	workPath      <span class="keyword">string</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="comment">//&#x83B7;&#x53D6;&#x9879;&#x76EE;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x5305;&#x542B;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x540D;</span></span><br><span class="line">	fmt.Println(os.Args[<span class="number">0</span>])</span><br><span class="line">	<span class="comment">//&#x83B7;&#x53D6;&#x9879;&#x76EE;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x4E0D;&#x5305;&#x542B;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x540D;</span></span><br><span class="line">	<span class="keyword">if</span> AppPath, err = filepath.Abs(filepath.Dir(os.Args[<span class="number">0</span>])); err != <span class="literal">nil</span> {</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	}</span><br><span class="line">	fmt.Println(<span class="string">&quot;AppPath:&quot;</span>, AppPath)</span><br><span class="line">	<span class="comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</span></span><br><span class="line">	workPath, err = os.Getwd()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	}</span><br><span class="line">	fmt.Println(<span class="string">&quot;workPath:&quot;</span>, workPath)</span><br><span class="line">	<span class="comment">//&#x7EC4;app.conf&#x6587;&#x4EF6;&#x6240;&#x5728;&#x76EE;&#x5F55;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;</span></span><br><span class="line">	appConfigPath = filepath.Join(workPath, <span class="string">&quot;conf&quot;</span>, <span class="string">&quot;app.conf&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;appConfigPath:&quot;</span>, appConfigPath)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\N</span>iou<span class="symbol">\A</span>ppData<span class="symbol">\L</span>ocal<span class="symbol">\T</span>emp<span class="symbol">\g</span>o-build306807102<span class="symbol">\b</span>001<span class="symbol">\e</span>xe<span class="symbol">\o</span>stest.exe</span><br><span class="line">AppPath: C:<span class="symbol">\U</span>sers<span class="symbol">\N</span>iou<span class="symbol">\A</span>ppData<span class="symbol">\L</span>ocal<span class="symbol">\T</span>emp<span class="symbol">\g</span>o-build306807102<span class="symbol">\b</span>001<span class="symbol">\e</span>xe</span><br><span class="line">workPath: D:<span class="symbol">\G</span>O<span class="symbol">\G</span>O_coding</span><br><span class="line">appConfigPath: D:<span class="symbol">\G</span>O<span class="symbol">\G</span>O_coding<span class="symbol">\c</span>onf<span class="symbol">\a</span>pp.conf</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;hello&#x9879;&#x76EE;&#x4E2D;&#xFF0C;app.conf&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">appname</span> = hello</span><br><span class="line"><span class="attr">httpport</span> = <span class="number">8080</span></span><br><span class="line"><span class="attr">runmode</span> = dev</span><br></pre></td></tr></table></figure>
+
+<p>&#x901A;&#x8FC7;AppConfig&#x89E3;&#x6790;&#x4E0A;&#x8FF0;&#x914D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x4FDD;&#x5B58;&#x5230;&#x5168;&#x5C40;&#x53D8;&#x91CF;BConfig&#x4E2D;&#xFF0C;&#x81F3;&#x6B64;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x89E3;&#x6790;&#x5206;&#x6790;&#x5B8C;&#x6BD5;&#x3002;</p>
+<p>&#x8FD4;&#x56DE;main.go&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5F00;&#x59CB;&#x6267;&#x884C;main&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x53EA;&#x6709;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	beego.Run()</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x540E;&#x9762;&#xFF0C;&#x518D;&#x7EE7;&#x7EED;&#x89E3;&#x6790;beego&#x6E90;&#x7801;&#xFF0C;&#x5373;Run()&#x65B9;&#x6CD5;&#x7684;&#x6267;&#x884C;&#x3002;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Beego/" rel="tag"># Beego</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/10/SNMP协议及其应用/" rel="next" title="SNMP协议及其应用">
+                <i class="fa fa-chevron-left"></i> SNMP协议及其应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/13/英文经典语句/" rel="prev" title="英语语句积累">
+                英语语句积累 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Beego-二-：Beego框架详解controller"><span class="nav-number">1.</span> <span class="nav-text">Beego(二)：Beego框架详解controller</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#controller的设计"><span class="nav-number">1.1.</span> <span class="nav-text">controller的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">配置文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">54.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
