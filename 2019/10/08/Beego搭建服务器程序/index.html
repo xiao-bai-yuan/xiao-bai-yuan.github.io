@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Beego,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1&amp;#x3001;&amp;#x5B89;&amp;#x88C5;beego&amp;#x73AF;&amp;#x5883;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x9519;&amp;#x8BEF;&amp;#x6267;&amp;#x884C;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4; 1go get -u github.com/astaxie/beego  1go get -u github.com/beego/">
+<meta name="keywords" content="Beego">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Beego搭建服务器程序">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/10/08/Beego搭建服务器程序/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="1&amp;#x3001;&amp;#x5B89;&amp;#x88C5;beego&amp;#x73AF;&amp;#x5883;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x9519;&amp;#x8BEF;&amp;#x6267;&amp;#x884C;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4; 1go get -u github.com/astaxie/beego  1go get -u github.com/beego/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-13T02:26:05.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Beego搭建服务器程序">
+<meta name="twitter:description" content="1&amp;#x3001;&amp;#x5B89;&amp;#x88C5;beego&amp;#x73AF;&amp;#x5883;&amp;#x51FA;&amp;#x73B0;&amp;#x7684;&amp;#x9519;&amp;#x8BEF;&amp;#x6267;&amp;#x884C;&amp;#x4EE5;&amp;#x4E0B;&amp;#x547D;&amp;#x4EE4; 1go get -u github.com/astaxie/beego  1go get -u github.com/beego/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/10/08/Beego搭建服务器程序/">
+
+
+
+
+
+  <title>Beego搭建服务器程序 | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/10/08/Beego搭建服务器程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Beego搭建服务器程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T12:49:17+08:00">
+                2019-10-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-13T10:26:05+08:00">
+                2020-03-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index">
+                    <span itemprop="name">go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1&#x3001;&#x5B89;&#x88C5;beego&#x73AF;&#x5883;&#x51FA;&#x73B0;&#x7684;&#x9519;&#x8BEF;"><a href="#1&#x3001;&#x5B89;&#x88C5;beego&#x73AF;&#x5883;&#x51FA;&#x73B0;&#x7684;&#x9519;&#x8BEF;" class="headerlink" title="1&#x3001;&#x5B89;&#x88C5;beego&#x73AF;&#x5883;&#x51FA;&#x73B0;&#x7684;&#x9519;&#x8BEF;"></a>1&#x3001;&#x5B89;&#x88C5;beego&#x73AF;&#x5883;&#x51FA;&#x73B0;&#x7684;&#x9519;&#x8BEF;</h3><p>&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> -<span class="keyword">u</span> github.<span class="keyword">com</span>/astaxie/beego</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> -<span class="keyword">u</span> github.<span class="keyword">com</span>/beego/bee</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> install github.<span class="keyword">com</span>/astaxie/beego</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> install github.<span class="keyword">com</span>/beego/bee</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E00;&#x76F4;&#x62A5;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;&#xFF0C;&#x6545;&#x60F3;&#x628A;&#x4EE5;&#x4E0B;&#x7684;&#x5220;&#x9664;&#xFF0C;&#x91CD;&#x65B0;&#x90E8;&#x7F72;go&#x8BED;&#x8A00;&#x73AF;&#x5883;&#x3002;</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">..<span class="regexp">/pkg/</span>mod<span class="regexp">/github.com/</span>astaxie<span class="regexp">/beego@v1.12.1/</span>grace/server.<span class="string">go:</span><span class="number">4</span>:<span class="number">2</span>: malformed module path <span class="string">&quot;context&quot;</span>: missing dot <span class="keyword">in</span> first path element</span><br></pre></td></tr></table></figure>
+
+<p>&#x6240;&#x4EE5;&#x8FDB;&#x884C;&#x5378;&#x8F7D;go&#x73AF;&#x5883;</p>
+<p>&#x5378;&#x8F7D;Go&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5C06;&#x524D;&#x9762;&#x5B89;&#x88C5;Go&#x7684;&#x4E1C;&#x897F;&#x5168;&#x90E8;&#x5220;&#x9664;&#xFF1A;</p>
+<ul>
+<li>1.&#x5220;&#x9664; go &#x76EE;&#x5F55;&#xFF1A;</li>
+</ul>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /usr/<span class="built_in">local</span>/<span class="built_in">go</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.&#x5220;&#x9664;&#x8F6F;&#x94FE;&#x63A5;&#xFF1A;</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf <span class="regexp">/usr/</span>bin<span class="regexp">/go</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x5982;&#x679C;&#x4E0D;&#x5148;&#x5378;&#x8F7D;&#xFF0C;&#x76F4;&#x63A5;&#x5B89;&#x88C5;&#xFF0C;&#x5219;&#x4F1A;&#x62A5;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;&#x3002;</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag provided <span class="keyword">but</span> <span class="keyword">not</span> defined: -goversion</span><br></pre></td></tr></table></figure>
+
+<p>&#x7ECF;&#x8FC7;&#x9A8C;&#x8BC1;&#xFF0C;&#x662F;&#x7531;&#x4E8E;go 1.13&#x7684;&#x7248;&#x672C;&#x7684;bug&#xFF0C;&#x6545;&#x5207;&#x6362;&#x5230;go&#x7684;1.12&#xFF0C;&#x7136;&#x540E;&#x5220;&#x6389;github&#x4E0B;&#x8F7D;&#x7684;&#x6240;&#x6709;&#x7684;&#x5305;&#xFF0C;&#x91CD;&#x65B0;&#x4E0B;&#x8F7D;</p>
+<p>&#x83B7;&#x53D6;&#x65B0;&#x7248;&#x672C;&#xFF1A;</p>
+<p>&#x5728;<a href="https://golang.google.cn/&#x94FE;&#x63A5;&#x4E0B;&#x8F7D;" target="_blank" rel="noopener">https://golang.google.cn/&#x94FE;&#x63A5;&#x4E0B;&#x8F7D;</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http<span class="variable">s:</span>//<span class="keyword">dl</span>.google.<span class="keyword">com</span>/<span class="keyword">go</span>/go1.<span class="number">12.16</span>.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1.<span class="number">13.7</span><span class="selector-class">.linux-amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x4E0B;&#x8F7D;bee&#x5DE5;&#x5177;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x62A5;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">go</span>: github.com/derekparker/delve<span class="variable">@v1</span>.<span class="number">3.2</span>: parsing go.<span class="attribute">mod</span>: unexpected module path <span class="string">&quot;github.com/go-delve/delve&quot;</span></span><br><span class="line"><span class="attribute">go</span>: error loading module requirements</span><br></pre></td></tr></table></figure>
+
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p><a href="http://www.678fly.cn/d/3-go-mod-bee" target="_blank" rel="noopener">http://www.678fly.cn/d/3-go-mod-bee</a></p>
+<p>&#x51FA;&#x73B0;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;&#xFF1A;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build command-line-arguments: cannot <span class="keyword">load</span> <span class="keyword">compress</span>/gzip: cannot find <span class="keyword">module</span> providing <span class="keyword">package</span> <span class="keyword">compress</span>/gzip</span><br></pre></td></tr></table></figure>
+
+<p>&#x539F;&#x56E0;&#x662F;GOROOT&#x9519;&#x8BEF;&#xFF0C;&#x8F93;&#x5165;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> GOROOT</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD8;&#x662F;&#x6709;&#x5F88;&#x591A;&#x5305;&#x4E0B;&#x8F7D;&#x4E0D;&#x4E0B;&#x6765;&#xFF0C;&#x4EE3;&#x7406;&#x6539;&#x4E3A;</p>
+<p> <code>goproxy.cn</code></p>
+<p><a href="https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/100571701" target="_blank" rel="noopener">https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/100571701</a></p>
+<p>&#x51FA;&#x73B0;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">go</span>: finding github.com/bradfitz/slice v0.<span class="number">0.0</span>-<span class="number">20180809154707</span>-<span class="number">2</span>b758aa73013</span><br><span class="line">build <span class="attribute">command-line-arguments</span>: cannot load golang.org/x/text/secure/<span class="attribute">bidirule</span>: golang.org/x/text<span class="variable">@v0</span>.<span class="number">3.2</span>: read tcp <span class="number">172.16</span>.<span class="number">160.153</span>:<span class="number">51762</span>-&gt;<span class="number">119.28</span>.<span class="number">201.50</span>:<span class="number">443</span>: <span class="attribute">read</span>: connection reset by peer</span><br></pre></td></tr></table></figure>
+
+<p>&#x53EF;&#x4EE5;&#x7528;replace&#x8FDB;&#x884C;&#x66FF;&#x4EE3;&#xFF0C;&#x767E;&#x5EA6;&#x641C;&#x7D22;&#x76F8;&#x5BF9;&#x5E94;&#x7684;GitHub&#x7684;&#x5305;</p>
+<p>&#x5E38;&#x7528;&#x7684;replace</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">replace (</span><br><span class="line"></span><br><span class="line">&#x200B;	 <span class="comment">// &#x5982;&#x679C;&#x7528;latest &#x5219;&#x4F1A;&#x56E0;&#x4E3A;V0.40&#x4EE5;&#x540E;&#x7248;&#x672C;&#x51FA;&#x73B0;&#x9700;&#x8981;cloud.google.com/go/&#x2026;&#x2026; &#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x524D;&#x4F7F;&#x7528;&#x4F4E;&#x7248;&#x672C;</span></span><br><span class="line"></span><br><span class="line">cloud.google.com/go =&gt; github.com/GoogleCloudPlatform/google-cloud-go v0<span class="number">.34</span><span class="number">.0</span>   </span><br><span class="line"></span><br><span class="line">golang.org/x/crypto =&gt; github.com/golang/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190701094942</span><span class="number">-4</span>def268fd1a4</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/exp =&gt; github.com/golang/exp v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190731235908</span>-ec7cb31e5a56</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/image =&gt; github.com/golang/image v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190802002840</span>-cff245a6509b</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/lint =&gt; github.com/golang/lint v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190409202823</span><span class="number">-959</span>b441ac422</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/mobile =&gt; github.com/golang/mobile v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190814143026</span>-e8b3e6111d02</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/mod =&gt; github.com/golang/mod v0<span class="number">.1</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/net =&gt; github.com/golang/net v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190813141303</span><span class="number">-74</span>dc4d7220e7</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/oauth2 =&gt; github.com/golang/oauth2 v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190604053449</span><span class="number">-0</span>f29369cfe45</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/sync =&gt; github.com/golang/sync v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190423024810</span><span class="number">-112230192</span>c58</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/sys =&gt; github.com/golang/sys v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190813064441</span>-fde4db37ae7a</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/text =&gt; github.com/golang/text v0<span class="number">.3</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/time =&gt; github.com/golang/time v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190308202827</span><span class="number">-9</span>d24e82272b4</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/tools =&gt; github.com/golang/tools v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190814235402</span>-ea4142463bf3</span><br><span class="line"></span><br><span class="line">&#x200B;	golang.org/x/xerrors =&gt; github.com/golang/xerrors v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190717185122</span>-a985d3407aa7</span><br><span class="line"></span><br><span class="line">&#x200B;	google.golang.org/api =&gt; github.com/googleapis/google-api-go-client v0<span class="number">.8</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">&#x200B;	google.golang.org/appengine =&gt; github.com/golang/appengine v1<span class="number">.6</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">&#x200B;	google.golang.org/genproto =&gt; github.com/ilisin/genproto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20181026194446</span><span class="number">-8</span>b5d7a19e2d9</span><br><span class="line"></span><br><span class="line">&#x200B;	google.golang.org/grpc =&gt; github.com/grpc/grpc v1<span class="number">.22</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line"></span><br><span class="line">&#x200B;	github.com/go-xorm/xorm v0<span class="number">.7</span><span class="number">.6</span> <span class="comment">// indirect</span></span><br><span class="line"></span><br><span class="line">&#x200B;	github.com/satori/go.uuid v1<span class="number">.2</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">&#x200B;	github.com/tidwall/gjson v1<span class="number">.3</span><span class="number">.2</span> <span class="comment">// indirect</span></span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>&#x51FA;&#x73B0;&#x4EE5;&#x4E0B;&#x9519;&#x8BEF;</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">go</span>: github.com/beego/bee imports</span><br><span class="line">	github.com/beego/bee/cmd imports</span><br><span class="line">	github.com/beego/bee/cmd/commands/dlv imports</span><br><span class="line">	github.com/derekparker/delve/<span class="attribute">service</span>: github.com/derekparker/delve<span class="variable">@v1</span>.<span class="number">4.0</span>: parsing go.<span class="attribute">mod</span>:</span><br><span class="line">	module declares its path <span class="attribute">as</span>: github.com/go-delve/delve</span><br><span class="line">	        but was required <span class="attribute">as</span>: github.com/derekparker/delve</span><br></pre></td></tr></table></figure>
+
+<p>&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">GO111MODULE</span>=off &amp;&amp; go <span class="builtin-name">get</span> -u github.com/beego/bee</span><br></pre></td></tr></table></figure>
+
+<p>&#x7EC8;&#x4E8E;&#x90E8;&#x7F72;&#x5B89;&#x88C5;&#x6210;&#x529F;&#x4E86;</p>
+<h3 id="&#x4E8C;&#x3001;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x603B;&#x7ED3;"><a href="#&#x4E8C;&#x3001;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x603B;&#x7ED3;" class="headerlink" title="&#x4E8C;&#x3001;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x603B;&#x7ED3;"></a>&#x4E8C;&#x3001;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x603B;&#x7ED3;</h3><p>1&#x3001;&#x8FD0;&#x884C;&#x62A5;&#x6570;&#x636E;&#x5E93;&#x9519;&#x8BEF;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x5E93;&#x76F8;&#x5173;&#x914D;&#x7F6E;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x7F51;&#x5740;&#xFF1A;<a href="https://segmentfault.com/a/1190000004695637" target="_blank" rel="noopener">https://segmentfault.com/a/1190000004695637</a></p>
+<p>2&#x3001;&#x5C0F;&#x7A0B;&#x5E8F;&#x663E;&#x793A;&#xFF0C;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;IP&#xFF0C;&#x5FC5;&#x987B;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x7ED1;&#x5B9A;&#x3002;</p>
+<p>&#x963F;&#x91CC;&#x4E91;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x6DFB;&#x52A0;:shop.yhjnl.com</p>
+<p>&#x5C0F;&#x7A0B;&#x5E8F;&#x4E5F;&#x8981;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x6DFB;&#x52A0;&#xFF1A;&#x57DF;&#x540D;&#x9700;&#x8981;&#x8FDB;&#x884C;ICP&#x5907;&#x6848;&#xFF0C;&#x5907;&#x6848;&#x641E;&#x4E86;&#x597D;&#x957F;&#x65F6;&#x95F4;&#x3002;</p>
+<p><strong>&#x516C;&#x4F17;&#x53F7;&#x6DFB;&#x52A0;&#x57DF;&#x540D;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#xFF0C;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x3002;&#x8FD9;&#x6837;&#x5728;&#x7F51;&#x9875;&#x63D0;&#x4EA4;&#x4E4B;&#x540E;&#xFF0C;&#x5FAE;&#x4FE1;&#x540E;&#x53F0;&#x4F1A;&#x53D1;&#x4E00;&#x4E2A;&#x9A8C;&#x8BC1;&#x6D88;&#x606F;&#xFF0C;&#x5230;&#x6240;&#x5728;&#x7684;&#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#xFF0C;&#x670D;&#x52A1;&#x7AEF;&#x7684;token&#x9700;&#x8981;&#x548C;&#x5FAE;&#x4FE1;&#x4E0A;&#x9762;&#x586B;&#x5199;&#x7684;token&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#x3002;</strong></p>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://www.jianshu.com/p/a60579cc8b3a" target="_blank" rel="noopener">https://www.jianshu.com/p/a60579cc8b3a</a></p>
+<p>3&#x3001;beego&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x4E4B;&#x540E;&#xFF0C;&#x4E00;&#x76F4;&#x8BBF;&#x95EE;&#x4E0D;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x76F8;&#x540C;&#x7AEF;&#x53E3;&#xFF0C;&#x7528;c&#x5199;&#x7684;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8BBF;&#x95EE;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;:&#x628A;&#x76D1;&#x542C;&#x7684;ip&#x8BBE;&#x7F6E;&#x4E3A;&#x7A7A;&#x3002;</p>
+<pre><code>beego.BConfig.WebConfig.Session.SessionOn = true
+beego.BConfig.Listen.ListenTCP4 = true
+beego.BConfig.Listen.HTTPAddr = &quot;&quot;
+beego.BConfig.Listen.HTTPPort = 8080
+
+beego.BConfig.Listen.EnableAdmin = true
+beego.BConfig.Listen.AdminAddr = &quot;&quot;
+beego.BConfig.Listen.AdminPort = 8088</code></pre><p>&#x7A0B;&#x5E8F;&#x7EC8;&#x4E8E;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x4E86;</p>
+<p>4&#x3001;&#x5148;&#x6253;&#x4E2A;&#x5305;&#x4FDD;&#x5B58;&#x4E00;&#x4E0B;</p>
+<p>tar -cvf   file.tar.gz  /*</p>
+<p>&#x89E3;&#x538B;</p>
+<p>tar  tar -xzvf file.tar.gz //&#x89E3;&#x538B;tar.gz </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Beego/" rel="tag"># Beego</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/04/项目管理软件禅道的安装与使用/" rel="next" title="项目管理软件禅道的安装与使用">
+                <i class="fa fa-chevron-left"></i> 项目管理软件禅道的安装与使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/18/英语文章学习/" rel="prev" title="英语文章学习">
+                英语文章学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装beego环境出现的错误"><span class="nav-number">1.</span> <span class="nav-text">1、安装beego环境出现的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、程序运行过程中出现的问题总结"><span class="nav-number">2.</span> <span class="nav-text">二、程序运行过程中出现的问题总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">76.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

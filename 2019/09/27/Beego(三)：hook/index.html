@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Beego,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x52FE;&amp;#x5B50;(hook)&amp;#x5B8C;&amp;#x6210;&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x52A0;&amp;#x8F7D;&amp;#x540E;&amp;#xFF0C;&amp;#x8FDB;&amp;#x5165;main&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x53EA;&amp;#x6709;&amp;#x4E00;&amp;#x6761;&amp;#x8BED;&amp;#x53E">
+<meta name="keywords" content="Beego">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BEEGO--hook">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/09/27/Beego(三)：hook/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="&amp;#x52FE;&amp;#x5B50;(hook)&amp;#x5B8C;&amp;#x6210;&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x52A0;&amp;#x8F7D;&amp;#x540E;&amp;#xFF0C;&amp;#x8FDB;&amp;#x5165;main&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x53EA;&amp;#x6709;&amp;#x4E00;&amp;#x6761;&amp;#x8BED;&amp;#x53E">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-13T02:24:03.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BEEGO--hook">
+<meta name="twitter:description" content="&amp;#x52FE;&amp;#x5B50;(hook)&amp;#x5B8C;&amp;#x6210;&amp;#x914D;&amp;#x7F6E;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x52A0;&amp;#x8F7D;&amp;#x540E;&amp;#xFF0C;&amp;#x8FDB;&amp;#x5165;main&amp;#x65B9;&amp;#x6CD5;&amp;#xFF0C;&amp;#x53EA;&amp;#x6709;&amp;#x4E00;&amp;#x6761;&amp;#x8BED;&amp;#x53E">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/09/27/Beego(三)：hook/">
+
+
+
+
+
+  <title>BEEGO--hook | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/09/27/Beego(三)：hook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BEEGO--hook</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T10:39:17+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-13T10:24:03+08:00">
+                2020-03-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index">
+                    <span itemprop="name">go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x52FE;&#x5B50;-hook"><a href="#&#x52FE;&#x5B50;-hook" class="headerlink" title="&#x52FE;&#x5B50;(hook)"></a>&#x52FE;&#x5B50;(hook)</h2><p>&#x5B8C;&#x6210;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x52A0;&#x8F7D;&#x540E;&#xFF0C;&#x8FDB;&#x5165;main&#x65B9;&#x6CD5;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x6761;&#x8BED;&#x53E5;&#xFF0C;&#x6267;&#x884C;&#x7684;&#x5B9E;&#x9645;&#x4E0A;&#x662F;beego&#x5305;&#x7684;Run()&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x5728;beego/beego.go&#x6587;&#x4EF6;&#x7684;&#x7B2C;56&#x884C;&#xFF0C;&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Run</span><span class="params">(params ...<span class="keyword">string</span>)</span></span> {</span><br><span class="line"></span><br><span class="line">	initBeforeHTTPRun()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(params) &gt; <span class="number">0</span> &amp;&amp; params[<span class="number">0</span>] != <span class="string">&quot;&quot;</span> {</span><br><span class="line">		strs := strings.Split(params[<span class="number">0</span>], <span class="string">&quot;:&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(strs) &gt; <span class="number">0</span> &amp;&amp; strs[<span class="number">0</span>] != <span class="string">&quot;&quot;</span> {</span><br><span class="line">			BConfig.Listen.HTTPAddr = strs[<span class="number">0</span>]</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(strs) &gt; <span class="number">1</span> &amp;&amp; strs[<span class="number">1</span>] != <span class="string">&quot;&quot;</span> {</span><br><span class="line">			BConfig.Listen.HTTPPort, _ = strconv.Atoi(strs[<span class="number">1</span>])</span><br><span class="line">		}</span><br><span class="line"></span><br><span class="line">		BConfig.Listen.Domains = params</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	BeeApp.Run()</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x9996;&#x5148;&#x6267;&#x884C;initBeforeHTTPRun&#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x52A0;&#x8F7D;&#x52FE;&#x5B50;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initBeforeHTTPRun</span><span class="params">()</span></span> {</span><br><span class="line">	<span class="comment">//init hooks</span></span><br><span class="line">	AddAPPStartHook(</span><br><span class="line">		registerMime,</span><br><span class="line">		registerDefaultErrorHandler,</span><br><span class="line">		registerSession,</span><br><span class="line">		registerTemplate,</span><br><span class="line">		registerAdmin,</span><br><span class="line">		registerGzip,</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, hk := <span class="keyword">range</span> hooks {</span><br><span class="line">		<span class="keyword">if</span> err := hk(); err != <span class="literal">nil</span> {</span><br><span class="line">			<span class="built_in">panic</span>(err)</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x5176;&#x4E2D;AddAPPStartHook&#x662F;&#x5C06;&#x6240;&#x6709;&#x7684;&#x51FD;&#x6570;&#x52A0;&#x8F7D;&#x5230;&#x672C;&#x5305;&#x53EF;&#x8BBF;&#x95EE;&#x7684;slice&#x4E2D;&#xFF0C;&#x5373;hooks&#xFF0C;&#x5B83;&#x5B9A;&#x4E49;&#x5728;beego/beego.go&#x7684;&#x7B2C;40&#x884C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> hookfunc <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">error</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">var</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	hooks = <span class="built_in">make</span>([]hookfunc, 0)</span> //<span class="title">hook</span> <span class="title">function</span> <span class="title">slice</span> <span class="title">to</span> <span class="title">store</span> <span class="title">the</span> <span class="title">hookfunc</span></span></span><br><span class="line"><span class="function">)</span></span><br></pre></td></tr></table></figure>
+
+<p>hookfunc&#x5373;&#x8FD4;&#x56DE;&#x503C;&#x4E3A;error&#x7684;&#x51FD;&#x6570;&#x3002;&#x4ECE;AddAPPStartHook&#x51FD;&#x6570;&#x7684;&#x5165;&#x53C2;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5B83;&#x52A0;&#x8F7D;&#x4E86;6&#x4E2A;&#x52FE;&#x5B50;&#xFF0C;&#x4E0B;&#x9762;&#x9010;&#x4E2A;&#x5206;&#x6790;&#x3002;</p>
+<h3 id="registerMime"><a href="#registerMime" class="headerlink" title="registerMime"></a>registerMime</h3><blockquote>
+<p>MIME&#xFF1A;Multipurpose Internet Mail Extensions&#x7684;&#x9996;&#x5B57;&#x6BCD;&#x7F29;&#x5199;&#xFF0C;&#x5373;&#x591A;&#x7528;&#x9014;&#x4E92;&#x8054;&#x7F51;&#x90AE;&#x4EF6;&#x6269;&#x5C55;&#x7C7B;&#x578B;&#x3002;&#x5B83;&#x7684;&#x529F;&#x80FD;&#x662F;&#x6307;&#x5B9A;&#x67D0;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#x7528;&#x67D0;&#x79CD;&#x5E94;&#x7528;&#x6253;&#x5F00;&#x3002;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;&#x8BF7;&#x53C2;&#x8003;&#x767E;&#x5EA6;&#x767E;&#x79D1;&#xFF1A;<a href="https://baike.baidu.com/item/MIME/2900607?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/MIME/2900607?fr=aladdin</a></p>
+</blockquote>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x6CE8;&#x518C;&#x7684;&#x52FE;&#x5B50;&#x662F;registerMime&#xFF0C;&#x7EE7;&#x7EED;&#x67E5;&#x770B;&#x6E90;&#x7801;&#xFF0C;&#x5B83;&#x5728;beego/hooks.go&#x6587;&#x4EF6;&#x7684;&#x7B2C;15&#x884C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">registerMime</span><span class="params">()</span> <span class="title">error</span></span> {</span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> mimemaps {</span><br><span class="line">		mime.AddExtensionType(k, v)</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x7EE7;&#x7EED;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#xFF0C;&#x5728;beego/type.go&#x7684;&#x7B2C;59&#x884C;&#x8D77;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x5185;&#x7F6E;&#x7684;mime&#x5904;&#x7406;&#x5173;&#x7CFB;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> builtinTypesLower = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>{</span><br><span class="line">	<span class="string">&quot;.css&quot;</span>:  <span class="string">&quot;text/css; charset=utf-8&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.gif&quot;</span>:  <span class="string">&quot;image/gif&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.htm&quot;</span>:  <span class="string">&quot;text/html; charset=utf-8&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.html&quot;</span>: <span class="string">&quot;text/html; charset=utf-8&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.jpg&quot;</span>:  <span class="string">&quot;image/jpeg&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.js&quot;</span>:   <span class="string">&quot;application/javascript&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.wasm&quot;</span>: <span class="string">&quot;application/wasm&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.pdf&quot;</span>:  <span class="string">&quot;application/pdf&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.png&quot;</span>:  <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.svg&quot;</span>:  <span class="string">&quot;image/svg+xml&quot;</span>,</span><br><span class="line">	<span class="string">&quot;.xml&quot;</span>:  <span class="string">&quot;text/xml; charset=utf-8&quot;</span>,</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x73B0;&#x5728;&#xFF0C;&#x5DF2;&#x7ECF;&#x4E86;&#x89E3;&#x6CE8;&#x518C;mime&#x7684;&#x76EE;&#x7684;&#x662F;&#x8BBE;&#x5B9A;&#x597D;&#x7279;&#x5B9A;&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x4E0A;&#x8FF0;&#x5E38;&#x89C1;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5DF2;&#x7ECF;&#x9ED8;&#x8BA4;&#x8BBE;&#x7F6E;&#x597D;&#x4E86;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x6846;&#x67B6;&#x5185;&#x8FD8;&#x5B9A;&#x4E49;&#x4E86;500&#x591A;&#x79CD;&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x7684;&#x5904;&#x7406;&#x5173;&#x7CFB;&#xFF0C;&#x60F3;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x67E5;&#x9605;beego/mime.go&#x6587;&#x4EF6;&#x3002;</p>
+<h3 id="registerDefaultErrorHandler"><a href="#registerDefaultErrorHandler" class="headerlink" title="registerDefaultErrorHandler"></a>registerDefaultErrorHandler</h3><p>&#x540C;&#x6837;&#x662F;&#x5728;beego/hooks.go&#x6587;&#x4EF6;&#x4E0B;&#xFF0C;&#x7B2C;23&#x884C;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x8BE5;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// register default error http handlers, 404,401,403,500 and 503.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">registerDefaultErrorHandler</span><span class="params">()</span> <span class="title">error</span></span> {</span><br><span class="line">	m := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="function"><span class="keyword">func</span><span class="params">(http.ResponseWriter, *http.Request)</span></span>{</span><br><span class="line">		<span class="string">&quot;401&quot;</span>: unauthorized,</span><br><span class="line">		<span class="string">&quot;402&quot;</span>: paymentRequired,</span><br><span class="line">		<span class="string">&quot;403&quot;</span>: forbidden,</span><br><span class="line">		<span class="string">&quot;404&quot;</span>: notFound,</span><br><span class="line">		<span class="string">&quot;405&quot;</span>: methodNotAllowed,</span><br><span class="line">		<span class="string">&quot;500&quot;</span>: internalServerError,</span><br><span class="line">		<span class="string">&quot;501&quot;</span>: notImplemented,</span><br><span class="line">		<span class="string">&quot;502&quot;</span>: badGateway,</span><br><span class="line">		<span class="string">&quot;503&quot;</span>: serviceUnavailable,</span><br><span class="line">		<span class="string">&quot;504&quot;</span>: gatewayTimeout,</span><br><span class="line">		<span class="string">&quot;417&quot;</span>: invalidxsrf,</span><br><span class="line">		<span class="string">&quot;422&quot;</span>: missingxsrf,</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> e, h := <span class="keyword">range</span> m {</span><br><span class="line">		<span class="keyword">if</span> _, ok := ErrorMaps[e]; !ok {</span><br><span class="line">			ErrorHandler(e, h)</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x76EE;&#x7684;&#x662F;&#x6CE8;&#x518C;&#x5E38;&#x89C1;&#x7684;http&#x9519;&#x8BEF;&#x7801;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x5B83;&#x9ED8;&#x8BA4;&#x5904;&#x7406;&#x4E86;http&#x7684;10&#x79CD;&#x5E38;&#x89C1;&#x9519;&#x8BEF;&#x7801;(4xx&#x548C;50x)&#x3002;&#x6BD4;&#x5982;&#x5E38;&#x89C1;&#x7684;404&#x9519;&#x8BEF;&#x7801;&#xFF0C;&#x5373;&#x8BBF;&#x95EE;&#x9875;&#x9762;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FDB;&#x5165;notFound&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x5728;beego/error.go&#x7684;&#x7B2C;275&#x884C;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">notFound</span><span class="params">(rw http.ResponseWriter, r *http.Request)</span></span> {</span><br><span class="line">	responseError(rw, r,</span><br><span class="line">		<span class="number">404</span>,</span><br><span class="line">		<span class="string">&quot;&lt;br&gt;The page you have requested has flown the coop.&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;Perhaps you are here because:&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;&lt;br&gt;&lt;ul&gt;&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;The page has moved&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;The page no longer exists&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;You were looking for your puppy and got lost&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;br&gt;You like 404 pages&quot;</span>+</span><br><span class="line">			<span class="string">&quot;&lt;/ul&gt;&quot;</span>,</span><br><span class="line">	)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>responseError&#x51FD;&#x6570;&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;&#x6E32;&#x67D3;&#x6A21;&#x677F;&#xFF0C;&#x5C31;&#x662F;&#x5728;&#x8BBF;&#x95EE;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x53BB;&#x6E32;&#x67D3;http&#x9519;&#x8BEF;&#x9875;&#x9762;&#x6700;&#x7EC8;&#x5C55;&#x793A;&#x7ED9;&#x8BBF;&#x95EE;&#x7528;&#x6237;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6574;&#x4E2A;&#x52FE;&#x5B50;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x5C31;&#x662F;&#x7ED1;&#x5B9A;http&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;&#x7801;&#x4E0E;&#x9700;&#x8981;&#x5C55;&#x793A;&#x7684;&#x9875;&#x9762;&#x3002;</p>
+<h3 id="registerSession"><a href="#registerSession" class="headerlink" title="registerSession"></a>registerSession</h3><p>session&#x673A;&#x5236;&#x5728;web&#x5E94;&#x7528;&#x4E2D;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;&#x4E86;&#x5F88;&#x957F;&#x65F6;&#x95F4;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#x673A;&#x5668;&#xFF0C;&#x4F7F;&#x7528;&#x7C7B;&#x4F3C;&#x6563;&#x5217;&#x7684;&#x7ED3;&#x6784;&#x6765;&#x5B58;&#x50A8;&#x6570;&#x636E;&#xFF0C;&#x5728;beego&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;json&#x683C;&#x5F0F;&#x6765;&#x5B58;&#x50A8;session&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x5F53;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x4E3A;&#x67D0;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x5EFA;&#x7ACB;session&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x9996;&#x5148;&#x68C0;&#x67E5;&#x8FD9;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x662F;&#x5426;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;session&#x6807;&#x8BC6;(sessionid)&#xFF0C;&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x4E2D;&#x5305;&#x542B;&#x4E86;sessionid&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x8BE5;&#x5BA2;&#x6237;&#x7AEF;&#x5DF2;&#x7ECF;&#x5EFA;&#x7ACB;&#x8FC7;session&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x6839;&#x636E;&#x8BF7;&#x6C42;&#x7684;sessionid&#x68C0;&#x7D22;&#x5BF9;&#x5E94;&#x7684;session&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x5982;&#x679C;&#x68C0;&#x7D22;&#x4E0D;&#x5230;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x91CD;&#x65B0;&#x521B;&#x5EFA;sessionid&#x3002;&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x4E2D;&#x6CA1;&#x6709;sessionid&#xFF0C;&#x90A3;&#x4E48;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x521B;&#x5EFA;&#x65B0;&#x7684;session&#xFF0C;&#x5E76;&#x5173;&#x8054;&#x4E00;&#x4E2A;&#x4E0D;&#x91CD;&#x590D;&#x7684;sessionid&#x4EE5;&#x4F9B;&#x540E;&#x7EED;&#x4F7F;&#x7528;&#x3002;</p>
+<blockquote>
+<p>&#x4E0A;&#x8FF0;&#x5185;&#x5BB9;&#x53C2;&#x8003;&#xFF1A;<a href="https://www.cnblogs.com/wangpei/p/4884840.html" target="_blank" rel="noopener">https://www.cnblogs.com/wangpei/p/4884840.html</a></p>
+</blockquote>
+<p>beego&#x4E2D;&#xFF0C;session&#x9ED8;&#x8BA4;&#x662F;&#x5173;&#x95ED;&#x7684;&#xFF08;&#x89C1;beego/config.go&#x4E2D;&#x7684;newBConfig()&#x51FD;&#x6570;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x5F00;&#x542F;session&#x529F;&#x80FD;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;main&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;&#x589E;&#x52A0;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beego.BConfig.WebConfig.Session.SessionOn = <span class="literal">true</span> <span class="comment">//beego.Run()&#x8BED;&#x53E5;&#x524D;&#x589E;&#x52A0;&#x5F00;&#x542F;session&#x529F;&#x80FD;</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x6216;&#x8005;&#x5728;app.conf&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x589E;&#x52A0;&#x4EE5;&#x4E0B;&#x914D;&#x7F6E;&#x9879;&#xFF1A;</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sessionon</span> = <span class="literal">true</span> //&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;&#x5F00;&#x542F;session&#x529F;&#x80FD;</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;beego/config.go&#x7684;94&#x884C;&#x5F00;&#x59CB;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;session&#x914D;&#x7F6E;&#x9879;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SessionConfig <span class="keyword">struct</span> {</span><br><span class="line">	SessionOn                    <span class="keyword">bool</span></span><br><span class="line">	SessionProvider              <span class="keyword">string</span></span><br><span class="line">	SessionName                  <span class="keyword">string</span></span><br><span class="line">	SessionGCMaxLifetime         <span class="keyword">int64</span></span><br><span class="line">	SessionProviderConfig        <span class="keyword">string</span></span><br><span class="line">	SessionCookieLifeTime        <span class="keyword">int</span></span><br><span class="line">	SessionAutoSetCookie         <span class="keyword">bool</span></span><br><span class="line">	SessionDomain                <span class="keyword">string</span></span><br><span class="line">	SessionDisableHTTPOnly       <span class="keyword">bool</span> <span class="comment">// used to allow for cross domain cookies/javascript cookies.</span></span><br><span class="line">	SessionEnableSidInHTTPHeader <span class="keyword">bool</span> <span class="comment">// enable store/get the sessionId into/from http headers</span></span><br><span class="line">	SessionNameInHTTPHeader      <span class="keyword">string</span></span><br><span class="line">	SessionEnableSidInURLQuery   <span class="keyword">bool</span> <span class="comment">// enable get the sessionId from Url Query params</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x6709;&#x5404;&#x914D;&#x7F6E;&#x9879;&#x7684;&#x8BF4;&#x660E;&#xFF0C;&#x4F46;&#x7531;&#x4E8E;&#x5BF9;&#x5E94;&#x7684;&#x7248;&#x672C;&#x8F83;&#x8001;&#xFF0C;&#x4E0E;&#x5F53;&#x524D;&#x7248;&#x672C;(1.12.0)&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x9879;&#x6709;&#x4E00;&#x4E9B;&#x5DEE;&#x5F02;&#xFF0C;&#x4F46;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x505A;&#x4E3A;&#x53C2;&#x8003;&#xFF0C;&#x73B0;&#x5F15;&#x7528;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x5173;&#x4E8E; Session &#x6A21;&#x5757;&#x4F7F;&#x7528;&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#xFF1A;</p>
+<ul>
+<li><p>beego.BConfig.WebConfig.Session.SessionOn</p>
+<p>&#x8BBE;&#x7F6E;&#x662F;&#x5426;&#x5F00;&#x542F; Session&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; false&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#x540D;&#xFF1A;sessionon&#x3002;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionProvider</p>
+<p>&#x8BBE;&#x7F6E; Session &#x7684;&#x5F15;&#x64CE;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F; memory&#xFF0C;&#x76EE;&#x524D;&#x652F;&#x6301;&#x8FD8;&#x6709; file&#x3001;mysql&#x3001;redis &#x7B49;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#x540D;&#xFF1A;sessionprovider&#x3002;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionName</p>
+<p>&#x8BBE;&#x7F6E; cookies &#x7684;&#x540D;&#x5B57;&#xFF0C;Session &#x9ED8;&#x8BA4;&#x662F;&#x4FDD;&#x5B58;&#x5728;&#x7528;&#x6237;&#x7684;&#x6D4F;&#x89C8;&#x5668; cookies &#x91CC;&#x9762;&#x7684;&#xFF0C;&#x9ED8;&#x8BA4;&#x540D;&#x662F; beegosessionID&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#x540D;&#x662F;&#xFF1A;sessionname&#x3002;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionGCMaxLifetime</p>
+<p>&#x8BBE;&#x7F6E; Session &#x8FC7;&#x671F;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x662F; 3600 &#x79D2;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#xFF1A;sessiongcmaxlifetime&#x3002;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionProviderConfig</p>
+<p>&#x8BBE;&#x7F6E;&#x5BF9;&#x5E94; file&#x3001;mysql&#x3001;redis &#x5F15;&#x64CE;&#x7684;&#x4FDD;&#x5B58;&#x8DEF;&#x5F84;&#x6216;&#x8005;&#x94FE;&#x63A5;&#x5730;&#x5740;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x662F;&#x7A7A;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#xFF1A;sessionproviderconfig&#x3002;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionHashFunc</p>
+<p>&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; sha1&#xFF0C;&#x91C7;&#x7528; sha1 &#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x751F;&#x4EA7; sessionid</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionHashKey</p>
+<p>&#x9ED8;&#x8BA4;&#x7684; key &#x662F; beegoserversessionkey&#xFF0C;&#x5EFA;&#x8BAE;&#x7528;&#x6237;&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#x4FEE;&#x6539;&#x8BE5;&#x53C2;&#x6570;</p>
+</li>
+<li><p>beego.BConfig.WebConfig.Session.SessionCookieLifeTime</p>
+<p>&#x8BBE;&#x7F6E; cookie &#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;cookie &#x662F;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x4FDD;&#x5B58;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+</li>
+</ul>
+</blockquote>
+<p>&#x6240;&#x4EE5;&#xFF0C;registerSession&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x914D;&#x7F6E;&#x4F7F;&#x7528;session&#x3002;</p>
+<p>&#x60F3;&#x66F4;&#x8BE6;&#x7EC6;&#x4E86;&#x89E3;beego&#x4E2D;&#x5173;&#x4E8E;session&#x7684;&#x5904;&#x7406;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;<a href="https://beego.me/docs/mvc/controller/session.md" target="_blank" rel="noopener">https://beego.me/docs/mvc/controller/session.md</a></p>
+<h4 id="json&#x6570;&#x636E;&#x5904;&#x7406;"><a href="#json&#x6570;&#x636E;&#x5904;&#x7406;" class="headerlink" title="json&#x6570;&#x636E;&#x5904;&#x7406;"></a>json&#x6570;&#x636E;&#x5904;&#x7406;</h4><p>&#x7531;&#x4E8E;session&#x4F7F;&#x7528;&#x4E86;json&#x6570;&#x636E;&#xFF0C;go&#x8BED;&#x8A00;&#x539F;&#x751F;&#x5BF9;json&#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x597D;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x73B0;&#x5728;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;go&#x8BED;&#x8A00;&#x7684;json&#x6570;&#x636E;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x5BF9;json&#x6570;&#x636E;&#xFF0C;go&#x8BED;&#x8A00;&#x63D0;&#x4F9B;&#x4E86;&#x201C;encoding/json&#x201D;&#x6807;&#x51C6;&#x5305;&#x6765;&#x5904;&#x7406;json&#x5B57;&#x6BB5;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x3002;</p>
+<p>&#x8BF7;&#x770B;&#x4EE5;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> {</span><br><span class="line">	Id <span class="keyword">uint32</span>	<span class="comment">//&#x5B66;&#x53F7;</span></span><br><span class="line">	Name <span class="keyword">string</span>	<span class="comment">//&#x59D3;&#x540D;</span></span><br><span class="line">	Age <span class="keyword">uint8</span>	<span class="comment">//&#x5E74;&#x9F84;</span></span><br><span class="line">	Sex <span class="keyword">bool</span>	<span class="comment">//&#x6027;&#x522B; true-&#x7537; false-&#x5973;</span></span><br><span class="line">	Grade <span class="keyword">uint8</span>	<span class="comment">//&#x73ED;&#x7EA7;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student1 <span class="keyword">struct</span> {</span><br><span class="line">	Id <span class="keyword">uint32</span>	<span class="string">`json:&quot;id&quot;`</span><span class="comment">//&#x5B66;&#x53F7;</span></span><br><span class="line">	Name <span class="keyword">string</span>	<span class="string">`json:&quot;name&quot;`</span><span class="comment">//&#x59D3;&#x540D;</span></span><br><span class="line">	Age <span class="keyword">uint8</span>	<span class="string">`json:&quot;age&quot;`</span><span class="comment">//&#x5E74;&#x9F84;</span></span><br><span class="line">	Sex <span class="keyword">bool</span>	<span class="string">`json:&quot;sex&quot;`</span><span class="comment">//&#x6027;&#x522B; true-&#x7537; false-&#x5973;</span></span><br><span class="line">	Grade <span class="keyword">uint8</span>	<span class="string">`json:&quot;grade&quot;`</span><span class="comment">//&#x73ED;&#x7EA7;</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x7ED3;&#x6784;&#x4F53;&#x5E8F;&#x5217;&#x5316;json&#x793A;&#x4F8B;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  {</span><br><span class="line">	<span class="keyword">var</span> stu = &amp;Student{}</span><br><span class="line">	stu.Id = <span class="number">1</span></span><br><span class="line">	stu.Name = <span class="string">&quot;xiaobaiyuan&quot;</span></span><br><span class="line">	stu.Age = <span class="number">23</span></span><br><span class="line">	stu.Sex = <span class="literal">true</span></span><br><span class="line">	stu.Grade = <span class="number">6</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> stu1 = &amp;Student1{}</span><br><span class="line">	stu1.Id = <span class="number">2</span></span><br><span class="line">	stu1.Name = <span class="string">&quot;xiaobaiyuan1&quot;</span></span><br><span class="line">	stu1.Age = <span class="number">24</span></span><br><span class="line">	stu1.Sex = <span class="literal">false</span></span><br><span class="line">	stu1.Grade = <span class="number">6</span></span><br><span class="line"></span><br><span class="line">	jStu, _ := json.Marshal(stu)</span><br><span class="line">	fmt.Println(<span class="string">&quot;stu :&quot;</span>, <span class="keyword">string</span>(jStu))</span><br><span class="line">	jStu, _ = json.Marshal(stu1)</span><br><span class="line">	fmt.Println(<span class="string">&quot;stu1:&quot;</span>, <span class="keyword">string</span>(jStu))</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">stu :</span> {<span class="string">&quot;Id&quot;</span>:<span class="number">1</span>,<span class="string">&quot;Name&quot;</span>:<span class="string">&quot;xiaobaiyuan&quot;</span>,<span class="string">&quot;Age&quot;</span>:<span class="number">23</span>,<span class="string">&quot;Sex&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;Grade&quot;</span>:<span class="number">6</span>}</span><br><span class="line"><span class="string">stu1:</span> {<span class="string">&quot;id&quot;</span>:<span class="number">2</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaobaiyuan1&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">24</span>,<span class="string">&quot;sex&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;grade&quot;</span>:<span class="number">6</span>}</span><br></pre></td></tr></table></figure>
+
+<p>&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5B9A;&#x4E49;&#x4E86;&#x4E24;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5206;&#x522B;&#x662F;Student&#x548C;Student1&#xFF0C;&#x5BF9;&#x6BD4;&#x4E24;&#x8005;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x533A;&#x522B;&#x5728;&#x4E8E;Student1&#x5728;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x540E;&#x9762;&#x52A0;&#x4E86;&#x4F7F;&#x7528;&#x201C;`&#x201D;&#x5305;&#x56F4;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5185;&#x5BB9;&#x662F;&#x4EE5;&#x201C;json:&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x5B83;&#x8868;&#x793A;&#x5C06;&#x7ED3;&#x6784;&#x4F53;&#x5E8F;&#x5217;&#x5316;&#x4E3A;json&#x6570;&#x636E;&#x65F6;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x5B57;&#x6BB5;&#x540D;&#x3002;&#x4E4B;&#x540E;&#xFF0C;&#x5206;&#x522B;&#x7ED9;&#x4E24;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#xFF0C;&#x6700;&#x540E;&#x8C03;&#x7528;json&#x6807;&#x51C6;&#x5305;&#x4E2D;&#x7684;Marshal&#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x7ED3;&#x6784;&#x4F53;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5E8F;&#x5217;&#x5316;&#x5E76;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x3002;&#x4ECE;&#x7ED3;&#x679C;&#x770B;&#x5230;&#xFF0C;&#x5728;&#x6CA1;&#x6709;&#x589E;&#x52A0;json&#x5185;&#x5BB9;&#x65F6;&#xFF0C;json&#x5B57;&#x6BB5;&#x5373;&#x4E3A;&#x53D8;&#x91CF;&#x540D;&#xFF0C;&#x800C;&#x589E;&#x52A0;&#x4E86;json&#x5185;&#x5BB9;&#x7684;&#x5B57;&#x6BB5;&#x662F;&#x540E;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x7ED3;&#x6784;&#x4F53;&#x53D8;&#x91CF;&#x7684;&#x540D;&#x79F0;&#x4EE5;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5F00;&#x5934;&#xFF0C;&#x5219;&#x8BE5;&#x53D8;&#x91CF;&#x662F;&#x4E0D;&#x4F1A;&#x88AB;&#x5E8F;&#x5217;&#x5316;&#x5230;&#x7ED3;&#x679C;&#x4E2D;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x540D;&#x90FD;&#x4EE5;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5F00;&#x5934;&#xFF0C;&#x5219;&#x6700;&#x7EC8;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x7ED3;&#x679C;&#x4E3A;&#x4E00;&#x4E2A;&#x7A7A;json&#x4E32;&#xFF0C;&#x5373;&#x201C;{}&#x201D;&#x3002;</p>
+<p>&#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x89E3;&#x6790;json&#x6570;&#x636E;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x9700;&#x8981;&#x5BF9;json&#x6570;&#x636E;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x8BF7;&#x770B;&#x4EE5;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	jsonStr := <span class="string">`{&quot;title&quot;:&quot;xiaobaiyuan&#x5B66;golang&quot;,&quot;keywords&quot;:&quot;json&#x5B66;&#x4E60;&quot;,&quot;func&quot;:[&quot;JSON&#x7F8E;&#x5316;&quot;,&quot;JSON&#x6570;&#x636E;&#x7C7B;&#x578B;&#x663E;&#x793A;&quot;,&quot;JSON&#x6570;&#x7EC4;&#x663E;&#x793A;&#x89D2;&#x6807;&quot;,&quot;&#x9AD8;&#x4EAE;&#x663E;&#x793A;&quot;,&quot;&#x9519;&#x8BEF;&#x63D0;&#x793A;&quot;]}`</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> str <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>{}</span><br><span class="line">	err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;str)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		fmt.Println(<span class="string">&quot;err:&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> str {</span><br><span class="line">        <span class="comment">// &#x4F7F;&#x7528;&#x7C7B;&#x578B;&#x65AD;&#x8A00;&#x5224;&#x65AD;json&#x5B57;&#x6BB5;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;</span></span><br><span class="line">		<span class="keyword">switch</span> vtype := v.(<span class="keyword">type</span>) {</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">string</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;string&#x5B57;&#x6BB5;:&quot;</span>, k, vtype)</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">bool</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;bool&#x5B57;&#x6BB5;&quot;</span>, k, vtype)</span><br><span class="line">		<span class="keyword">case</span> <span class="keyword">float64</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;float64&#x5B57;&#x6BB5;&quot;</span>, k, vtype)</span><br><span class="line">		<span class="keyword">case</span> <span class="literal">nil</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;nil&#x5B57;&#x6BB5;&quot;</span>, k, vtype)</span><br><span class="line">		<span class="keyword">case</span> []<span class="keyword">interface</span>{}:</span><br><span class="line">			fmt.Println(<span class="string">&quot;array&#x5B57;&#x6BB5;&quot;</span>)</span><br><span class="line">			<span class="keyword">for</span> i, j := <span class="keyword">range</span> vtype {</span><br><span class="line">				fmt.Println(<span class="string">&quot;	&quot;</span>, i, j)</span><br><span class="line">			}</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			fmt.Println(<span class="string">&quot;&#x672A;&#x77E5;&#x5B57;&#x6BB5;&quot;</span>)</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>&#x5B57;&#x6BB5;: title xiaobaiyuan&#x5B66;golang</span><br><span class="line"><span class="built_in">string</span>&#x5B57;&#x6BB5;: keywords json&#x5B66;&#x4E60;</span><br><span class="line">array&#x5B57;&#x6BB5;</span><br><span class="line">	 <span class="number">0</span> <span class="built_in">JSON</span>&#x7F8E;&#x5316;</span><br><span class="line">	 <span class="number">1</span> <span class="built_in">JSON</span>&#x6570;&#x636E;&#x7C7B;&#x578B;&#x663E;&#x793A;</span><br><span class="line">	 <span class="number">2</span> <span class="built_in">JSON</span>&#x6570;&#x7EC4;&#x663E;&#x793A;&#x89D2;&#x6807;</span><br><span class="line">	 <span class="number">3</span> &#x9AD8;&#x4EAE;&#x663E;&#x793A;</span><br><span class="line">	 <span class="number">4</span> &#x9519;&#x8BEF;&#x63D0;&#x793A;</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E00;&#x5F00;&#x59CB;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E32;json&#x6570;&#x636E;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;&#x201C;map[string]interface{}&#x201D;&#x7684;&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;json&#x5185;&#x5BB9;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x65E0;&#x8BBA;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x7684;json&#x6570;&#x636E;&#x90FD;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#x4E86;&#xFF0C;&#x6700;&#x540E;&#xFF0C;&#x8C03;&#x7528;json&#x5305;&#x4E2D;&#x7684;Unmarshal&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x4F7F;&#x7528;&#x7C7B;&#x578B;&#x65AD;&#x8A00;&#x5BF9;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;json&#x6570;&#x636E;&#x8FDB;&#x884C;&#x8F93;&#x51FA;&#x3002;</p>
+<p>&#x4E0B;&#x8868;&#x5C06;json&#x6570;&#x636E;&#x7C7B;&#x578B;&#x548C;go&#x6570;&#x636E;&#x7C7B;&#x578B;&#x603B;&#x7ED3;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th align="center">json&#x7C7B;&#x578B;</th>
+<th align="center">go&#x7C7B;&#x578B;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">strings</td>
+<td align="center">string</td>
+</tr>
+<tr>
+<td align="center">numbers</td>
+<td align="center">float64</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">bool</td>
+</tr>
+<tr>
+<td align="center">null</td>
+<td align="center">nil</td>
+</tr>
+<tr>
+<td align="center">tag:[a, b, c]&#xFF0C;&#x5373;&#x6570;&#x7EC4;&#x7C7B;&#x578B;</td>
+<td align="center">[]interface{}</td>
+</tr>
+</tbody></table>
+<p>&#x9700;&#x8981;&#x7279;&#x522B;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;json&#x4E2D;numbers&#x7C7B;&#x578B;&#xFF0C;&#x5728;go&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x662F;float64&#x7C7B;&#x578B;&#x3002;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Beego/" rel="tag"># Beego</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/27/MySql的安装以及使用/" rel="next" title="MySql的安装以及使用">
+                <i class="fa fa-chevron-left"></i> MySql的安装以及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/01/java_SpringJDBC(一)/" rel="prev" title="java 之Spring-JDBC(一)">
+                java 之Spring-JDBC(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#勾子-hook"><span class="nav-number">1.</span> <span class="nav-text">勾子(hook)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#registerMime"><span class="nav-number">1.1.</span> <span class="nav-text">registerMime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#registerDefaultErrorHandler"><span class="nav-number">1.2.</span> <span class="nav-text">registerDefaultErrorHandler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#registerSession"><span class="nav-number">1.3.</span> <span class="nav-text">registerSession</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#json数据处理"><span class="nav-number">1.3.1.</span> <span class="nav-text">json数据处理</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">76.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

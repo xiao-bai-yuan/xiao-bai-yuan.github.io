@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringJDBC,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java&amp;#x4E4B;JDBC(&amp;#x4E8C;)&amp;#x4E00;&amp;#x3001;DAO&amp;#x8BBE;&amp;#x8BA1;&amp;#x89C4;&amp;#x8303;  &amp;#x6848;&amp;#x4F8B; &amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x7F16;&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;DAO&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E">
+<meta name="keywords" content="SpringJDBC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 之Spring-JDBC(二)">
+<meta property="og:url" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/index.html">
+<meta property="og:site_name" content="XiaoBai Yuan">
+<meta property="og:description" content="Java&amp;#x4E4B;JDBC(&amp;#x4E8C;)&amp;#x4E00;&amp;#x3001;DAO&amp;#x8BBE;&amp;#x8BA1;&amp;#x89C4;&amp;#x8303;  &amp;#x6848;&amp;#x4F8B; &amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x7F16;&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;DAO&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic1.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic2.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic4.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic5.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic6.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic7.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic8.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic9.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic10.png">
+<meta property="og:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic11.png">
+<meta property="og:updated_time" content="2020-03-13T02:39:58.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 之Spring-JDBC(二)">
+<meta name="twitter:description" content="Java&amp;#x4E4B;JDBC(&amp;#x4E8C;)&amp;#x4E00;&amp;#x3001;DAO&amp;#x8BBE;&amp;#x8BA1;&amp;#x89C4;&amp;#x8303;  &amp;#x6848;&amp;#x4F8B; &amp;#x6211;&amp;#x4EEC;&amp;#x53EF;&amp;#x4EE5;&amp;#x7F16;&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;DAO&amp;#x63A5;&amp;#x53E3;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E">
+<meta name="twitter:image" content="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/java_SpringJDBC(%E4%BA%8C)/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/">
+
+
+
+
+
+  <title>java 之Spring-JDBC(二) | XiaoBai Yuan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XiaoBai Yuan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小白猿学习之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xby.yhjnl.com/2019/10/01/java_SpringJDBC(二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaobai yuan">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaobaiyuan.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XiaoBai Yuan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java 之Spring-JDBC(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-01T16:35:22+08:00">
+                2019-10-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-13T10:39:58+08:00">
+                2020-03-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Java&#x4E4B;JDBC-&#x4E8C;"><a href="#Java&#x4E4B;JDBC-&#x4E8C;" class="headerlink" title="Java&#x4E4B;JDBC(&#x4E8C;)"></a>Java&#x4E4B;JDBC(&#x4E8C;)</h2><p><strong>&#x4E00;&#x3001;DAO&#x8BBE;&#x8BA1;&#x89C4;&#x8303;</strong></p>
+<p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic1.png" alt="pic1"></p>
+<p><strong>&#x6848;&#x4F8B;</strong></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7F16;&#x5199;&#x4E00;&#x4E2A;DAO&#x63A5;&#x53E3;&#xFF0C;&#x5B9A;&#x4E49;&#x4E86;&#x5E38;&#x7528;&#x7684;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x4F1A;&#x8FDE;&#x63A5;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x6BD4;&#x5982;&#x662F;mysql &#x548C; oracle &#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5206;&#x522B;&#x5B9E;&#x73B0;oracleDao&#x548C;mysqlDao&#x4E24;&#x4E2A;&#x7C7B;&#xFF0C;&#x4E0D;&#x540C;&#x7C7B;&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#x786E;&#x5B9E;&#x76F8;&#x540C;&#x7684;&#x3002;</p>
+<p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic2.png" alt="pic2"></p>
+<p>&#x6240;&#x4EE5;&#x9762;&#x5411;&#x63A5;&#x53E3;&#x7F16;&#x7A0B;&#x662F;&#x5F88;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x8FD9;&#x4E5F;&#x7B26;&#x5408;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x516D;&#x5927;&#x539F;&#x5219;&#x4E2D;&#x7684;&#x2014;&#x4F9D;&#x8D56;&#x5012;&#x7F6E;&#x539F;&#x5219;&#x3002;&#x5373;&#xFF1A;&#x9762;&#x5411;&#x63A5;&#x53E3;&#x7684;&#x7F16;&#x7A0B;&#x3002;</p>
+<h3 id="1&#x3001;&#x7C7B;&#x547D;&#x540D;&#x89C4;&#x8303;"><a href="#1&#x3001;&#x7C7B;&#x547D;&#x540D;&#x89C4;&#x8303;" class="headerlink" title="1&#x3001;&#x7C7B;&#x547D;&#x540D;&#x89C4;&#x8303;"></a>1&#x3001;&#x7C7B;&#x547D;&#x540D;&#x89C4;&#x8303;</h3><p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic4.png" alt="pic4"></p>
+<h3 id="2&#x3001;&#x5F00;&#x53D1;&#x6B65;&#x9AA4;"><a href="#2&#x3001;&#x5F00;&#x53D1;&#x6B65;&#x9AA4;" class="headerlink" title="2&#x3001;&#x5F00;&#x53D1;&#x6B65;&#x9AA4;"></a>2&#x3001;&#x5F00;&#x53D1;&#x6B65;&#x9AA4;</h3><p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic5.png" alt="pic5"></p>
+<p>&#x76EE;&#x5F55;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic6.png" alt="pic6"></p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x7684;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<p>1.jdbcUtil&#x7C7B;&#xFF08;&#x8FD9;&#x4E2A;&#x662F;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;&#x7684;&#x7C7B;&#xFF09;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jdbc.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDBC  &#x5DE5;&#x5177;&#x7C7B;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> apple</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcUtil</span> </span>{</span><br><span class="line">    <span class="comment">// &#x914D;&#x7F6E;&#x4FE1;&#x606F;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String driverName = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String url = <span class="string">&quot;jdbc:mysql://localhost:3306/mytest&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String userName = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="comment">// &#x52A0;&#x8F7D;&#x9A71;&#x52A8;&#xFF0C;&#x56E0;&#x4E3A;&#x662F;&#x5728;static&#x5757;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x4F1A;&#x52A0;&#x8F7D;&#x4E00;&#x6B21;</span></span><br><span class="line">            Class.forName(JdbcUtil.driverName);</span><br><span class="line">        }<span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#x8FD4;&#x56DE;&#x8FDE;&#x63A5;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">return</span> DriverManager.getConnection(JdbcUtil.url, JdbcUtil.userName, JdbcUtil.password);</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x5173;&#x95ED;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x91CA;&#x653E;&#x8D44;&#x6E90;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> conn</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> st</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rs</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Connection conn, Statement st, ResultSet rs)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span>(conn!=<span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                conn.close();</span><br><span class="line">            }<span class="keyword">catch</span>(Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(st!=<span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                st.close();</span><br><span class="line">            }<span class="keyword">catch</span>(Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(rs!=<span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                rs.close();</span><br><span class="line">            }<span class="keyword">catch</span>(Exception e) {</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>2.StudentDaoImpl&#x7C7B; &#xFF08;Dao&#x5C42;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF09;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jdbc.dao.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.jdbc.dao.IStudentDao;</span><br><span class="line"><span class="keyword">import</span> com.example.jdbc.utils.JdbcUtil;</span><br><span class="line"><span class="keyword">import</span> com.example.jdcb.domain.Account;</span><br><span class="line"><span class="keyword">import</span> com.example.jdcb.domain.Student;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDaoImpl</span> <span class="keyword">implements</span> <span class="title">IStudentDao</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: &#x5B58;&#x50A8;&#x5B66;&#x751F;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Student stu)</span> </span>{</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Connection conn = <span class="keyword">null</span>;</span><br><span class="line">		PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			<span class="comment">// &#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">			conn = JdbcUtil.getConnection();</span><br><span class="line">			</span><br><span class="line">			String sql = <span class="string">&quot;insert into student (name, age) values (? , ?)&quot;</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// &#x521B;&#x5EFA;&#x9884;&#x7F16;&#x8BD1;</span></span><br><span class="line">			ps = conn.prepareStatement(sql);</span><br><span class="line">			ps.setString(<span class="number">1</span>, stu.getName());</span><br><span class="line">			ps.setInt(<span class="number">2</span>, stu.getAge());</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// &#x6267;&#x884C;&#x66F4;&#x65B0;</span></span><br><span class="line">			ps.executeUpdate();</span><br><span class="line">		} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} <span class="keyword">finally</span> {</span><br><span class="line">			JdbcUtil.close(conn, ps, <span class="keyword">null</span>);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> id)</span> </span>{</span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            conn = JdbcUtil.getConnection();</span><br><span class="line">            String sql = <span class="string">&quot;delete from student where id = ?&quot;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// &#x521B;&#x5EFA;&#x9884;&#x7F16;&#x8BD1;</span></span><br><span class="line">            ps = conn.prepareStatement(sql);</span><br><span class="line">            ps.setInt(<span class="number">1</span>,id);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// &#x6267;&#x884C;&#x66F4;&#x65B0;</span></span><br><span class="line">            ps.executeUpdate();</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        } <span class="keyword">finally</span> {</span><br><span class="line">            JdbcUtil.close(conn, ps, <span class="keyword">null</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> id, Student stu)</span> </span>{</span><br><span class="line"></span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            conn = JdbcUtil.getConnection();</span><br><span class="line">            String sql = <span class="string">&quot;update student set name=?, age=? where id = ?&quot;</span>;</span><br><span class="line">            ps = conn.prepareStatement(sql);</span><br><span class="line">            ps.setString(<span class="number">1</span>,stu.getName());</span><br><span class="line">            ps.setInt(<span class="number">2</span>,stu.getAge());</span><br><span class="line">            ps.setInt(<span class="number">3</span>,id);</span><br><span class="line">            <span class="comment">//&#x6267;&#x884C;</span></span><br><span class="line">            ps.executeUpdate();</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        } <span class="keyword">finally</span> {</span><br><span class="line">            JdbcUtil.close(conn, ps, <span class="keyword">null</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">findOne</span><span class="params">(<span class="keyword">int</span> id)</span> </span>{</span><br><span class="line"></span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement ps = <span class="keyword">null</span>;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            conn = JdbcUtil.getConnection();</span><br><span class="line">            String sql = <span class="string">&quot;select * from student where id = ?&quot;</span>;</span><br><span class="line">            ps = conn.prepareStatement(sql);</span><br><span class="line">            ps.setInt(<span class="number">1</span>,id);</span><br><span class="line">            <span class="comment">// &#x6267;&#x884C;</span></span><br><span class="line">            rs = ps.executeQuery();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (rs.next()) {</span><br><span class="line">                <span class="comment">// &#x4FDD;&#x5B58;&#x6570;&#x636E;</span></span><br><span class="line">                Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">                stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">                stu.setAge(rs.getInt(<span class="string">&quot;age&quot;</span>));</span><br><span class="line">                stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">                <span class="keyword">return</span> stu;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        } <span class="keyword">finally</span> {</span><br><span class="line">            JdbcUtil.close(conn, ps, <span class="keyword">null</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findAll</span><span class="params">()</span> </span>{</span><br><span class="line"></span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        Statement st = <span class="keyword">null</span>;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            conn = JdbcUtil.getConnection();</span><br><span class="line"></span><br><span class="line">            st = conn.createStatement();</span><br><span class="line">            String sql = <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line"></span><br><span class="line">            rs = st.executeQuery(sql);</span><br><span class="line"></span><br><span class="line">            List&lt;Student&gt; list = <span class="keyword">new</span> ArrayList&lt;Student&gt;();</span><br><span class="line">            <span class="keyword">while</span> (rs.next()) {</span><br><span class="line">                Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">                stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">                stu.setAge(rs.getInt(<span class="string">&quot;age&quot;</span>));</span><br><span class="line">                stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">                list.add(stu);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        } <span class="keyword">finally</span> {</span><br><span class="line">            JdbcUtil.close(conn, st, rs);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>3.StudentDaoTest&#x7C7B;&#xFF08;&#x6D4B;&#x8BD5;&#x7C7B;&#x2014;JUnit&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#xFF09;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jdbc.dao.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.jdbc.dao.IStudentDao;</span><br><span class="line"><span class="keyword">import</span> com.example.jdbc.dao.impl.StudentDaoImpl;</span><br><span class="line"><span class="keyword">import</span> com.example.jdcb.domain.Account;</span><br><span class="line"><span class="keyword">import</span> com.example.jdcb.domain.Student;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDaoTest</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span> </span>{</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">        stu.setName(<span class="string">&quot;&#x5F20;&#x4F1F;&quot;</span>);</span><br><span class="line">        stu.setAge(<span class="number">21</span>);</span><br><span class="line"></span><br><span class="line">        IStudentDao dao = <span class="keyword">new</span> StudentDaoImpl();</span><br><span class="line">        dao.save(stu);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> </span>{</span><br><span class="line">        IStudentDao dao = <span class="keyword">new</span> StudentDaoImpl();</span><br><span class="line">        dao.delete(<span class="number">2</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>{</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">        stu.setName(<span class="string">&quot;zhou&quot;</span>);</span><br><span class="line">        stu.setAge(<span class="number">23</span>);</span><br><span class="line"></span><br><span class="line">        IStudentDao dao = <span class="keyword">new</span> StudentDaoImpl();</span><br><span class="line">        dao.update(<span class="number">1</span>, stu);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findOne</span><span class="params">()</span> </span>{</span><br><span class="line">        IStudentDao dao = <span class="keyword">new</span> StudentDaoImpl();</span><br><span class="line">        Student stu = dao.findOne(<span class="number">1</span>);</span><br><span class="line">        System.out.println(stu);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAll</span><span class="params">()</span> </span>{</span><br><span class="line">        IStudentDao dao = <span class="keyword">new</span> StudentDaoImpl();</span><br><span class="line">        List&lt;Student&gt; allStu = dao.findAll();</span><br><span class="line">        System.out.println(allStu);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>4.Student&#x7C7B;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.jdcb.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>{</span><br><span class="line">    Integer id;</span><br><span class="line">    String name;</span><br><span class="line">    Integer age;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4E0B;&#x9762;&#x5185;&#x5BB9;&#x662F;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x90E8;&#x5206;&#x89E3;&#x91CA;&#xFF1A;</p>
+<h3 id="3&#x3001;DAO&#x4EE3;&#x7801;&#x91CD;&#x6784;"><a href="#3&#x3001;DAO&#x4EE3;&#x7801;&#x91CD;&#x6784;" class="headerlink" title="3&#x3001;DAO&#x4EE3;&#x7801;&#x91CD;&#x6784;"></a>3&#x3001;DAO&#x4EE3;&#x7801;&#x91CD;&#x6784;</h3><p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic7.png" alt="pic7"></p>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;jdbcUnil&#x7C7B;&#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;1-6&#x70B9;&#xFF0C;7&#xFF0C;8&#x70B9;&#x6709;&#x5F85;&#x4F18;&#x5316;&#x3002;</p>
+<h3 id="4&#x3001;Statement&#x63A5;&#x53E3;"><a href="#4&#x3001;Statement&#x63A5;&#x53E3;" class="headerlink" title="4&#x3001;Statement&#x63A5;&#x53E3;"></a>4&#x3001;Statement&#x63A5;&#x53E3;</h3><p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic8.png" alt="pic8"></p>
+<p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic9.png" alt="pic9"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> Statement &#x662F;&#x7236;&#x63A5;&#x53E3;&#xFF0C;PreparedStatement &#x548C; CallableStatement &#x662F;&#x5B50;&#x63A5;&#x53E3;&#x3002;</span><br><span class="line"></span><br><span class="line"><span class="number">2</span> Statement &#x7528;&#x4E8E;java&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x95F4;&#x7684;&#x4F20;&#x9001;&#x6570;&#x636E;&#xFF0C;&#x6BD4;&#x5982;&#x4F20;&#x9001;sql&#x8BED;&#x53E5;&#x8FC7;&#x53BB;&#xFF0C;&#x5230;&#x6570;&#x636E;&#x5E93;&#x6267;&#x884C;&#x64CD;&#x4F5C;&#x3002;</span><br><span class="line"></span><br><span class="line"><span class="number">3</span> Statement &#x7528;&#x4E8E;&#x901A;&#x7528;&#x7684;&#x8BBF;&#x95EE;&#xFF0C;&#x4F7F;&#x7528;&#x9759;&#x6001;sql&#xFF0C;&#x5176;&#x5B9E;&#x5E76;&#x4E0D;&#x597D;&#xFF0C;&#x5BB9;&#x6613;SQL&#x6CE8;&#x5165;</span><br><span class="line"></span><br><span class="line"><span class="number">4</span> PreparedStatement &#x7528;&#x4E8E;&#x9884;&#x7F16;&#x8BD1;&#x6A21;&#x7248;SQL&#x8BED;&#x53E5;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x4F20;&#x5165;&#x53C2;&#x6570;</span><br><span class="line"></span><br><span class="line"><span class="number">5</span> CallableStatement &#x8BBF;&#x95EE;&#x5B58;&#x50A8;&#x8FC7;&#x7A0B;&#x7684;&#x65F6;&#x5019;&#x4F7F;&#x7528;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5&#x3001;&#x9884;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;"><a href="#5&#x3001;&#x9884;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;" class="headerlink" title="5&#x3001;&#x9884;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;"></a>5&#x3001;&#x9884;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;</h3><p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic10.png" alt="pic10"></p>
+<p>&#x9632;&#x6B62;SQL&#x6CE8;&#x5165;&#xFF1A;</p>
+<p><img src="/2019/10/01/java_SpringJDBC(&#x4E8C;)/java_SpringJDBC(%E4%BA%8C)/pic11.png" alt="pic11"></p>
+<h3 id="6&#x3001;&#x901A;&#x8FC7;DB&#x7C7B;&#x6765;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;"><a href="#6&#x3001;&#x901A;&#x8FC7;DB&#x7C7B;&#x6765;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;" class="headerlink" title="6&#x3001;&#x901A;&#x8FC7;DB&#x7C7B;&#x6765;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;"></a>6&#x3001;&#x901A;&#x8FC7;DB&#x7C7B;&#x6765;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E93;</h3><p>JDBC&#x7684;&#x53E6;&#x4E00;&#x79CD;&#x5C01;&#x88C5;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.meils.jdbc.db;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MysqlDB</span> </span>{</span><br><span class="line">	Connection conn = <span class="keyword">null</span>; <span class="comment">// &#x521B;&#x5EFA;&#x8FDE;&#x63A5;&#x5BF9;&#x8C61;</span></span><br><span class="line">	Statement st = <span class="keyword">null</span>; <span class="comment">// &#x521B;&#x5EFA;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;&#x5BF9;&#x8C61;</span></span><br><span class="line">	PreparedStatement ps = <span class="keyword">null</span>; <span class="comment">// &#x521B;&#x5EFA;&#x9884;&#x7F16;&#x8BD1;&#x8BED;&#x53E5;&#x5BF9;&#x8C61;</span></span><br><span class="line">	ResultSet rs1 = <span class="keyword">null</span>;  <span class="comment">// &#x7ED3;&#x679C;&#x96C6;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// &#x914D;&#x7F6E;&#x4FE1;&#x606F;</span></span><br><span class="line">	<span class="comment">// &#x9A71;&#x52A8;&#x540D;&#x79F0;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String driverName = <span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>;</span><br><span class="line">	<span class="comment">// &#x6570;&#x636E;&#x5E93;&#x7684;&#x5730;&#x5740;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">&quot;jdbc:mysql://localhost:3306/mytest&quot;</span>;</span><br><span class="line">	<span class="comment">// &#x6570;&#x636E;&#x5E93;&#x767B;&#x5F55;&#x7528;&#x6237;&#x540D;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String userName = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">	<span class="comment">// &#x6570;&#x636E;&#x5E93;&#x767B;&#x5F55;&#x5BC6;&#x7801;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String pwd = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * &#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			Class.forName(driverName);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">this</span>.conn = DriverManager.getConnection(URL, userName, pwd);</span><br><span class="line">			System.out.println(<span class="string">&quot;&#x8FDE;&#x63A5;&#x6210;&#x529F;&quot;</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">return</span> conn;</span><br><span class="line">		} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x6784;&#x9020;&#x51FD;&#x6570;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MysqlDB</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">this</span>.getConnection();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * &#x67E5;&#x8BE2;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> sql sql&#x8BED;&#x53E5;&#xFF0C;&#x5B8C;&#x6574;&#x7684;&#x8BED;&#x53E5;&#xFF0C;&#x67E5;&#x8BE2;&#x4E00;&#x822C;&#x6BD4;&#x8F83;&#x5B89;&#x5168;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResultSet <span class="title">query</span><span class="params">(String sql)</span> </span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			<span class="keyword">this</span>.st = <span class="keyword">this</span>.conn.createStatement();</span><br><span class="line">			<span class="keyword">this</span>.rs1 = <span class="keyword">this</span>.st.executeQuery(sql);</span><br><span class="line">			<span class="keyword">return</span> rs1;</span><br><span class="line">		} <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} </span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * &#x66F4;&#x65B0;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> sql  // &#x9884;&#x7F16;&#x8BD1;sql&#x8BED;&#x53E5;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> args // &#x53C2;&#x6570;&#x6570;&#x7EC4;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String sql, String [] args)</span> </span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			<span class="keyword">this</span>.ps = <span class="keyword">this</span>.conn.prepareStatement(sql);</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; args.length ; i++) {</span><br><span class="line">				<span class="keyword">this</span>.ps.setString(i+<span class="number">1</span>, args[i]);</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">this</span>.ps.executeUpdate();</span><br><span class="line">		} <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} <span class="keyword">finally</span> {</span><br><span class="line">			<span class="keyword">this</span>.close();</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * &#x5220;&#x9664;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> sql</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(String sql)</span></span>{</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">this</span>.st = <span class="keyword">this</span>.conn.createStatement();</span><br><span class="line">            <span class="keyword">int</span> num = <span class="keyword">this</span>.st.executeUpdate(sql);</span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        } <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }  <span class="keyword">finally</span> {</span><br><span class="line">			<span class="keyword">this</span>.close();</span><br><span class="line">		}</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * &#x91CA;&#x653E;&#x8D44;&#x6E90;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span> <span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">            <span class="keyword">if</span>(rs1!=<span class="keyword">null</span>) {</span><br><span class="line">                rs1.close();</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(st!=<span class="keyword">null</span>) {</span><br><span class="line">                st.close();</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(ps!=<span class="keyword">null</span>) {</span><br><span class="line">                ps.close();</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(conn!=<span class="keyword">null</span>) {</span><br><span class="line">                conn.close();</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        } <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">            <span class="comment">// <span class="doctag">TODO:</span> handle exception</span></span><br><span class="line">        	e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x6D4B;&#x8BD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.meils.jdbc.db;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"><span class="comment">//		Conn();</span></span><br><span class="line">		delete();</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">// &#x6D4B;&#x8BD5;&#x8FDE;&#x63A5;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Conn</span><span class="params">()</span> </span>{</span><br><span class="line">		MysqlDB m = <span class="keyword">new</span> MysqlDB();</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">// &#x6D4B;&#x8BD5;&#x67E5;&#x8BE2;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">queryTest</span><span class="params">()</span> </span>{</span><br><span class="line">		MysqlDB m = <span class="keyword">new</span> MysqlDB();</span><br><span class="line">		String sql = <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line">		ResultSet result = m.query(sql);</span><br><span class="line">		System.out.println(result);</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			<span class="keyword">while</span> (result.next()) {</span><br><span class="line">				System.out.println(result.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">			}</span><br><span class="line">		} <span class="keyword">catch</span> (SQLException e) {</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} <span class="keyword">finally</span> {</span><br><span class="line">			m.close();</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">// &#x66F4;&#x65B0;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>{</span><br><span class="line">		MysqlDB m = <span class="keyword">new</span> MysqlDB();</span><br><span class="line">		String sql = <span class="string">&quot;update student set name = ? where id = ?&quot;</span>;</span><br><span class="line">		String [] args = {<span class="string">&quot;&#x6885;&#x5B50;111&quot;</span>, <span class="string">&quot;7&quot;</span>};</span><br><span class="line">		</span><br><span class="line">		m.update(sql, args);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x5220;&#x9664;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> </span>{</span><br><span class="line">		MysqlDB m = <span class="keyword">new</span> MysqlDB();</span><br><span class="line">		String sql = <span class="string">&quot;delete from student  where id = 8&quot;</span>;</span><br><span class="line">		System.out.println(m.delete(sql));</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringJDBC/" rel="tag"># SpringJDBC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/01/java_SpringJDBC(一)/" rel="next" title="java 之Spring-JDBC(一)">
+                <i class="fa fa-chevron-left"></i> java 之Spring-JDBC(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/04/项目管理软件禅道的安装与使用/" rel="prev" title="项目管理软件禅道的安装与使用">
+                项目管理软件禅道的安装与使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaobaiyuan.jpg" alt="xiaobai yuan">
+            
+              <p class="site-author-name" itemprop="name">xiaobai yuan</p>
+              <p class="site-description motion-element" itemprop="description">树立目标，做好今天，才能坚持到底</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java之JDBC-二"><span class="nav-number">1.</span> <span class="nav-text">Java之JDBC(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、类命名规范"><span class="nav-number">1.1.</span> <span class="nav-text">1、类命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、开发步骤"><span class="nav-number">1.2.</span> <span class="nav-text">2、开发步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、DAO代码重构"><span class="nav-number">1.3.</span> <span class="nav-text">3、DAO代码重构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Statement接口"><span class="nav-number">1.4.</span> <span class="nav-text">4、Statement接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、预编译语句"><span class="nav-number">1.5.</span> <span class="nav-text">5、预编译语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、通过DB类来操作数据库"><span class="nav-number">1.6.</span> <span class="nav-text">6、通过DB类来操作数据库</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaobai yuan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数&#58;</span>
+    
+    <span title="站点总字数">76.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问数<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
